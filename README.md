@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🔍 Motor de Busca — Projeto Integrador III
+#  Motor de Busca — Projeto Integrador III
 
 **Ciência de Dados · FATEC**
 
@@ -16,7 +16,7 @@ matemáticas (MIR).
 
 ---
 
-## 📌 Sobre o projeto
+##  Sobre o projeto
 
 Este repositório documenta a construção incremental de um motor de busca,
 partindo dos fundamentos de **Recuperação de Informação (RI)** — tokenização,
@@ -24,20 +24,20 @@ vocabulário, matriz termo-documento — até chegar em modelos de ranqueamento
 (TF-IDF, BM25), recuperação densa, *rerank* neural e busca por fórmulas
 matemáticas.
 
-> 🎯 **Meta do projeto:** construir um motor de busca completo sobre um
+>  **Meta do projeto:** construir um motor de busca completo sobre um
 > *corpus* real, aula após aula, como parte da disciplina Projeto Integrador
 > III.
 
 ---
 
-## 📚 Aula 01 — Do problema da busca ao nosso motor
+##  Aula 01 — Do problema da busca ao nosso motor
 
 Primeira entrega: sair do *corpus* de brinquedo visto em aula (8 documentos,
 45 termos) e montar um primeiro *corpus* real com artigos da Wikipédia,
 aplicando os mesmos conceitos vistos em sala — vetor `docs`, tokenização,
 vocabulário e frequência de termos.
 
-### 🗂️ Corpus
+### Corpus
 
 Três artigos da Wikipédia em português, todos ligados ao Porto de Santos:
 
@@ -50,7 +50,7 @@ Três artigos da Wikipédia em português, todos ligados ao Porto de Santos:
 > Conteúdo licenciado sob **CC BY-SA** (Wikipédia) — uso permitido desde que
 > citada a fonte.
 
-### 🧱 Estrutura do repositório
+###  Estrutura do repositório
 
 ```
 .
@@ -62,7 +62,7 @@ Três artigos da Wikipédia em português, todos ligados ao Porto de Santos:
     └── francisco_de_paula_ribeiro.txt
 ```
 
-### ▶️ Como rodar
+###  Como rodar
 
 Pré-requisito: [R](https://www.r-project.org/) instalado (apenas **R base**
 é usado nesta aula, sem pacotes externos).
@@ -118,7 +118,7 @@ visto em aula.
 
 ---
 
-## 💡 Discussão
+## Discussão
 
 **O top 10 é dominado por *stopwords*.** Preposições, artigos e conjunções
 tomam 8 das 10 posições — só `porto` e `santos` carregam significado real.
@@ -135,13 +135,13 @@ Isso aponta os próximos passos do projeto:
 
 | Próximo passo | Por quê |
 |---|---|
-| 🧹 Remoção de *stopwords* e pontuação | Sem isso, nenhum ranqueamento faz sentido |
-| ⚖️ TF-IDF | Penaliza termos comuns a quase todo documento, valoriza os discriminativos |
-| 📏 Normalização por tamanho | `d2` tem quase o dobro dos tokens de `d1` e ~9× os de `d3`; documentos maiores tendem a dominar um índice não normalizado |
+| Remoção de *stopwords* e pontuação | Sem isso, nenhum ranqueamento faz sentido |
+| TF-IDF | Penaliza termos comuns a quase todo documento, valoriza os discriminativos |
+| Normalização por tamanho | `d2` tem quase o dobro dos tokens de `d1` e ~9× os de `d3`; documentos maiores tendem a dominar um índice não normalizado |
 
 ---
 
-## 🗺️ Roadmap
+## Roadmap
 
 - [x] **Aula 01** — Corpus real, tokenização e vocabulário
 - [ ] **Aula 02** — Modelo do Espaço Vetorial, similaridade do cosseno e ranking
@@ -151,14 +151,3 @@ Isso aponta os próximos passos do projeto:
 - [ ] Busca por fórmulas (MIR — Mathematical Information Retrieval)
 - [ ] Aplicação web + avaliação
 
----
-
-## 📖 Referências
-
-- Baeza-Yates, R.; Ribeiro-Neto, B. *Modern Information Retrieval*, cap. 1–3.
-- Manning, C. D. et al. *Introduction to Information Retrieval (IIR)*, cap. 1.
-
-## 📄 Licença
-
-Código deste repositório sob licença de sua escolha (ex.: MIT).
-Textos do *corpus* extraídos da Wikipédia sob **CC BY-SA**.
