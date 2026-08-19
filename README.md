@@ -131,11 +131,4 @@ simples (só `tolower` + `strsplit` por espaço, sem remover pontuação), token
 como `codesp,`, `(nome` e `1980.` entram no vocabulário como termos
 *diferentes* de suas versões limpas.
 
-Isso aponta os próximos passos do projeto:
-
-| Próximo passo | Por quê |
-|---|---|
-| Remoção de *stopwords* e pontuação | Sem isso, nenhum ranqueamento faz sentido |
-| TF-IDF | Penaliza termos comuns a quase todo documento, valoriza os discriminativos |
-| Normalização por tamanho | `d2` tem quase o dobro dos tokens de `d1` e ~9× os de `d3`; documentos maiores tendem a dominar um índice não normalizado |
 
