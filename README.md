@@ -1,65 +1,164 @@
-# =============================================================
-# PI III - Motor de Busca - Aula 01
-# Para casa - parte 2: meu primeiro corpus real
-# Fonte: Wikipédia (CC BY-SA), pt.wikipedia.org
-# Artigos: Autoridade Portuária de Santos, Porto de Santos,
-#          Francisco de Paula Ribeiro
-# =============================================================
+<div align="center">
 
-## 1) Baixe da Wikipédia os artigos (3 documentos da região)
-##    Os .txt já foram salvos localmente a partir da Wikipédia
-##    (equivalente ao que baixar_wiki() faria em aula).
-pasta <- "corpus"
+# 🔍 Motor de Busca — Projeto Integrador III
 
-arquivos <- c(
-  d1 = "autoridade_portuaria_de_santos.txt",
-  d2 = "porto_de_santos.txt",
-  d3 = "francisco_de_paula_ribeiro.txt"
-)
+**Ciência de Dados · FATEC**
 
-## 2) Guarde-os num vetor nomeado docs, como fizemos em aula
-docs <- sapply(arquivos, function(arq) {
-  linhas <- readLines(file.path(pasta, arq), encoding = "UTF-8", warn = FALSE)
-  paste(linhas, collapse = " ")
-})
-names(docs) <- names(arquivos)
+Construindo um motor de busca do zero: dos modelos clássicos de
+*Information Retrieval* até técnicas neurais e busca por fórmulas
+matemáticas (MIR).
 
-length(docs)
-docs["d1"]  # Autoridade Portuária de Santos
-docs["d2"]  # Porto de Santos
-docs["d3"]  # Francisco de Paula Ribeiro
+![R](https://img.shields.io/badge/R-base-276DC3?style=flat&logo=r&logoColor=white)
+![Status](https://img.shields.io/badge/status-em%20andamento-yellow)
+![Licença dos textos](https://img.shields.io/badge/corpus-CC%20BY--SA-lightgrey)
 
-## 3) Tokenize e monte o vocabulário (mesma função da aula)
-tokenizar <- function(texto) {
-  texto <- tolower(texto)
-  unlist(strsplit(texto, "\\s+"))
-}
+</div>
 
-tokens <- lapply(docs, tokenizar)
-tokens[["d1"]][1:15]  # amostra dos primeiros tokens de d1 (Autoridade Portuária de Santos)
-tokens[["d2"]][1:15]  # amostra dos primeiros tokens de d2 (Porto de Santos)
-tokens[["d3"]][1:15]  # amostra dos primeiros tokens de d3 (Francisco de Paula Ribeiro)
+---
 
-vocab <- sort(unique(unlist(tokens)))
-length(vocab)
+## 📌 Sobre o projeto
 
-cat("\n--- Resumo por documento ---\n")
-resumo <- data.frame(
-  documento       = names(docs),
-  caracteres      = sapply(docs, nchar),
-  tokens          = sapply(tokens, length),
-  termos_distintos = sapply(tokens, function(tk) length(unique(tk)))
-)
-print(resumo, row.names = FALSE)
+Este repositório documenta a construção incremental de um motor de busca,
+partindo dos fundamentos de **Recuperação de Informação (RI)** — tokenização,
+vocabulário, matriz termo-documento — até chegar em modelos de ranqueamento
+(TF-IDF, BM25), recuperação densa, *rerank* neural e busca por fórmulas
+matemáticas.
 
-cat("\n--- Comparação com o corpus de brinquedo ---\n")
-cat("Vocabulário do corpus de brinquedo (aula): 45 termos\n")
-cat("Vocabulário do nosso corpus real:", length(vocab), "termos\n")
-cat("Razão:", round(length(vocab) / 45, 1), "x maior\n")
+> 🎯 **Meta do projeto:** construir um motor de busca completo sobre um
+> *corpus* real, aula após aula, como parte da disciplina Projeto Integrador
+> III.
 
-## 4) Liste os 10 termos mais frequentes
-freq <- table(unlist(tokens))
-top10 <- sort(freq, decreasing = TRUE)[1:10]
+---
 
-cat("\n--- Top 10 termos mais frequentes ---\n")
-print(top10)
+## 📚 Aula 01 — Do problema da busca ao nosso motor
+
+Primeira entrega: sair do *corpus* de brinquedo visto em aula (8 documentos,
+45 termos) e montar um primeiro *corpus* real com artigos da Wikipédia,
+aplicando os mesmos conceitos vistos em sala — vetor `docs`, tokenização,
+vocabulário e frequência de termos.
+
+### 🗂️ Corpus
+
+Três artigos da Wikipédia em português, todos ligados ao Porto de Santos:
+
+| # | Documento | Artigo |
+|:-:|---|---|
+| `d1` | Autoridade Portuária de Santos | [🔗 Wikipédia](https://pt.wikipedia.org/wiki/Autoridade_Portuária_de_Santos) |
+| `d2` | Porto de Santos | [🔗 Wikipédia](https://pt.wikipedia.org/wiki/Porto_de_Santos) |
+| `d3` | Francisco de Paula Ribeiro | [🔗 Wikipédia](https://pt.wikipedia.org/wiki/Francisco_de_Paula_Ribeiro) |
+
+> Conteúdo licenciado sob **CC BY-SA** (Wikipédia) — uso permitido desde que
+> citada a fonte.
+
+### 🧱 Estrutura do repositório
+
+```
+.
+├── README.md
+├── corpus_aula01.R              # script principal da Aula 01
+└── corpus/
+    ├── autoridade_portuaria_de_santos.txt
+    ├── porto_de_santos.txt
+    └── francisco_de_paula_ribeiro.txt
+```
+
+### ▶️ Como rodar
+
+Pré-requisito: [R](https://www.r-project.org/) instalado (apenas **R base**
+é usado nesta aula, sem pacotes externos).
+
+```bash
+Rscript corpus_aula01.R
+```
+
+O script segue exatamente o padrão usado em sala:
+
+1. **Carrega** os 3 artigos num vetor nomeado `docs` (`d1`, `d2`, `d3`)
+2. **Tokeniza** cada documento (`tolower` + `strsplit` por espaço)
+3. **Monta o vocabulário** do *corpus* (termos distintos)
+4. **Calcula a frequência** de cada termo e lista os 10 mais comuns
+
+---
+
+## 📊 Resultados
+
+### Por documento
+
+| Documento | Caracteres | Tokens | Termos distintos |
+|---|--:|--:|--:|
+| `d1` — Autoridade Portuária de Santos | 5.500 | 842 | 409 |
+| `d2` — Porto de Santos | 7.391 | 1.171 | 587 |
+| `d3` — Francisco de Paula Ribeiro | 713 | 125 | 83 |
+| **Total (corpus)** | **13.604** | **2.138** | **881** |
+
+### Vocabulário: corpus real × corpus de brinquedo
+
+```
+Corpus de brinquedo (aula)   █ 45 termos
+Corpus real (3 artigos)      ████████████████████████████████████ 881 termos
+```
+
+**881 termos distintos — cerca de 19,6× maior** que o corpus de brinquedo
+visto em aula.
+
+### Top 10 termos mais frequentes
+
+| Rank | Termo | Frequência |            |
+|:-:|---|--:|---|
+| 1 | de | 204 | ████████████████████ |
+| 2 | a | 99 | ██████████ |
+| 3 | e | 73 | ███████ |
+| 4 | o | 59 | ██████ |
+| 5 | do | 55 | █████ |
+| 6 | da | 45 | ████ |
+| 7 | **porto** | 35 | ███ |
+| 8 | **santos** | 24 | ██ |
+| 9 | em | 23 | ██ |
+| 10 | com | 22 | ██ |
+
+---
+
+## 💡 Discussão
+
+**O top 10 é dominado por *stopwords*.** Preposições, artigos e conjunções
+tomam 8 das 10 posições — só `porto` e `santos` carregam significado real.
+Isso é esperado: a distribuição de frequência de termos em linguagem natural
+segue a **Lei de Zipf**, com poucas palavras funcionais concentrando a maior
+parte das ocorrências.
+
+**O texto real é "sujo".** Como a tokenização usada foi propositalmente
+simples (só `tolower` + `strsplit` por espaço, sem remover pontuação), tokens
+como `codesp,`, `(nome` e `1980.` entram no vocabulário como termos
+*diferentes* de suas versões limpas.
+
+Isso aponta os próximos passos do projeto:
+
+| Próximo passo | Por quê |
+|---|---|
+| 🧹 Remoção de *stopwords* e pontuação | Sem isso, nenhum ranqueamento faz sentido |
+| ⚖️ TF-IDF | Penaliza termos comuns a quase todo documento, valoriza os discriminativos |
+| 📏 Normalização por tamanho | `d2` tem quase o dobro dos tokens de `d1` e ~9× os de `d3`; documentos maiores tendem a dominar um índice não normalizado |
+
+---
+
+## 🗺️ Roadmap
+
+- [x] **Aula 01** — Corpus real, tokenização e vocabulário
+- [ ] **Aula 02** — Modelo do Espaço Vetorial, similaridade do cosseno e ranking
+- [ ] Índice invertido
+- [ ] Modelo Booleano, Espaço Vetorial, BM25
+- [ ] Recuperação densa e *rerank* neural
+- [ ] Busca por fórmulas (MIR — Mathematical Information Retrieval)
+- [ ] Aplicação web + avaliação
+
+---
+
+## 📖 Referências
+
+- Baeza-Yates, R.; Ribeiro-Neto, B. *Modern Information Retrieval*, cap. 1–3.
+- Manning, C. D. et al. *Introduction to Information Retrieval (IIR)*, cap. 1.
+
+## 📄 Licença
+
+Código deste repositório sob licença de sua escolha (ex.: MIT).
+Textos do *corpus* extraídos da Wikipédia sob **CC BY-SA**.
