@@ -139,15 +139,3 @@ Isso aponta os próximos passos do projeto:
 | TF-IDF | Penaliza termos comuns a quase todo documento, valoriza os discriminativos |
 | Normalização por tamanho | `d2` tem quase o dobro dos tokens de `d1` e ~9× os de `d3`; documentos maiores tendem a dominar um índice não normalizado |
 
----
-
-## Roadmap
-
-- [x] **Aula 01** — Corpus real, tokenização e vocabulário
-- [ ] **Aula 02** — Modelo do Espaço Vetorial, similaridade do cosseno e ranking
-- [ ] Índice invertido
-- [ ] Modelo Booleano, Espaço Vetorial, BM25
-- [ ] Recuperação densa e *rerank* neural
-- [ ] Busca por fórmulas (MIR — Mathematical Information Retrieval)
-- [ ] Aplicação web + avaliação
-
