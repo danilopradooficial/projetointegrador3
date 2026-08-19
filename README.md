@@ -80,7 +80,7 @@ O script segue exatamente o padrão usado em sala:
 
 ---
 
-## 📊 Resultados
+##  Resultados
 
 ### Por documento
 
