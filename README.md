@@ -1,6 +1,6 @@
 <div align="center">
 
-# Motor de Busca — Projeto Integrador III
+# Motor de Busca - Projeto Integrador III
 
 **Ciência de Dados · FATEC**
 
@@ -19,8 +19,8 @@ matemáticas (MIR).
 ## Sobre a disciplina
 
 Este repositório documenta a construção incremental de um motor de busca,
-partindo dos fundamentos de **Recuperação de Informação (RI)** — tokenização,
-vocabulário, matriz termo-documento — até chegar em modelos de ranqueamento
+partindo dos fundamentos de **Recuperação de Informação (RI)** - tokenização,
+vocabulário, matriz termo-documento - até chegar em modelos de ranqueamento
 (TF-IDF, BM25), recuperação densa, *rerank* neural e busca por fórmulas
 matemáticas.
 
@@ -36,10 +36,10 @@ matemáticas.
 .
 ├── README.md                 # visão geral da disciplina
 ├── Atividades/
-│   ├── Atividade 01/         # Aula 00 — introdução ao R
-│   ├── Atividade 02/         # Aula 01 — primeiro corpus real
-│   ├── Atividade 03/         # Aula 01.5 — Shannon e pesos dos termos
-│   └── Atividade 04/         # Aula 02 — TF-IDF e similaridade do cosseno
+│   ├── Atividade 01/         # Aula 00 - introdução ao R
+│   ├── Atividade 02/         # Aula 01 - primeiro corpus real
+│   ├── Atividade 03/         # Aula 01.5 - Shannon e pesos dos termos
+│   └── Atividade 04/         # Aula 02 - TF-IDF e similaridade do cosseno
 └── MateriaisAulas/
     ├── Aula 00 - O Básico para Acompanhar o Curso.PDF
     ├── Aula 01 - Do Problema da Busca ao Nosso Motor.PDF

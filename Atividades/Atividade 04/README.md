@@ -1,6 +1,6 @@
 <div align="center">
 
-# Atividade 04 — Vetores TF-IDF e similaridade do cosseno
+# Atividade 04 - Vetores TF-IDF e similaridade do cosseno
 
 **Projeto Integrador III · Ciência de Dados · FATEC**
 
@@ -18,7 +18,7 @@ pesos TF-IDF e ordenação pela similaridade do cosseno.
 ## Sobre a atividade
 
 Quarta entrega: sair da busca booleana (“o termo aparece?”) e medir
-*o quanto* o documento combina com a consulta — Modelo do Espaço
+*o quanto* o documento combina com a consulta - Modelo do Espaço
 Vetorial + cosseno.
 
 > **Meta da atividade:** implementar a matriz TF-IDF e a função
@@ -26,7 +26,7 @@ Vetorial + cosseno.
 > 3 consultas e reportar o ranking de cada uma.
 
 **Material de referência:**
-[Aula 02 — Vetores TF-IDF e Similaridade do Cosseno](../../MateriaisAulas/Aula%2002%20-%20Vetores%20TF-IDF%20e%20Similaridade%20do%20Cosseno.PDF)
+[Aula 02 - Vetores TF-IDF e Similaridade do Cosseno](../../MateriaisAulas/Aula%2002%20-%20Vetores%20TF-IDF%20e%20Similaridade%20do%20Cosseno.PDF)
 · [README da disciplina](../../README.md)
 
 ---
@@ -94,7 +94,7 @@ aula; depois repetir no *corpus* real da [Atividade 02](../Atividade%2002).
 
 ## Discussão (guia)
 
-**Cosseno ignora o tamanho do documento.** Mede ângulo, não comprimento —
+**Cosseno ignora o tamanho do documento.** Mede ângulo, não comprimento -
 docs longos deixam de ganhar só por terem mais tokens.
 
 **Busca booleana não ordena.** Aqui o motor passa a dizer *o quanto*
@@ -102,10 +102,10 @@ combina: d1/d3 sobem em consultas sobre recuperação/modelo; docs sem
 termos da consulta ficam em 0.
 
 **Limite do espaço vetorial.** Termos tratados como independentes;
-sinônimos (“carro” ≠ “automóvel”) não se encontram — motivação para
+sinônimos (“carro” ≠ “automóvel”) não se encontram - motivação para
 recuperação densa mais adiante.
 
 ### Leitura sugerida (aula)
 
-- Manning et al., *IIR* — cap. 6
-- Baeza-Yates & Ribeiro-Neto — cap. 3
+- Manning et al., *IIR* - cap. 6
+- Baeza-Yates & Ribeiro-Neto - cap. 3

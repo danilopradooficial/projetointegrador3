@@ -1,6 +1,6 @@
 <div align="center">
 
-# Atividade 02 — Do problema da busca ao nosso motor
+# Atividade 02 - Do problema da busca ao nosso motor
 
 **Projeto Integrador III · Ciência de Dados · FATEC**
 
@@ -20,14 +20,14 @@ tokenização, vocabulário e frequência de termos.
 ## Sobre a atividade
 
 Primeira entrega do motor de busca: aplicar no *corpus* real os mesmos
-conceitos vistos em sala — carregar documentos, tokenizar, montar o
+conceitos vistos em sala - carregar documentos, tokenizar, montar o
 vocabulário e listar os termos mais frequentes.
 
 > **Meta da atividade:** construir o primeiro *corpus* real do projeto e
 > medir o salto em relação ao corpus de brinquedo da aula (45 termos).
 
 **Material de referência:**
-[Aula 01 — Do Problema da Busca ao Nosso Motor](../../MateriaisAulas/Aula%2001%20-%20Do%20Problema%20da%20Busca%20ao%20Nosso%20Motor.PDF)
+[Aula 01 - Do Problema da Busca ao Nosso Motor](../../MateriaisAulas/Aula%2001%20-%20Do%20Problema%20da%20Busca%20ao%20Nosso%20Motor.PDF)
 · [README da disciplina](../../README.md)
 
 ---
@@ -40,13 +40,13 @@ Cada artigo vira um documento `dN`; cada parágrafo vira `dN.k`.
 | ID | Nível | Documento | Artigo |
 |---|---|---|---|
 | `d1` | artigo | Porto de Santos | [Wikipédia](https://pt.wikipedia.org/wiki/Porto_de_Santos) |
-| `d1.1` … `d1.12` | parágrafo | parágrafos de `d1` | — |
+| `d1.1` … `d1.12` | parágrafo | parágrafos de `d1` | - |
 | `d2` | artigo | Autoridade Portuária de Santos | [Wikipédia](https://pt.wikipedia.org/wiki/Autoridade_Portuária_de_Santos) |
-| `d2.1` … `d2.5` | parágrafo | parágrafos de `d2` | — |
+| `d2.1` … `d2.5` | parágrafo | parágrafos de `d2` | - |
 | `d3` | artigo | Francisco de Paula Ribeiro | [Wikipédia](https://pt.wikipedia.org/wiki/Francisco_de_Paula_Ribeiro) |
-| `d3.1` | parágrafo | parágrafo de `d3` | — |
+| `d3.1` | parágrafo | parágrafo de `d3` | - |
 
-> Conteúdo licenciado sob **CC BY-SA** (Wikipédia) — uso permitido desde que
+> Conteúdo licenciado sob **CC BY-SA** (Wikipédia) - uso permitido desde que
 > citada a fonte. Textos reextraídos da API com parágrafos separados por
 > linha em branco.
 
@@ -94,9 +94,9 @@ O script:
 
 | Documento | Parágrafos | Caracteres | Tokens | Termos distintos |
 |---|--:|--:|--:|--:|
-| `d1` — Porto de Santos | 12 | 15.762 | 2.480 | 1.100 |
-| `d2` — Autoridade Portuária de Santos | 5 | 5.812 | 888 | 433 |
-| `d3` — Francisco de Paula Ribeiro | 1 | 711 | 125 | 83 |
+| `d1` - Porto de Santos | 12 | 15.762 | 2.480 | 1.100 |
+| `d2` - Autoridade Portuária de Santos | 5 | 5.812 | 888 | 433 |
+| `d3` - Francisco de Paula Ribeiro | 1 | 711 | 125 | 83 |
 | **Total (artigos)** | **18** | **22.285** | **3.493** | **1.281** |
 
 ### Vocabulário: corpus real × corpus de brinquedo
@@ -106,7 +106,7 @@ Corpus de brinquedo (aula)   █ 45 termos
 Corpus real (3 artigos)      ████████████████████████████ 1.281 termos
 ```
 
-**1.281 termos distintos — cerca de 28,5× maior** que o corpus de brinquedo.
+**1.281 termos distintos - cerca de 28,5× maior** que o corpus de brinquedo.
 
 ### Top 10 termos mais frequentes (artigos)
 

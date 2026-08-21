@@ -1,6 +1,6 @@
 <div align="center">
 
-# Atividade 03 — De Shannon aos pesos dos termos
+# Atividade 03 - De Shannon aos pesos dos termos
 
 **Projeto Integrador III · Ciência de Dados · FATEC**
 
@@ -18,7 +18,7 @@ autoinformação de uma pista e por que o IDF não é heurística.
 ## Sobre a atividade
 
 Terceira entrega: sair da fórmula decorada e derivar o peso dos termos
-a partir de Shannon — a busca como problema de *seleção* entre
+a partir de Shannon - a busca como problema de *seleção* entre
 documentos, cada termo como pista que reduz incerteza.
 
 > **Meta da atividade:** explicar, explorar e investigar os blocos da
@@ -26,7 +26,7 @@ documentos, cada termo como pista que reduz incerteza.
 > cada termo em bits e onde o TF-IDF “mente”.
 
 **Material de referência:**
-[Aula 01.5 — Do Shannon aos Pesos dos Termos](../../MateriaisAulas/Aula%2001.5%20-%20Do%20Shannon%20aos%20Pesos%20dos%20Termos.PDF)
+[Aula 01.5 - Do Shannon aos Pesos dos Termos](../../MateriaisAulas/Aula%2001.5%20-%20Do%20Shannon%20aos%20Pesos%20dos%20Termos.PDF)
 · [README da disciplina](../../README.md)
 
 ---
@@ -41,19 +41,19 @@ documentos, cada termo como pista que reduz incerteza.
 
 ---
 
-## Parte 1 — Explicar, Explorar e Prever
+## Parte 1 - Explicar, Explorar e Prever
 
 Para cada bloco de código da aula:
 
-1. **Explicar** — o que cada linha faz e por que existe
-2. **Explorar** — alterar valor, argumento ou termo e observar o efeito
-3. **Prever** — registrar a expectativa *antes* de rodar e comparar
+1. **Explicar** - o que cada linha faz e por que existe
+2. **Explorar** - alterar valor, argumento ou termo e observar o efeito
+3. **Prever** - registrar a expectativa *antes* de rodar e comparar
 
 Blocos centrais da aula (orientação):
 
 | Bloco | Tema | Ligação com o motor |
 |:-:|---|---|
-| 1 | `log2(N)` — incerteza inicial | Quantos bits para achar 1 entre N docs |
+| 1 | `log2(N)` - incerteza inicial | Quantos bits para achar 1 entre N docs |
 | 2 | Pista `busca` / `de` | Termo raro × stopword |
 | 3 | `I(t) = log2(N / df)` | Autoinformação = IDF |
 | 4 | `tf × I(t)` | Reconstrução do TF-IDF em bits |
@@ -63,7 +63,7 @@ Blocos centrais da aula (orientação):
 
 ---
 
-## Parte 2 — Perguntas para investigar
+## Parte 2 - Perguntas para investigar
 
 | # | Pergunta | O que responder |
 |:-:|---|---|
@@ -91,7 +91,7 @@ Reaproveitar o *corpus* de 8 documentos da Aula 01 (e, se útil, o
 ## Discussão (guia)
 
 **IDF = autoinformação.** `log(N / df)` mede quantos bits a pista paga
-da dívida de `log2 N` — não é um truque empírico.
+da dívida de `log2 N` - não é um truque empírico.
 
 **A base do log muda a unidade, não o ranking.** `log2` → bits;
 `log` (natural em R) → nats. A ordem dos documentos permanece.

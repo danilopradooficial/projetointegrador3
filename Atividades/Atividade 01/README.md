@@ -1,11 +1,11 @@
 <div align="center">
 
-# Atividade 01 — O básico para acompanhar o curso
+# Atividade 01 - O básico para acompanhar o curso
 
 **Projeto Integrador III · Ciência de Dados · FATEC**
 
 Introdução ao R: vetores, texto, funções, `lapply`/`sapply`,
-`table`/`factor`, matrizes e regex — no método
+`table`/`factor`, matrizes e regex - no método
 **Explicar · Explorar · Prever**.
 
 ![R](https://img.shields.io/badge/R-base-276DC3?style=flat&logo=r&logoColor=white)
@@ -21,16 +21,16 @@ Introdução ao R: vetores, texto, funções, `lapply`/`sapply`,
 Primeira entrega: sair do papel e mexer no R com os blocos vistos em sala.
 Para cada trecho, seguimos os três passos pedidos:
 
-1. **Explicar** — o que cada linha faz e por que existe
-2. **Explorar** — alterar valor, argumento ou nome e observar o efeito
-3. **Prever** — registrar a expectativa *antes* de rodar e comparar com o resultado
+1. **Explicar** - o que cada linha faz e por que existe
+2. **Explorar** - alterar valor, argumento ou nome e observar o efeito
+3. **Prever** - registrar a expectativa *antes* de rodar e comparar com o resultado
 
 > **Meta da atividade:** dominar o kit mínimo de R que a Aula 01 usa no
 > motor de busca (`docs` nomeado, `tokenizar`, `lapply`/`sapply`,
 > `table` + `factor`, matrizes e limpeza com regex).
 
 **Material de referência:**
-[Aula 00 — O Básico para Acompanhar o Curso](../../MateriaisAulas/Aula%2000%20-%20O%20Básico%20para%20Acompanhar%20o%20Curso.PDF)
+[Aula 00 - O Básico para Acompanhar o Curso](../../MateriaisAulas/Aula%2000%20-%20O%20Básico%20para%20Acompanhar%20o%20Curso.PDF)
 · [README da disciplina](../../README.md)
 
 ---
@@ -47,7 +47,7 @@ Entrega em PDF: [`Atividade 01.pdf`](Atividade%2001.pdf).
 
 ---
 
-## Parte 1 — Explicar, Explorar e Prever
+## Parte 1 - Explicar, Explorar e Prever
 
 Treze blocos da aula, cada um com as três etapas:
 
@@ -69,13 +69,13 @@ Treze blocos da aula, cada um com as três etapas:
 
 ---
 
-## Parte 2 — Perguntas para investigar
+## Parte 2 - Perguntas para investigar
 
 | # | Pergunta | Conclusão prática |
 |:-:|---|---|
 | 1 | Trocar `sapply` ↔ `lapply` | Formato da saída muda; TDM precisa de matriz/vetor alinhado |
 | 2 | Remover o `factor` em `table` | Sem `levels`, some termo com contagem 0 |
-| 3 | `m * peso` com comprimento errado | R só avisa (*warning*) e recicla — risco no TF-IDF |
+| 3 | `m * peso` com comprimento errado | R só avisa (*warning*) e recicla - risco no TF-IDF |
 | 4 | Vetor nomeado + tokenizar + contar | Mini-corpus (Porto de Santos) e ranking de termos |
 
 ### Mini-corpus da pergunta 4 (top termos)
@@ -88,7 +88,7 @@ demais termos      █    1
 
 ---
 
-## Parte 3 — O faxineiro de manchetes
+## Parte 3 - O faxineiro de manchetes
 
 Cinco missões de limpeza e busca sobre manchetes da Baixada Santista:
 
@@ -98,7 +98,7 @@ Cinco missões de limpeza e busca sobre manchetes da Baixada Santista:
 | 2 | Colapsar dois ou mais espaços | `gsub("\\s{2,}", " ", …)` |
 | 3 | Achar manchete com ano (4 dígitos) | `grep("[0-9]{4}", …)` |
 | 4 | Filtrar municípios (Guaruja / Cubatao) | `grep(..., ignore.case = TRUE)` |
-| 5 | A “pegadinha” de *Santos* | `grepl("Santos", …)` — sintaxe ≠ semântica |
+| 5 | A “pegadinha” de *Santos* | `grepl("Santos", …)` - sintaxe ≠ semântica |
 
 ---
 
@@ -113,5 +113,5 @@ cada documento gera um vetor de tamanho diferente e a matriz
 termo-documento não fecha.
 
 **Regex limpa sintaxe, não significado.** O faxineiro de manchetes mostra
-o limite da busca por padrão — ponto de partida para pesos, TF-IDF e,
+o limite da busca por padrão - ponto de partida para pesos, TF-IDF e,
 mais adiante, modelos densos.
