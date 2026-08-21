@@ -29,6 +29,10 @@ Para cada trecho, seguimos os três passos pedidos:
 > motor de busca (`docs` nomeado, `tokenizar`, `lapply`/`sapply`,
 > `table` + `factor`, matrizes e limpeza com regex).
 
+**Material de referência:**
+[Aula 00 — O Básico para Acompanhar o Curso](../../MateriaisAulas/Aula%2000%20-%20O%20Básico%20para%20Acompanhar%20o%20Curso.PDF)
+· [README da disciplina](../../README.md)
+
 ---
 
 ## Estrutura da pasta
