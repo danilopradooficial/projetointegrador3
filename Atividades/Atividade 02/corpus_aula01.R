@@ -57,7 +57,7 @@ docs["d1.1"] # 1º parágrafo de d1
 docs["d2.1"] # 1º parágrafo de d2
 docs["d3.1"] # 1º parágrafo de d3
 
-## 3) Tokenize e monte o vocabulário (mesma função da aula)
+## 3) Tokenizando e montando o vocabulário
 tokenizar <- function(texto) {
   texto <- tolower(texto)
   unlist(strsplit(texto, "\\s+"))
