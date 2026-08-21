@@ -1,6 +1,6 @@
 <div align="center">
 
-#  Motor de Busca — Projeto Integrador III
+# Motor de Busca — Projeto Integrador III
 
 **Ciência de Dados · FATEC**
 
@@ -16,7 +16,7 @@ matemáticas (MIR).
 
 ---
 
-##  Sobre o projeto
+## Sobre o projeto
 
 Este repositório documenta a construção incremental de um motor de busca,
 partindo dos fundamentos de **Recuperação de Informação (RI)** — tokenização,
@@ -24,111 +24,53 @@ vocabulário, matriz termo-documento — até chegar em modelos de ranqueamento
 (TF-IDF, BM25), recuperação densa, *rerank* neural e busca por fórmulas
 matemáticas.
 
->  **Meta do projeto:** construir um motor de busca completo sobre um
+> **Meta do projeto:** construir um motor de busca completo sobre um
 > *corpus* real, aula após aula, como parte da disciplina Projeto Integrador
 > III.
 
 ---
 
-##  Aula 01 — Do problema da busca ao nosso motor
-
-Primeira entrega: sair do *corpus* de brinquedo visto em aula (8 documentos,
-45 termos) e montar um primeiro *corpus* real com artigos da Wikipédia,
-aplicando os mesmos conceitos vistos em sala — vetor `docs`, tokenização,
-vocabulário e frequência de termos.
-
-### Corpus
-
-Três artigos da Wikipédia em português, todos ligados ao Porto de Santos:
-
-| # | Documento | Artigo |
-|:-:|---|---|
-| `d1` | Autoridade Portuária de Santos | [🔗 Wikipédia](https://pt.wikipedia.org/wiki/Autoridade_Portuária_de_Santos) |
-| `d2` | Porto de Santos | [🔗 Wikipédia](https://pt.wikipedia.org/wiki/Porto_de_Santos) |
-| `d3` | Francisco de Paula Ribeiro | [🔗 Wikipédia](https://pt.wikipedia.org/wiki/Francisco_de_Paula_Ribeiro) |
-
-> Conteúdo licenciado sob **CC BY-SA** (Wikipédia) — uso permitido desde que
-> citada a fonte.
-
-###  Estrutura do repositório
+## Estrutura do repositório
 
 ```
 .
 ├── README.md
-├── corpus_aula01.R              # script principal da Aula 01
-└── corpus/
-    ├── autoridade_portuaria_de_santos.txt
-    ├── porto_de_santos.txt
-    └── francisco_de_paula_ribeiro.txt
+├── Atividades/
+│   ├── Atividade 01/          # Aula 0 — introdução ao R
+│   └── Atividade 02/          # Aula 01 — primeiro corpus real
+└── MaterialAula/
+    ├── Aula 00 - O Básico para Acompanhar o Curso.PDF
+    ├── Aula 01 - Do Problema da Busca ao Nosso Motor.PDF
+    ├── Aula 01.5 - Do Shannon aos Pesos dos Termos.PDF
+    └── Aula 02 - Vetores TF-IDF e Similaridade do Cosseno.PDF
 ```
-
-###  Como rodar
-
-Pré-requisito: [R](https://www.r-project.org/) instalado (apenas **R base**
-é usado nesta aula, sem pacotes externos).
-
-```bash
-Rscript corpus_aula01.R
-```
-
-O script segue exatamente o padrão usado em sala:
-
-1. **Carrega** os 3 artigos num vetor nomeado `docs` (`d1`, `d2`, `d3`)
-2. **Tokeniza** cada documento (`tolower` + `strsplit` por espaço)
-3. **Monta o vocabulário** do *corpus* (termos distintos)
-4. **Calcula a frequência** de cada termo e lista os 10 mais comuns
 
 ---
 
-##  Resultados
+## Atividades
 
-### Por documento
-
-| Documento | Caracteres | Tokens | Termos distintos |
-|---|--:|--:|--:|
-| `d1` — Autoridade Portuária de Santos | 5.500 | 842 | 409 |
-| `d2` — Porto de Santos | 7.391 | 1.171 | 587 |
-| `d3` — Francisco de Paula Ribeiro | 713 | 125 | 83 |
-| **Total (corpus)** | **13.604** | **2.138** | **881** |
-
-### Vocabulário: corpus real × corpus de brinquedo
-
-```
-Corpus de brinquedo (aula)   █ 45 termos
-Corpus real (3 artigos)      ████████████████████████████████████ 881 termos
-```
-
-**881 termos distintos — cerca de 19,6× maior** que o corpus de brinquedo
-visto em aula.
-
-### Top 10 termos mais frequentes
-
-| Rank | Termo | Frequência |            |
-|:-:|---|--:|---|
-| 1 | de | 204 | ████████████████████ |
-| 2 | a | 99 | ██████████ |
-| 3 | e | 73 | ███████ |
-| 4 | o | 59 | ██████ |
-| 5 | do | 55 | █████ |
-| 6 | da | 45 | ████ |
-| 7 | **porto** | 35 | ███ |
-| 8 | **santos** | 24 | ██ |
-| 9 | em | 23 | ██ |
-| 10 | com | 22 | ██ |
+| # | Pasta | Tema | Status |
+|:-:|---|---|---|
+| 01 | [`Atividades/Atividade 01`](Atividades/Atividade%2001) | Introdução ao R (Explicar · Explorar · Prever) | Entregue |
+| 02 | [`Atividades/Atividade 02`](Atividades/Atividade%2002) | Corpus real · tokenização · vocabulário · frequências | Entregue |
 
 ---
 
-## Discussão
+## Roadmap
 
-**O top 10 é dominado por *stopwords*.** Preposições, artigos e conjunções
-tomam 8 das 10 posições — só `porto` e `santos` carregam significado real.
-Isso é esperado: a distribuição de frequência de termos em linguagem natural
-segue a **Lei de Zipf**, com poucas palavras funcionais concentrando a maior
-parte das ocorrências.
+```
+Aula 0     █ R base e ferramentas da disciplina
+Aula 01    █ Corpus, tokens, vocabulário, frequências
+Aula 01.5  ░ Shannon e pesos dos termos
+Aula 02    ░ Vetores TF-IDF e similaridade do cosseno
+…          ░ BM25 · recuperação densa · rerank · MIR
+```
 
-**O texto real é "sujo".** Como a tokenização usada foi propositalmente
-simples (só `tolower` + `strsplit` por espaço, sem remover pontuação), tokens
-como `codesp,`, `(nome` e `1980.` entram no vocabulário como termos
-*diferentes* de suas versões limpas.
+---
 
+## Como navegar
 
+Cada atividade tem o próprio `README.md` com enunciado, estrutura local,
+como rodar (quando houver script) e discussão dos resultados.
+
+O material teórico das aulas fica em [`MaterialAula/`](MaterialAula).
