@@ -4,8 +4,8 @@
 
 **Projeto Integrador III · Ciência de Dados · FATEC**
 
-Introdução ao R como ferramenta da disciplina: vetores, texto, funções,
-`lapply`/`sapply`, `table`/`factor`, matrizes e regex — no método
+Introdução ao R: vetores, texto, funções, `lapply`/`sapply`,
+`table`/`factor`, matrizes e regex — no método
 **Explicar · Explorar · Prever**.
 
 ![R](https://img.shields.io/badge/R-base-276DC3?style=flat&logo=r&logoColor=white)
@@ -18,18 +18,16 @@ Introdução ao R como ferramenta da disciplina: vetores, texto, funções,
 
 ## Sobre a atividade
 
-Primeira entrega do curso: sair do papel e **mexer no R** com os blocos
-vistos em sala. Para cada trecho, seguimos três passos pedidos:
+Primeira entrega: sair do papel e mexer no R com os blocos vistos em sala.
+Para cada trecho, seguimos os três passos pedidos:
 
-1. **Explicar** — o que cada linha faz e por que existe  
-2. **Explorar** — alterar valor, argumento ou nome e observar o efeito  
-3. **Prever** — registrar a expectativa *antes* de rodar e comparar com o resultado  
+1. **Explicar** — o que cada linha faz e por que existe
+2. **Explorar** — alterar valor, argumento ou nome e observar o efeito
+3. **Prever** — registrar a expectativa *antes* de rodar e comparar com o resultado
 
 > **Meta da atividade:** dominar o kit mínimo de R que a Aula 01 usa no
 > motor de busca (`docs` nomeado, `tokenizar`, `lapply`/`sapply`,
 > `table` + `factor`, matrizes e limpeza com regex).
-
-Entrega em PDF: [`Atividade 01.pdf`](Atividade%2001.pdf).
 
 ---
 
@@ -40,6 +38,8 @@ Entrega em PDF: [`Atividade 01.pdf`](Atividade%2001.pdf).
 ├── README.md
 └── Atividade 01.pdf          # entrega completa (Partes 1, 2 e 3)
 ```
+
+Entrega em PDF: [`Atividade 01.pdf`](Atividade%2001.pdf).
 
 ---
 
@@ -67,14 +67,12 @@ Treze blocos da aula, cada um com as três etapas:
 
 ## Parte 2 — Perguntas para investigar
 
-Quatro perguntas que reforçam armadilhas importantes para as próximas aulas:
-
 | # | Pergunta | Conclusão prática |
 |:-:|---|---|
 | 1 | Trocar `sapply` ↔ `lapply` | Formato da saída muda; TDM precisa de matriz/vetor alinhado |
-| 2 | Remover o `factor` em `table` | Sem `levels`, some termo com contagem 0 — colunas de tamanhos diferentes |
-| 3 | `m * peso` com comprimento errado | R só avisa (*warning*) e recicla — risco silencioso no TF-IDF |
-| 4 | Vetor nomeado + tokenizar + contar | Mini-corpus temático (Porto de Santos) e ranking de termos |
+| 2 | Remover o `factor` em `table` | Sem `levels`, some termo com contagem 0 |
+| 3 | `m * peso` com comprimento errado | R só avisa (*warning*) e recicla — risco no TF-IDF |
+| 4 | Vetor nomeado + tokenizar + contar | Mini-corpus (Porto de Santos) e ranking de termos |
 
 ### Mini-corpus da pergunta 4 (top termos)
 
@@ -84,15 +82,11 @@ do / santos        ██   2
 demais termos      █    1
 ```
 
-Mesmo padrão que aparece depois no corpus real da Atividade 02:
-poucas palavras (muitas delas funcionais) concentrando as ocorrências.
-
 ---
 
-## Parte 3 — Exercício final: o faxineiro de manchetes
+## Parte 3 — O faxineiro de manchetes
 
-Cinco missões de limpeza e busca sobre manchetes da Baixada Santista
-(sufixo *" - A Tribuna"*):
+Cinco missões de limpeza e busca sobre manchetes da Baixada Santista:
 
 | Missão | O que fazer | Ferramenta |
 |:-:|---|---|
@@ -101,10 +95,6 @@ Cinco missões de limpeza e busca sobre manchetes da Baixada Santista
 | 3 | Achar manchete com ano (4 dígitos) | `grep("[0-9]{4}", …)` |
 | 4 | Filtrar municípios (Guaruja / Cubatao) | `grep(..., ignore.case = TRUE)` |
 | 5 | A “pegadinha” de *Santos* | `grepl("Santos", …)` — sintaxe ≠ semântica |
-
-> **Discussão (missão 5):** o regex acha *Santos* na cidade e no
-> “Porto de Santos”. Padrão textual não resolve ambiguidade de entidade —
-> isso exige semântica (próximas etapas do curso).
 
 ---
 

@@ -1,77 +1,76 @@
 <div align="center">
 
-#  Motor de Busca - Projeto Integrador III
+# Atividade 02 — Do problema da busca ao nosso motor
 
-**Ciência de Dados · FATEC**
+**Projeto Integrador III · Ciência de Dados · FATEC**
 
-Construindo um motor de busca do zero: dos modelos clássicos de
-*Information Retrieval* até técnicas neurais e busca por fórmulas
-matemáticas (MIR).
+Sair do *corpus* de brinquedo (8 documentos, 45 termos) e montar um
+primeiro *corpus* real com artigos da Wikipédia: vetor `docs`,
+tokenização, vocabulário e frequência de termos.
 
 ![R](https://img.shields.io/badge/R-base-276DC3?style=flat&logo=r&logoColor=white)
-![Status](https://img.shields.io/badge/status-em%20andamento-yellow)
+![Status](https://img.shields.io/badge/status-entregue-brightgreen)
+![Aula](https://img.shields.io/badge/aula-01-lightgrey)
 ![Licença dos textos](https://img.shields.io/badge/corpus-CC%20BY--SA-lightgrey)
 
 </div>
 
 ---
 
-##  Sobre o projeto
+## Sobre a atividade
 
-Este repositório documenta a construção incremental de um motor de busca,
-partindo dos fundamentos de **Recuperação de Informação (RI)** — tokenização,
-vocabulário, matriz termo-documento — até chegar em modelos de ranqueamento
-(TF-IDF, BM25), recuperação densa, *rerank* neural e busca por fórmulas
-matemáticas.
+Primeira entrega do motor de busca: aplicar no *corpus* real os mesmos
+conceitos vistos em sala — carregar documentos, tokenizar, montar o
+vocabulário e listar os termos mais frequentes.
 
->  **Meta do projeto:** construir um motor de busca completo sobre um
-> *corpus* real, aula após aula, como parte da disciplina Projeto Integrador
-> III.
+> **Meta da atividade:** construir o primeiro *corpus* real do projeto e
+> medir o salto em relação ao corpus de brinquedo da aula (45 termos).
 
 ---
 
-##  Aula 01 — Do problema da busca ao nosso motor
-
-Primeira entrega: sair do *corpus* de brinquedo visto em aula (8 documentos,
-45 termos) e montar um primeiro *corpus* real com artigos da Wikipédia,
-aplicando os mesmos conceitos vistos em sala — vetor `docs`, tokenização,
-vocabulário e frequência de termos.
-
-### Corpus
+## Corpus
 
 Três artigos da Wikipédia em português, todos ligados ao Porto de Santos:
 
 | # | Documento | Artigo |
 |:-:|---|---|
-| `d1` | Autoridade Portuária de Santos | [🔗 Wikipédia](https://pt.wikipedia.org/wiki/Autoridade_Portuária_de_Santos) |
-| `d2` | Porto de Santos | [🔗 Wikipédia](https://pt.wikipedia.org/wiki/Porto_de_Santos) |
-| `d3` | Francisco de Paula Ribeiro | [🔗 Wikipédia](https://pt.wikipedia.org/wiki/Francisco_de_Paula_Ribeiro) |
+| `d1` | Autoridade Portuária de Santos | [Wikipédia](https://pt.wikipedia.org/wiki/Autoridade_Portuária_de_Santos) |
+| `d2` | Porto de Santos | [Wikipédia](https://pt.wikipedia.org/wiki/Porto_de_Santos) |
+| `d3` | Francisco de Paula Ribeiro | [Wikipédia](https://pt.wikipedia.org/wiki/Francisco_de_Paula_Ribeiro) |
 
 > Conteúdo licenciado sob **CC BY-SA** (Wikipédia) — uso permitido desde que
 > citada a fonte.
 
-###  Estrutura do repositório
+---
+
+## Estrutura da pasta
 
 ```
 .
 ├── README.md
-├── corpus_aula01.R              # script principal da Aula 01
-└── corpus/
-    ├── autoridade_portuaria_de_santos.txt
-    ├── porto_de_santos.txt
-    └── francisco_de_paula_ribeiro.txt
+├── corpus_aula01.R                        # script principal
+├── autoridade_portuaria_de_santos.txt     # d1
+├── porto_de_santos.txt                    # d2
+└── francisco_de_paula_ribeiro.txt         # d3
 ```
 
-###  Como rodar
+---
 
-Pré-requisito: [R](https://www.r-project.org/) instalado (apenas **R base**
-é usado nesta aula, sem pacotes externos).
+## Como rodar
+
+Pré-requisito: [R](https://www.r-project.org/) instalado (apenas **R base**,
+sem pacotes externos).
 
 ```bash
+cd "Atividades/Atividade 02"
 Rscript corpus_aula01.R
 ```
 
-O script segue exatamente o padrão usado em sala:
+> **Nota:** o script usa `pasta <- "corpus"`. Se os `.txt` estiverem nesta
+> mesma pasta (como agora), ajuste para `pasta <- "."` ou mova os arquivos
+> para uma subpasta `corpus/`.
+
+O script segue o padrão usado em sala:
 
 1. **Carrega** os 3 artigos num vetor nomeado `docs` (`d1`, `d2`, `d3`)
 2. **Tokeniza** cada documento (`tolower` + `strsplit` por espaço)
@@ -80,7 +79,7 @@ O script segue exatamente o padrão usado em sala:
 
 ---
 
-##  Resultados
+## Resultados
 
 ### Por documento
 
@@ -130,5 +129,3 @@ parte das ocorrências.
 simples (só `tolower` + `strsplit` por espaço, sem remover pontuação), tokens
 como `codesp,`, `(nome` e `1980.` entram no vocabulário como termos
 *diferentes* de suas versões limpas.
-
-

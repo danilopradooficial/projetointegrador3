@@ -36,8 +36,8 @@ matemáticas.
 .
 ├── README.md
 ├── Atividades/
-│   ├── Atividade 01/          # Aula 0 — introdução ao R
-│   └── Atividade 02/          # Aula 01 — primeiro corpus real
+│   ├── Atividade 01/     # Aula 0 — introdução ao R
+│   └── Atividade 02/     # Aula 01 — primeiro corpus real
 └── MaterialAula/
     ├── Aula 00 - O Básico para Acompanhar o Curso.PDF
     ├── Aula 01 - Do Problema da Busca ao Nosso Motor.PDF
@@ -51,8 +51,10 @@ matemáticas.
 
 | # | Pasta | Tema | Status |
 |:-:|---|---|---|
-| 01 | [`Atividades/Atividade 01`](Atividades/Atividade%2001) | Introdução ao R (Explicar · Explorar · Prever) | Entregue |
-| 02 | [`Atividades/Atividade 02`](Atividades/Atividade%2002) | Corpus real · tokenização · vocabulário · frequências | Entregue |
+| 01 | [Atividade 01](Atividades/Atividade%2001) | Introdução ao R (Explicar · Explorar · Prever) | Entregue |
+| 02 | [Atividade 02](Atividades/Atividade%2002) | Corpus real · tokenização · vocabulário · frequências | Entregue |
+
+Cada pasta de atividade tem o próprio `README.md` com o detalhe da entrega.
 
 ---
 
@@ -68,9 +70,7 @@ Aula 02    ░ Vetores TF-IDF e similaridade do cosseno
 
 ---
 
-## Como navegar
+## Material de aula
 
-Cada atividade tem o próprio `README.md` com enunciado, estrutura local,
-como rodar (quando houver script) e discussão dos resultados.
-
-O material teórico das aulas fica em [`MaterialAula/`](MaterialAula).
+O material teórico fica em [`MaterialAula/`](MaterialAula). As entregas práticas
+ficam em [`Atividades/`](Atividades).
