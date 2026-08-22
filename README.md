@@ -59,8 +59,8 @@ detalhe da entrega.
 |:-:|---|---|---|---|
 | 01 | [Atividade 01](Atividades/Atividade%2001) | [Aula 00](MateriaisAulas/Aula%2000%20-%20O%20Básico%20para%20Acompanhar%20o%20Curso.PDF) | Introdução ao R (Explicar · Explorar · Prever) | Entregue |
 | 02 | [Atividade 02](Atividades/Atividade%2002) | [Aula 01](MateriaisAulas/Aula%2001%20-%20Do%20Problema%20da%20Busca%20ao%20Nosso%20Motor.PDF) | Corpus real · tokenização · vocabulário · frequências | Entregue |
-| 03 | [Atividade 03](Atividades/Atividade%2003) | [Aula 01.5](MateriaisAulas/Aula%2001.5%20-%20Do%20Shannon%20aos%20Pesos%20dos%20Termos.PDF) | Shannon · autoinformação · IDF como bits | A fazer |
-| 04 | [Atividade 04](Atividades/Atividade%2004) | [Aula 02](MateriaisAulas/Aula%2002%20-%20Vetores%20TF-IDF%20e%20Similaridade%20do%20Cosseno.PDF) | Espaço vetorial · TF-IDF · cosseno · ranking | A fazer |
+| 03 | [Atividade 03](Atividades/Atividade%2003) | [Aula 01.5](MateriaisAulas/Aula%2001.5%20-%20Do%20Shannon%20aos%20Pesos%20dos%20Termos.PDF) | Shannon · autoinformação · IDF como bits | Entregue |
+| 04 | [Atividade 04](Atividades/Atividade%2004) | [Aula 02](MateriaisAulas/Aula%2002%20-%20Vetores%20TF-IDF%20e%20Similaridade%20do%20Cosseno.PDF) | Espaço vetorial · TF-IDF · cosseno · ranking | Entregue |
 
 ---
 
@@ -69,8 +69,8 @@ detalhe da entrega.
 ```
 Aula 00    █ R base e ferramentas da disciplina
 Aula 01    █ Corpus, tokens, vocabulário, frequências
-Aula 01.5  ░ Shannon e pesos dos termos (IDF = bits)
-Aula 02    ░ Vetores TF-IDF e similaridade do cosseno
+Aula 01.5  █ Shannon e pesos dos termos (IDF = bits)
+Aula 02    █ Vetores TF-IDF e similaridade do cosseno
 …          ░ BM25 · recuperação densa · rerank · MIR
 ```
 

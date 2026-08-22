@@ -8,7 +8,7 @@ Entender o TF-IDF pela Teoria da Informação: incerteza em bits,
 autoinformação de uma pista e por que o IDF não é heurística.
 
 ![R](https://img.shields.io/badge/R-base-276DC3?style=flat&logo=r&logoColor=white)
-![Status](https://img.shields.io/badge/status-a%20fazer-yellow)
+![Status](https://img.shields.io/badge/status-entregue-brightgreen)
 ![Aula](https://img.shields.io/badge/aula-01.5-lightgrey)
 
 </div>
@@ -17,15 +17,13 @@ autoinformação de uma pista e por que o IDF não é heurística.
 
 ## Sobre a atividade
 
-Terceira entrega: sair da fórmula decorada e derivar o peso dos termos
-a partir de Shannon - a busca como problema de *seleção* entre
-documentos, cada termo como pista que reduz incerteza.
+Derivamos o peso dos termos a partir de Shannon: a busca como problema
+de *seleção* entre documentos, cada termo como pista que reduz incerteza.
 
-> **Meta da atividade:** explicar, explorar e investigar os blocos da
-> Aula 01.5 até responder, com o *corpus* de 8 documentos, quanto vale
-> cada termo em bits e onde o TF-IDF “mente”.
+> **Meta:** com o corpus de 8 documentos da Aula 01, medir bits por termo,
+> reconstruir o TF-IDF e responder onde a fórmula “mente”.
 
-**Material de referência:**
+**Material:**
 [Aula 01.5 - Do Shannon aos Pesos dos Termos](../../MateriaisAulas/Aula%2001.5%20-%20Do%20Shannon%20aos%20Pesos%20dos%20Termos.PDF)
 · [README da disciplina](../../README.md)
 
@@ -36,69 +34,111 @@ documentos, cada termo como pista que reduz incerteza.
 ```
 .
 ├── README.md
-└── (entregas a acrescentar: script .R e/ou PDF)
+└── shannon_pesos.R    # Parte 1 (blocos) + Parte 2 (investigar)
 ```
+
+---
+
+## Como rodar
+
+```bash
+cd "Atividades/Atividade 03"
+Rscript shannon_pesos.R
+```
+
+Apenas **R base**.
 
 ---
 
 ## Parte 1 - Explicar, Explorar e Prever
 
-Para cada bloco de código da aula:
+Corpus (igual ao da aula):
 
-1. **Explicar** - o que cada linha faz e por que existe
-2. **Explorar** - alterar valor, argumento ou termo e observar o efeito
-3. **Prever** - registrar a expectativa *antes* de rodar e comparar
+```r
+docs <- c(
+  d1 = "recuperacao de informacao ordena documentos por relevancia",
+  d2 = "o modelo de espaco vetorial representa documentos como vetores",
+  d3 = "bm25 e um modelo probabilistico de ranqueamento de texto",
+  d4 = "aprendizado estatistico fundamenta a recuperacao moderna",
+  d5 = "o indice invertido acelera a busca em muitos documentos",
+  d6 = "embeddings capturam a semantica de palavras e documentos",
+  d7 = "a avaliacao mede a relevancia dos resultados da busca",
+  d8 = "ciencia de dados combina estatistica e programacao"
+)
+```
 
-Blocos centrais da aula (orientação):
+| Bloco | Tema | Explicar | Explorar / prever |
+|:-:|---|---|---|
+| 1 | `log2(N)` | Com 8 docs igualmente prováveis, bastam 3 perguntas sim/não | Trocar N muda o custo: `log2(16)=4` |
+| 2 | Pistas `busca` / `de` | `busca` em d5,d7 (2 bits); `de` em 5 docs (~0,68 bit) | Termo raro estreita mais que stopword |
+| 3 | `I(t)=log2(N/df)` | Autoinformação = IDF | `modelo` e `recuperacao`: 2 bits cada |
+| 4-5 | Consulta em bits | Escore = soma `tf × I(t)` no documento | Ver ranking abaixo |
+| 6 | Independência | Soma de bits pode *superestimar* se termos correlacionados | `busca`+`documentos` fecha em 3; `recuperacao`+`relevancia` soma 4 |
+| 7 | Rotas Baixada | Mesmas cidades, ordem diferente | IDF=0 em todas → bag of words não distingue |
 
-| Bloco | Tema | Ligação com o motor |
-|:-:|---|---|
-| 1 | `log2(N)` - incerteza inicial | Quantos bits para achar 1 entre N docs |
-| 2 | Pista `busca` / `de` | Termo raro × stopword |
-| 3 | `I(t) = log2(N / df)` | Autoinformação = IDF |
-| 4 | `tf × I(t)` | Reconstrução do TF-IDF em bits |
-| 5 | Consulta `"modelo de recuperacao"` | Escore = soma de bits por documento |
-| 6 | Independência vs correlação | Quando a soma de bits superestima |
-| 7 | Corpus das rotas (Baixada) | Limite do *bag of words* |
+### Consulta `"modelo de recuperacao"` (bits)
+
+IDF: `modelo=2,00` · `de=0,68` · `recuperacao=2,00`
+
+| Doc | modelo | de | recuperacao | total |
+|---|--:|--:|--:|--:|
+| d3 | 2,00 | 1,36 | 0,00 | **3,36** |
+| d1 | 0,00 | 0,68 | 2,00 | 2,68 |
+| d2 | 2,00 | 0,68 | 0,00 | 2,68 |
+| d4 | 0,00 | 0,00 | 2,00 | 2,00 |
+| d6 / d8 | 0 | 0,68 | 0 | 0,68 |
+| d5 / d7 | 0 | 0 | 0 | 0 |
+
+Ranking: **d3 > d1 = d2 > d4 > d6 = d8 > d5 = d7**
+
+Em d3, `de` vale 1,36 porque aparece **duas** vezes (2 × 0,68).
 
 ---
 
 ## Parte 2 - Perguntas para investigar
 
-| # | Pergunta | O que responder |
-|:-:|---|---|
-| 1 | Corpus com 1024 docs; e se dobrar para 2048? | Custo em bits (`log2 N`) |
-| 2 | Par de termos que superestima a informação real | Correlação (como `recuperacao` / `relevancia`) |
-| 3 | Trocar `log2` por `log` no IDF | O ranking muda? Por quê? |
-| 4 | Termo em *todos* os documentos | Quantos bits? O que isso diz sobre stopwords? |
+### 1) Corpus com 1024 docs; e se dobrar para 2048?
 
----
+| N | `log2(N)` |
+|--:|--:|
+| 1024 | **10 bits** |
+| 2048 | **11 bits** |
 
-## Como rodar (quando houver script)
+Dobrar o corpus adiciona exatamente **1 bit** de incerteza inicial.
 
-Pré-requisito: [R](https://www.r-project.org/) instalado (apenas **R base**).
+### 2) Par que superestima a informação real
 
-```bash
-cd "Atividades/Atividade 03"
-Rscript nome_do_script.R
+Além de `recuperacao` / `relevancia` (soma 4, real 3):
+
+| Par | Interseção | Soma I | Real (`log2(N/|∩|)`) | Excesso |
+|---|---|--:|--:|--:|
+| `aprendizado` + `estatistico` | só d4 | 6,00 | 3,00 | +3 |
+| `modelo` + `vetorial` | só d2 | 5,00 | 3,00 | +2 |
+
+**Por quê?** Os termos co-ocorrem no mesmo documento/assunto: a segunda pista já era parcialmente esperada, então traz menos surpresa que seus bits nominais.
+
+Contraste: `busca` + `documentos` → interseção d5, soma = 3 = real (independência ok neste caso).
+
+### 3) Trocar `log2` por `log` no IDF: o ranking muda?
+
+**Não.** Ordem idêntica com `log2` e `log` (natural).
+
+Motivo: `log_b(x) = ln(x) / ln(b)`. Mudar a base só multiplica todos os pesos pela mesma constante positiva - a ordenação dos documentos permanece.
+
+### 4) Termo em *todos* os documentos: quantos bits?
+
+```text
+I = log2(N / N) = log2(1) = 0 bits
 ```
 
-Reaproveitar o *corpus* de 8 documentos da Aula 01 (e, se útil, o
-*corpus* real da [Atividade 02](../Atividade%2002)).
+Não discrimina ninguém. É o extremo das **stopwords**: no nosso corpus, `de` (df=5) já vale só ~0,68 bit - quase inútil para escolher o documento.
 
 ---
 
-## Discussão (guia)
+## Discussão
 
-**IDF = autoinformação.** `log(N / df)` mede quantos bits a pista paga
-da dívida de `log2 N` - não é um truque empírico.
+**IDF = autoinformação.** Não é truque empírico: mede quantos bits a pista paga da dívida de `log2 N`.
 
-**A base do log muda a unidade, não o ranking.** `log2` → bits;
-`log` (natural em R) → nats. A ordem dos documentos permanece.
+**TF-IDF mente em dois pontos** (aula): (1) repetição sem saturação - BM25 corrige; (2) independência entre termos - embeddings / rerank corrigem depois.
 
-**Stopword vale ~0 bits.** Termo em todos os docs: `I = log(N/N) = 0`.
-Por isso o top 10 da Atividade 02 era dominado por `de`, `a`, `e`…
-
-**TF-IDF mente em dois pontos** (aula): saturação da repetição
-(BM25 corrige) e independência entre termos (embeddings / *rerank*
-corrigem mais adiante).
+**Bits ≠ relevância.** Medem distinguibilidade, não utilidade semântica.
