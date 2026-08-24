@@ -28,6 +28,10 @@ Inteligência computacional, Linguagem e seus códigos II e Teoria do aprendizad
 estatístico.
 
 **Professor.** Prof. Dr. João Paulo Ferreira de Mello
+([joao.mello12@fatec.sp.gov.br](mailto:joao.mello12@fatec.sp.gov.br))
+
+**Linguagem das entregas.** Sempre **R base** (sem pacotes externos nas
+atividades atuais).
 
 ---
 
@@ -35,12 +39,20 @@ estatístico.
 
 ```
 .
-├── README.md                 # visão geral da disciplina
+├── README.md
 ├── Atividades/
-│   ├── Atividade 01/         # Aula 00 - introdução ao R
-│   ├── Atividade 02/         # Aula 01 - primeiro corpus real
-│   ├── Atividade 03/         # Aula 01.5 - Shannon e pesos dos termos
-│   └── Atividade 04/         # Aula 02 - TF-IDF e similaridade do cosseno
+│   ├── atividade_01/
+│   │   └── introducao_ao_r.md
+│   ├── atividade_02/
+│   │   ├── primeiro_corpus_real.md
+│   │   ├── corpus_aula01.R
+│   │   └── *.txt                         # corpus Wikipédia (CC BY-SA)
+│   ├── atividade_03/
+│   │   ├── shannon_pesos_dos_termos.md
+│   │   └── shannon_pesos.R
+│   └── atividade_04/
+│       ├── tfidf_similaridade_cosseno.md
+│       └── tfidf_cosseno.R
 └── MateriaisAulas/
     ├── Aula 00 - O Básico para Acompanhar o Curso.PDF
     ├── Aula 01 - Do Problema da Busca ao Nosso Motor.PDF
@@ -48,29 +60,25 @@ estatístico.
     └── Aula 02 - Vetores TF-IDF e Similaridade do Cosseno.PDF
 ```
 
-O material teórico fica em [MateriaisAulas/](MateriaisAulas).
-As entregas práticas ficam em [Atividades/](Atividades).
+- Teoria: [MateriaisAulas/](MateriaisAulas)
+- Entregas: [Atividades/](Atividades)
+- Um `.md` por atividade (nome pelo assunto); código `.R` separado
 
 ---
 
 ## Atividades × aulas
 
-Cada pasta em [Atividades/](Atividades) corresponde a uma aula em
-[MateriaisAulas/](MateriaisAulas) e tem o próprio `README.md` com o detalhe
-da entrega.
+Cada pasta responde a um “para casa” do PDF. O texto da entrega está no
+`.md` indicado; scripts `.R` ficam ao lado quando houver código.
 
-| # | Pasta | Aula | Tema | Status |
+| # | Entrega | Aula | Tema | Status |
 |:-:|---|---|---|---|
-| 01 | [Atividade 01](Atividades/Atividade%2001) | [Aula 00](MateriaisAulas/Aula%2000%20-%20O%20Básico%20para%20Acompanhar%20o%20Curso.PDF) | Introdução ao R (Explicar · Explorar · Prever) | Entregue |
-| 02 | [Atividade 02](Atividades/Atividade%2002) | [Aula 01](MateriaisAulas/Aula%2001%20-%20Do%20Problema%20da%20Busca%20ao%20Nosso%20Motor.PDF) | Corpus real · tokenização · vocabulário · frequências | Entregue |
-| 03 | [Atividade 03](Atividades/Atividade%2003) | [Aula 01.5](MateriaisAulas/Aula%2001.5%20-%20Do%20Shannon%20aos%20Pesos%20dos%20Termos.PDF) | Shannon · autoinformação · IDF como bits | Entregue |
-| 04 | [Atividade 04](Atividades/Atividade%2004) | [Aula 02](MateriaisAulas/Aula%2002%20-%20Vetores%20TF-IDF%20e%20Similaridade%20do%20Cosseno.PDF) | Espaço vetorial · TF-IDF · cosseno · ranking | Entregue |
+| 01 | [introducao_ao_r.md](Atividades/atividade_01/introducao_ao_r.md) | [Aula 00](MateriaisAulas/Aula%2000%20-%20O%20Básico%20para%20Acompanhar%20o%20Curso.PDF) | Introdução ao R (Explicar · Explorar · Prever) | Entregue |
+| 02 | [primeiro_corpus_real.md](Atividades/atividade_02/primeiro_corpus_real.md) | [Aula 01](MateriaisAulas/Aula%2001%20-%20Do%20Problema%20da%20Busca%20ao%20Nosso%20Motor.PDF) | Corpus real · tokenização · vocabulário · frequências | Entregue |
+| 03 | [shannon_pesos_dos_termos.md](Atividades/atividade_03/shannon_pesos_dos_termos.md) | [Aula 01.5](MateriaisAulas/Aula%2001.5%20-%20Do%20Shannon%20aos%20Pesos%20dos%20Termos.PDF) | Shannon · autoinformação · IDF como bits | Entregue |
+| 04 | [tfidf_similaridade_cosseno.md](Atividades/atividade_04/tfidf_similaridade_cosseno.md) | [Aula 02](MateriaisAulas/Aula%2002%20-%20Vetores%20TF-IDF%20e%20Similaridade%20do%20Cosseno.PDF) | Espaço vetorial · TF-IDF · cosseno · ranking | Entregue |
 
----
-
-## Sequência das atividades
-
-Cada "para casa" do material corresponde a uma atividade, na ordem das aulas:
+### Sequência no material
 
 ```
 Ativ 01 (Aula 00)   R base

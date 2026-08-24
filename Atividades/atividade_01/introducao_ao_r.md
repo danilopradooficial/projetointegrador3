@@ -1,28 +1,53 @@
+<div align="center">
 
+# Atividade 01 - O básico para acompanhar o curso
 
+**Projeto Integrador III · Ciência de Dados · Fatec Rubens Lara**
 
+Introdução ao R: vetores, texto, funções, `lapply`/`sapply`,
+`table`/`factor`, matrizes e regex - no método
+**Explicar · Explorar · Prever**.
 
-FATEC RUBENS LARA - BAIXADA SANTISTA
+![R](https://img.shields.io/badge/R-base-276DC3?style=flat&logo=r&logoColor=white)
+![Status](https://img.shields.io/badge/status-entregue-brightgreen)
+![Aula](https://img.shields.io/badge/aula-00-lightgrey)
 
-CIÊNCIA DE DADOS
-
-# Projeto Integrador III
-
-## Aula 0 - O básico para acompanhar o curso
-
-INTRODUÇÃO AO R • ENTREGA PARA CASA
-
-**Adriane da Costa Santos**  
-**Danilo Prado de Lima Silva**  
-**Victoria Cabral Quinterio**
-
-Motor de Busca • Recuperação de Informação
-
-
+</div>
 
 ---
 
+## Sobre a atividade
 
+Primeira entrega: sair do papel e mexer no R com os blocos vistos em sala.
+Para cada trecho, seguimos os três passos pedidos:
+
+1. **Explicar** - o que cada linha faz e por que existe
+2. **Explorar** - alterar valor, argumento ou nome e observar o efeito
+3. **Prever** - registrar a expectativa *antes* de rodar e comparar com o resultado
+
+> **Meta:** dominar o kit mínimo de R que a Aula 01 usa no motor de busca
+> (`docs` nomeado, `tokenizar`, `lapply`/`sapply`, `table` + `factor`,
+> matrizes e limpeza com regex).
+
+**Autores.** Adriane da Costa Santos · Danilo Prado de Lima Silva · Victoria Cabral Quinterio
+
+---
+
+## Material de referência
+
+- [Aula 00 - O Básico para Acompanhar o Curso](../../MateriaisAulas/Aula%2000%20-%20O%20Básico%20para%20Acompanhar%20o%20Curso.PDF)
+- [README da disciplina](../../README.md)
+
+---
+
+## Estrutura da pasta
+
+```
+.
+└── introducao_ao_r.md     # esta entrega (Partes 1, 2 e 3)
+```
+
+---
 
 # 1. Parte 1 - Explicar, Explorar e Prever
 

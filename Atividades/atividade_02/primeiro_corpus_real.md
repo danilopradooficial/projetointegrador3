@@ -26,6 +26,8 @@ vocabulário e listar os termos mais frequentes.
 > **Meta:** construir o primeiro *corpus* real do projeto e medir o salto
 > em relação ao corpus de brinquedo da aula (45 termos).
 
+**Autores.** Adriane da Costa Santos · Danilo Prado de Lima Silva · Victoria Cabral Quinterio
+
 ---
 
 ## Material de referência
@@ -59,7 +61,7 @@ Cada artigo vira um documento `dN`; cada parágrafo vira `dN.k`.
 
 ```
 .
-├── README.md
+├── primeiro_corpus_real.md              # esta entrega
 ├── corpus_aula01.R                        # script principal
 ├── porto_de_santos.txt                    # d1 (+ d1.1 ... d1.12)
 ├── autoridade_portuaria_de_santos.txt     # d2 (+ d2.1 ... d2.5)
@@ -76,7 +78,7 @@ O script monta `d1`/`d2`/`d3` concatenando esses blocos.
 Pré-requisito: [R](https://www.r-project.org/) instalado (apenas **R base**).
 
 ```bash
-cd "Atividades/Atividade 02"
+cd "Atividades/atividade_02"
 Rscript corpus_aula01.R
 ```
 
@@ -141,8 +143,8 @@ cada documento. Esse caminho continua assim:
 
 | Próximo passo | Onde | O que responde |
 |---|---|---|
-| Por que o peso existe (IDF = bits) | [Atividade 03](../Atividade%2003) / Aula 01.5 | Shannon: termo raro informa mais |
-| Como ranquear de verdade | [Atividade 04](../Atividade%2004) / Aula 02 | TF-IDF + similaridade do cosseno |
+| Por que o peso existe (IDF = bits) | [shannon_pesos_dos_termos.md](../atividade_03/shannon_pesos_dos_termos.md) | Shannon: termo raro informa mais |
+| Como ranquear de verdade | [tfidf_similaridade_cosseno.md](../atividade_04/tfidf_similaridade_cosseno.md) | TF-IDF + similaridade do cosseno |
 
 Não são entregas extras embutidas nesta atividade: são as **atividades
 seguintes** (03 e 04), na ordem das aulas. A Atividade 02 monta o corpus

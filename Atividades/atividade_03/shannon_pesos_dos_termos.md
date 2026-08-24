@@ -1,18 +1,74 @@
-FATEC RUBENS LARA - BAIXADA SANTISTA
+<div align="center">
 
-CIÊNCIA DE DADOS
+# Atividade 03 - De Shannon aos pesos dos termos
 
-# Projeto Integrador III
+**Projeto Integrador III · Ciência de Dados · Fatec Rubens Lara**
 
-## Aula 01.5 - De Shannon aos pesos dos termos
+Entender o TF-IDF pela Teoria da Informação: incerteza em bits,
+autoinformação de uma pista e por que o IDF não é heurística.
 
-ATIVIDADE 03 • ENTREGA PARA CASA
+![R](https://img.shields.io/badge/R-base-276DC3?style=flat&logo=r&logoColor=white)
+![Status](https://img.shields.io/badge/status-entregue-brightgreen)
+![Aula](https://img.shields.io/badge/aula-01.5-lightgrey)
 
-**Adriane da Costa Santos**  
-**Danilo Prado de Lima Silva**  
-**Victoria Cabral Quinterio**
+</div>
 
-Motor de Busca • Recuperação de Informação
+---
+
+## Sobre a atividade
+
+Derivamos o peso dos termos a partir de Shannon: a busca como problema
+de *seleção* entre documentos, cada termo como pista que reduz incerteza.
+
+> **Meta:** com o corpus de 8 documentos da Aula 01, medir bits por termo,
+> reconstruir o TF-IDF e responder onde a fórmula "mente".
+
+**Autores.** Adriane da Costa Santos · Danilo Prado de Lima Silva · Victoria Cabral Quinterio
+
+---
+
+## Sequência
+
+```
+Ativ 02 (frequencia != relevancia)
+    |
+    v
+Ativ 03 (por que o IDF = bits)   <-- esta atividade
+    |
+    v
+Ativ 04 (TF-IDF + cosseno)
+```
+
+Responde à pergunta deixada em aberto no top 10 da Atividade 02
+(Aula 01.5 no material do professor).
+
+---
+
+## Material de referência
+
+- [Aula 01.5 - Do Shannon aos Pesos dos Termos](../../MateriaisAulas/Aula%2001.5%20-%20Do%20Shannon%20aos%20Pesos%20dos%20Termos.PDF)
+- [README da disciplina](../../README.md)
+
+---
+
+## Estrutura da pasta
+
+```
+.
+├── shannon_pesos_dos_termos.md    # esta entrega
+└── shannon_pesos.R                # script (blocos + perguntas)
+```
+
+---
+
+## Como rodar
+
+```bash
+cd "Atividades/atividade_03"
+Rscript shannon_pesos.R
+```
+
+Apenas **R base**.
 
 ---
 

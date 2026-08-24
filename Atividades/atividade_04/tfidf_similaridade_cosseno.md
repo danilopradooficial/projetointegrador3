@@ -1,18 +1,78 @@
-FATEC RUBENS LARA - BAIXADA SANTISTA
+<div align="center">
 
-CIÊNCIA DE DADOS
+# Atividade 04 - Vetores TF-IDF e similaridade do cosseno
 
-# Projeto Integrador III
+**Projeto Integrador III · Ciência de Dados · Fatec Rubens Lara**
 
-## Aula 02 - Vetores TF-IDF e similaridade do cosseno
+Primeiro ranking de verdade: documentos e consulta como vetores,
+pesos TF-IDF e ordenação pela similaridade do cosseno.
 
-ATIVIDADE 04 • ENTREGA PARA CASA
+![R](https://img.shields.io/badge/R-base-276DC3?style=flat&logo=r&logoColor=white)
+![Status](https://img.shields.io/badge/status-entregue-brightgreen)
+![Aula](https://img.shields.io/badge/aula-02-lightgrey)
 
-**Adriane da Costa Santos**  
-**Danilo Prado de Lima Silva**  
-**Victoria Cabral Quinterio**
+</div>
 
-Motor de Busca • Recuperação de Informação
+---
+
+## Sobre a atividade
+
+Sair da busca booleana ("o termo aparece?") e medir *o quanto* o
+documento combina com a consulta - Modelo do Espaço Vetorial + cosseno.
+
+> **Meta:** implementar TF-IDF e `cosseno` no corpus de 8 documentos
+> da Aula 01, escolher 3 consultas e reportar o ranking de cada uma.
+
+**Autores.** Adriane da Costa Santos · Danilo Prado de Lima Silva · Victoria Cabral Quinterio
+
+---
+
+## Sequência e correlação com a Atividade 02
+
+```
+Ativ 02  corpus real + top 10 (stopwords dominam)
+   |
+   v
+Ativ 03  por que pesar termos (IDF = bits)
+   |
+   v
+Ativ 04  como ranquear (TF-IDF + cosseno)   <-- esta atividade
+```
+
+| | Atividade 02 | Atividade 04 |
+|---|---|---|
+| Corpus | Real (Porto / APS / Francisco) | Brinquedo da aula (8 docs) |
+| Pergunta | Frequência informa relevância? | Como ordenar por relevância? |
+| Resposta | Não (Zipf / stopwords) | TF-IDF + cosseno |
+| Papel | Base do motor (textos reais) | Modelo de ranking |
+
+---
+
+## Material de referência
+
+- [Aula 02 - Vetores TF-IDF e Similaridade do Cosseno](../../MateriaisAulas/Aula%2002%20-%20Vetores%20TF-IDF%20e%20Similaridade%20do%20Cosseno.PDF)
+- [README da disciplina](../../README.md)
+
+---
+
+## Estrutura da pasta
+
+```
+.
+├── tfidf_similaridade_cosseno.md    # esta entrega
+└── tfidf_cosseno.R                  # script
+```
+
+---
+
+## Como rodar
+
+```bash
+cd "Atividades/atividade_04"
+Rscript tfidf_cosseno.R
+```
+
+Apenas **R base**.
 
 ---
 
