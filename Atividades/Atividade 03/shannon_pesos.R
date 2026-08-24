@@ -1,6 +1,7 @@
 # =============================================================
-# PI III - Motor de Busca - Aula 01.5
-# Atividade 03: De Shannon aos pesos dos termos
+# PI III - Motor de Busca - Atividade 03 / Aula 01.5
+# Fatec Rubens Lara - Ciência de Dados
+# De Shannon aos pesos dos termos
 # Corpus de brinquedo da Aula 01 (8 documentos)
 # =============================================================
 
@@ -93,7 +94,11 @@ rotas <- c(
   r1 = "santos cubatao guaruja bertioga",
   r2 = "santos guaruja cubatao bertioga",
   r3 = "santos bertioga guaruja cubatao",
-  r4 = "cubatao santos bertioga guaruja"
+  r4 = "cubatao santos bertioga guaruja",
+  r5 = "guaruja bertioga santos cubatao",
+  r6 = "bertioga cubatao santos guaruja",
+  r7 = "guaruja santos cubatao bertioga",
+  r8 = "bertioga guaruja cubatao santos"
 )
 # TF-IDF das rotas: todos os termos em todas as rotas => IDF = 0
 vocab_r <- sort(unique(unlist(lapply(rotas, tok))))
@@ -101,11 +106,13 @@ tdm_r <- sapply(rotas, function(r) {
   as.integer(table(factor(tok(r), levels = vocab_r)))
 })
 rownames(tdm_r) <- vocab_r
+Nr <- length(rotas)
 df_r <- rowSums(tdm_r > 0)
-idf_r <- log2(length(rotas) / df_r)
+idf_r <- log2(Nr / df_r)
+cat("N rotas =", Nr, "| bits necessarios =", log2(Nr), "\n")
 cat("IDF das cidades (todas aparecem em todas as rotas):\n")
 print(idf_r)
-cat("Consequencia: TF-IDF nao distingue as rotas (bag of words).\n\n")
+cat("Bits disponiveis no vocabulario: 0. Busca impossivel (bag of words).\n\n")
 
 # -------------------------------------------------------------
 # PARTE 2 - Perguntas para investigar

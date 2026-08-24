@@ -2,7 +2,7 @@
 
 # Atividade 02 - Do problema da busca ao nosso motor
 
-**Projeto Integrador III · Ciência de Dados · FATEC**
+**Projeto Integrador III · Ciência de Dados · Fatec Rubens Lara**
 
 Sair do *corpus* de brinquedo (8 documentos, 45 termos) e montar um
 primeiro *corpus* real com artigos da Wikipédia: vetor `docs`,
@@ -23,12 +23,15 @@ Primeira entrega do motor de busca: aplicar no *corpus* real os mesmos
 conceitos vistos em sala - carregar documentos, tokenizar, montar o
 vocabulário e listar os termos mais frequentes.
 
-> **Meta da atividade:** construir o primeiro *corpus* real do projeto e
-> medir o salto em relação ao corpus de brinquedo da aula (45 termos).
+> **Meta:** construir o primeiro *corpus* real do projeto e medir o salto
+> em relação ao corpus de brinquedo da aula (45 termos).
 
-**Material de referência:**
-[Aula 01 - Do Problema da Busca ao Nosso Motor](../../MateriaisAulas/Aula%2001%20-%20Do%20Problema%20da%20Busca%20ao%20Nosso%20Motor.PDF)
-· [README da disciplina](../../README.md)
+---
+
+## Material de referência
+
+- [Aula 01 - Do Problema da Busca ao Nosso Motor](../../MateriaisAulas/Aula%2001%20-%20Do%20Problema%20da%20Busca%20ao%20Nosso%20Motor.PDF)
+- [README da disciplina](../../README.md)
 
 ---
 
@@ -40,9 +43,9 @@ Cada artigo vira um documento `dN`; cada parágrafo vira `dN.k`.
 | ID | Nível | Documento | Artigo |
 |---|---|---|---|
 | `d1` | artigo | Porto de Santos | [Wikipédia](https://pt.wikipedia.org/wiki/Porto_de_Santos) |
-| `d1.1` … `d1.12` | parágrafo | parágrafos de `d1` | - |
+| `d1.1` ... `d1.12` | parágrafo | parágrafos de `d1` | - |
 | `d2` | artigo | Autoridade Portuária de Santos | [Wikipédia](https://pt.wikipedia.org/wiki/Autoridade_Portuária_de_Santos) |
-| `d2.1` … `d2.5` | parágrafo | parágrafos de `d2` | - |
+| `d2.1` ... `d2.5` | parágrafo | parágrafos de `d2` | - |
 | `d3` | artigo | Francisco de Paula Ribeiro | [Wikipédia](https://pt.wikipedia.org/wiki/Francisco_de_Paula_Ribeiro) |
 | `d3.1` | parágrafo | parágrafo de `d3` | - |
 
@@ -58,9 +61,9 @@ Cada artigo vira um documento `dN`; cada parágrafo vira `dN.k`.
 .
 ├── README.md
 ├── corpus_aula01.R                        # script principal
-├── porto_de_santos.txt                    # d1  (+ d1.1 … d1.12)
-├── autoridade_portuaria_de_santos.txt     # d2  (+ d2.1 … d2.5)
-└── francisco_de_paula_ribeiro.txt         # d3  (+ d3.1)
+├── porto_de_santos.txt                    # d1 (+ d1.1 ... d1.12)
+├── autoridade_portuaria_de_santos.txt     # d2 (+ d2.1 ... d2.5)
+└── francisco_de_paula_ribeiro.txt         # d3 (+ d3.1)
 ```
 
 Cada `.txt` guarda **só os parágrafos** do artigo (um bloco por parágrafo).
@@ -70,8 +73,7 @@ O script monta `d1`/`d2`/`d3` concatenando esses blocos.
 
 ## Como rodar
 
-Pré-requisito: [R](https://www.r-project.org/) instalado (apenas **R base**,
-sem pacotes externos).
+Pré-requisito: [R](https://www.r-project.org/) instalado (apenas **R base**).
 
 ```bash
 cd "Atividades/Atividade 02"
@@ -81,7 +83,7 @@ Rscript corpus_aula01.R
 O script:
 
 1. **Carrega** os 3 `.txt` e monta `docs` com artigos (`d1`, `d2`, `d3`) e
-   parágrafos (`d1.1`, `d1.2`, …)
+   parágrafos (`d1.1`, `d1.2`, ...)
 2. **Tokeniza** (`tolower` + `strsplit` por espaço)
 3. **Monta o vocabulário** a partir dos **artigos** (sem duplicar os parágrafos)
 4. **Lista** os 10 termos mais frequentes
@@ -102,11 +104,11 @@ O script:
 ### Vocabulário: corpus real × corpus de brinquedo
 
 ```
-Corpus de brinquedo (aula)   █ 45 termos
-Corpus real (3 artigos)      ████████████████████████████ 1.281 termos
+Corpus de brinquedo (aula)   # 45 termos
+Corpus real (3 artigos)      ############################ 1.281 termos
 ```
 
-**1.281 termos distintos - cerca de 28,5× maior** que o corpus de brinquedo.
+**1.281 termos distintos - cerca de 28,5x maior** que o corpus de brinquedo.
 
 ### Top 10 termos mais frequentes (artigos)
 
@@ -127,16 +129,38 @@ Corpus real (3 artigos)      █████████████████
 
 ## Discussão
 
-**Dois níveis no mesmo `docs`.** `d1` é o artigo inteiro; `d1.1` é o
-primeiro parágrafo. Útil depois para buscar no artigo ou no trecho.
+**O top 10 é informativo?** Em grande parte, **não**. Nove das dez posições
+são stopwords (`de`, `a`, `e`, `o`, `da`, `do`, `em`, `que`, `com`). Só
+`porto` carrega significado temático no top 10 (`santos` aparece em 12º,
+com frequência 31). Isso é esperado: a frequência bruta segue a Lei de Zipf.
 
-**Frequências só nos artigos.** Tokenizar também os `dN.k` no mesmo
-cálculo contaria o texto duas vezes; o script usa `d1`/`d2`/`d3` para
-vocabulário e top 10.
+**O que isso sugere sobre as próximas aulas?** Contar ocorrências não basta
+para ranquear relevância. Precisamos **pesar** os termos (raros no corpus,
+frequentes no documento) e depois medir o quanto a consulta combina com
+cada documento. Esse caminho continua assim:
 
-**O top 10 tende a ser dominado por *stopwords*.** Preposições e artigos
-concentram ocorrências (Lei de Zipf); termos como `porto` e `santos`
-carregam mais significado.
+| Próximo passo | Onde | O que responde |
+|---|---|---|
+| Por que o peso existe (IDF = bits) | [Atividade 03](../Atividade%2003) / Aula 01.5 | Shannon: termo raro informa mais |
+| Como ranquear de verdade | [Atividade 04](../Atividade%2004) / Aula 02 | TF-IDF + similaridade do cosseno |
+
+Não são entregas extras embutidas nesta atividade: são as **atividades
+seguintes** (03 e 04), na ordem das aulas. A Atividade 02 monta o corpus
+e deixa o problema à mostra.
+
+**Correlação com a Atividade 04.** Aqui criamos o *corpus* real (base do
+motor no semestre) e vimos que frequência != relevância. Na Atividade 04
+implementamos o ranking (TF-IDF + cosseno) no corpus de brinquedo da aula -
+o mesmo modelo que depois se aplica a este corpus.
+
+**Dois níveis no mesmo `docs`.** Orientação posterior do professor: cada
+artigo (`d1`, `d2`, `d3`) e cada parágrafo (`d1.1`, `d1.2`, ...). Útil para
+buscar no artigo inteiro ou no trecho.
+
+**Frequências só nos artigos.** Tokenizar também os `dN.k` no mesmo cálculo
+contaria o texto duas vezes; o script usa `d1`/`d2`/`d3` para vocabulário e
+top 10.
 
 **O texto real é "sujo".** Tokenização simples (`tolower` + espaços) deixa
 pontuação grudada nos termos (`codesp,`, `1980.`).
+

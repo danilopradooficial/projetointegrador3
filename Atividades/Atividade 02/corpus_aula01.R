@@ -1,5 +1,6 @@
 # =============================================================
-# PI III - Motor de Busca - Aula 01
+# PI III - Motor de Busca - Atividade 02 / Aula 01
+# Fatec Rubens Lara - Ciência de Dados
 # Para casa - parte 2: meu primeiro corpus real
 # Fonte: Wikipédia (CC BY-SA), pt.wikipedia.org
 #
@@ -63,8 +64,8 @@ tokenizar <- function(texto) {
   unlist(strsplit(texto, "\\s+"))
 }
 
-# Vocabulário / frequências nos ARTIGOS (d1, d2, d3) — sem contar
-# os parágrafos de novo (evita duplicar tokens do mesmo texto).
+# Vocabulario / frequencias nos ARTIGOS (d1, d2, d3) - sem contar
+# os paragrafos de novo (evita duplicar tokens do mesmo texto).
 ids_artigos <- c("d1", "d2", "d3")
 ids_paragrafos <- setdiff(names(docs), ids_artigos)
 

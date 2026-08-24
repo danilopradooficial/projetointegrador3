@@ -1,10 +1,8 @@
-<div align="center">
+# Projeto Integrador III
 
-# Motor de Busca - Projeto Integrador III
+**Ciência de Dados · Fatec Rubens Lara - Baixada Santista**
 
-**Ciência de Dados · FATEC**
-
-Construindo um motor de busca do zero: dos modelos clássicos de
+Construção incremental de um motor de busca: dos modelos clássicos de
 *Information Retrieval* até técnicas neurais e busca por fórmulas
 matemáticas (MIR).
 
@@ -12,21 +10,24 @@ matemáticas (MIR).
 ![Status](https://img.shields.io/badge/status-em%20andamento-yellow)
 ![Licença dos textos](https://img.shields.io/badge/corpus-CC%20BY--SA-lightgrey)
 
-</div>
-
 ---
 
 ## Sobre a disciplina
 
-Este repositório documenta a construção incremental de um motor de busca,
-partindo dos fundamentos de **Recuperação de Informação (RI)** - tokenização,
-vocabulário, matriz termo-documento - até chegar em modelos de ranqueamento
-(TF-IDF, BM25), recuperação densa, *rerank* neural e busca por fórmulas
-matemáticas.
+**Objetivo.** Compreender os modernos sistemas de recuperação de informações
+e obter experiência prática usando ferramentas existentes para criar e
+configurar mecanismos de pesquisa (motor de busca) em bases de dados on-line.
+Construir o próprio motor de busca.
 
-> **Meta do projeto:** construir um motor de busca completo sobre um
-> *corpus* real, aula após aula, como parte da disciplina Projeto Integrador
-> III.
+**Ementa.** Sistema de recuperação de informação e sua implementação. Técnicas
+de análise de texto. Modelos de recuperação (Booleano, Espaço vetorial,
+Probabilístico, Métodos baseados em aprendizado de máquinas, Pesquisa de
+avaliação, Recuperação de Feedback, Mineração de log de pesquisa). Desenvolver
+aplicativos para o gerenciamento de informações na web. Projeto integrado com
+Inteligência computacional, Linguagem e seus códigos II e Teoria do aprendizado
+estatístico.
+
+**Professor.** Prof. Dr. João Paulo Ferreira de Mello
 
 ---
 
@@ -47,13 +48,16 @@ matemáticas.
     └── Aula 02 - Vetores TF-IDF e Similaridade do Cosseno.PDF
 ```
 
+O material teórico fica em [MateriaisAulas/](MateriaisAulas).
+As entregas práticas ficam em [Atividades/](Atividades).
+
 ---
 
 ## Atividades × aulas
 
-Cada pasta em [`Atividades/`](Atividades) corresponde a uma aula em
-[`MateriaisAulas/`](MateriaisAulas) e tem o próprio `README.md` com o
-detalhe da entrega.
+Cada pasta em [Atividades/](Atividades) corresponde a uma aula em
+[MateriaisAulas/](MateriaisAulas) e tem o próprio `README.md` com o detalhe
+da entrega.
 
 | # | Pasta | Aula | Tema | Status |
 |:-:|---|---|---|---|
@@ -64,19 +68,33 @@ detalhe da entrega.
 
 ---
 
-## Roadmap
+## Sequência das atividades
+
+Cada "para casa" do material corresponde a uma atividade, na ordem das aulas:
+
+```
+Ativ 01 (Aula 00)   R base
+        |
+        v
+Ativ 02 (Aula 01)   Corpus real + top 10 (frequencia != relevancia)
+        |
+        v
+Ativ 03 (Aula 01.5) Por que o IDF (Shannon / bits)
+        |
+        v
+Ativ 04 (Aula 02)   Como ranquear (TF-IDF + cosseno)
+```
+
+| De | Para | Correlação |
+|---|---|---|
+| 02 | 03 | Top 10 cheio de stopwords motiva medir *informação* do termo (bits) |
+| 03 | 04 | A 03 deriva o IDF; a 04 usa TF-IDF + cosseno para ordenar documentos |
+| 02 | 04 | Corpus real é a base do semestre; o modelo da 04 aplica-se a ele depois |
 
 ```
 Aula 00    █ R base e ferramentas da disciplina
 Aula 01    █ Corpus, tokens, vocabulário, frequências
 Aula 01.5  █ Shannon e pesos dos termos (IDF = bits)
 Aula 02    █ Vetores TF-IDF e similaridade do cosseno
-…          ░ BM25 · recuperação densa · rerank · MIR
+...        ░ BM25 · recuperação densa · rerank · MIR
 ```
-
----
-
-## Material de aula
-
-O material teórico fica em [`MateriaisAulas/`](MateriaisAulas).
-As entregas práticas ficam em [`Atividades/`](Atividades).
