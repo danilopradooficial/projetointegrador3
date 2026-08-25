@@ -34,7 +34,7 @@ Danilo Prado de Lima Silva
 Victória Cabral Quintério
 ([victoria.quinterio@aluno.cps.sp.gov.br](mailto:victoria.quinterio@aluno.cps.sp.gov.br))
 
-**Linguagem das entregas:**  
+**Linguagem das entregas:**
 Sempre **R base**.
 
 ---
