@@ -24,17 +24,17 @@ Sistema de recuperação de informação e sua implementação. Técnicas de an�
 Prof. Dr. João Paulo Ferreira de Mello  
 ([joao.mello12@fatec.sp.gov.br](mailto:joao.mello12@fatec.sp.gov.br))
 
-**Alunos:**
-Adriane da Costa Santos
+**Alunos:**  
+Adriane da Costa Santos  
 ([adriane.santos01@aluno.cps.sp.gov.br](mailto:adriane.santos01@aluno.cps.sp.gov.br))
 
-Danilo Prado de Lima Silva
+Danilo Prado de Lima Silva  
 ([danilo.silva25@aluno.cps.sp.gov.br](mailto:danilo.silva25@aluno.cps.sp.gov.br))
 
-Victória Cabral Quintério
+Victória Cabral Quintério  
 ([victoria.quinterio@aluno.cps.sp.gov.br](mailto:victoria.quinterio@aluno.cps.sp.gov.br))
 
-**Linguagem das entregas:**
+**Linguagem das entregas:**  
 Sempre **R base**.
 
 ---
