@@ -1,0 +1,8 @@
+{
+  "name": "Projeto Integrador III (R base)",
+  "user": "ubuntu",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "install": "Rscript -e 'cat(R.version.string, \"\\n\"); stopifnot(getRversion() >= \"4.0.0\")'"
+}
