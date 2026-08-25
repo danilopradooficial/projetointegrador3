@@ -1,0 +1,5 @@
+{
+  "name": "Projeto Integrador III (R base)",
+  "user": "ubuntu",
+  "install": "sudo apt-get update\nsudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends r-base-core\nRscript -e 'cat(R.version.string, \"\\n\"); stopifnot(getRversion() >= \"4.0.0\")'"
+}
