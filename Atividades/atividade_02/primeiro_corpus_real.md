@@ -62,7 +62,7 @@ Cada artigo vira um documento `dN`; cada parágrafo vira `dN.k`.
 ```
 .
 ├── primeiro_corpus_real.md              # esta entrega
-├── corpus_aula01.R                        # script principal
+├── corpus_aula_01.R                        # script principal
 ├── porto_de_santos.txt                    # d1 (+ d1.1 ... d1.12)
 ├── autoridade_portuaria_de_santos.txt     # d2 (+ d2.1 ... d2.5)
 └── francisco_de_paula_ribeiro.txt         # d3 (+ d3.1)
@@ -79,7 +79,7 @@ Pré-requisito: [R](https://www.r-project.org/) instalado (apenas **R base**).
 
 ```bash
 cd "Atividades/atividade_02"
-Rscript corpus_aula01.R
+Rscript corpus_aula_01.R
 ```
 
 O script:
@@ -143,17 +143,17 @@ cada documento. Esse caminho continua assim:
 
 | Próximo passo | Onde | O que responde |
 |---|---|---|
-| Por que o peso existe (IDF = bits) | [shannon_pesos_dos_termos.md](../atividade_03/shannon_pesos_dos_termos.md) | Shannon: termo raro informa mais |
-| Como ranquear de verdade | [tfidf_similaridade_cosseno.md](../atividade_04/tfidf_similaridade_cosseno.md) | TF-IDF + similaridade do cosseno |
+| Por que o peso existe (IDF = bits) | [Ativ 03 · Parte A](../atividade_03/shannon_pesos_dos_termos.md) | Shannon: termo raro informa mais |
+| Como ranquear de verdade | [Ativ 03 · Parte B](../atividade_03/tfidf_similaridade_cosseno.md) | TDM → TF-IDF + similaridade do cosseno |
 
-Não são entregas extras embutidas nesta atividade: são as **atividades
-seguintes** (03 e 04), na ordem das aulas. A Atividade 02 monta o corpus
+Não são entregas extras embutidas nesta atividade: são as **partes da
+Atividade 03**, na ordem das aulas. A Atividade 02 monta o corpus
 e deixa o problema à mostra.
 
-**Correlação com a Atividade 04.** Aqui criamos o *corpus* real (base do
-motor no semestre) e vimos que frequência != relevância. Na Atividade 04
-implementamos o ranking (TF-IDF + cosseno) no corpus de brinquedo da aula -
-o mesmo modelo que depois se aplica a este corpus.
+**Correlação com a Atividade 03 · Parte B.** Aqui criamos o *corpus* real
+(base do motor no semestre) e vimos que frequência != relevância. Na
+Parte B implementamos o ranking (TF-IDF + cosseno) no corpus de brinquedo
+da aula - o mesmo modelo que depois se aplica a este corpus.
 
 **Dois níveis no mesmo `docs`.** Orientação posterior do professor: cada
 artigo (`d1`, `d2`, `d3`) e cada parágrafo (`d1.1`, `d1.2`, ...). Útil para
