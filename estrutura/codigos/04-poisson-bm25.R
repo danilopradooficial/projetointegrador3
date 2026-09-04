@@ -126,7 +126,7 @@ if (termo_ex %in% vocab) {
   print(freqs[freqs > 0][1:min(10, sum(freqs > 0))])
   cat("P(X=f) sob Poisson(lambda_hat):\n")
   print(round(sapply(0:5, poisson_p, lambda = lambda_hat), 4))
-  cat("Obs: texto real e 'burstiness' — a Poisson unica subestima\n")
+  cat("Obs: texto real e 'burstiness' - a Poisson unica subestima\n")
   cat("os extremos (docs que falam muito do termo).\n\n")
 }
 

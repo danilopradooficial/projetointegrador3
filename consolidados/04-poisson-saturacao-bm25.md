@@ -2,7 +2,7 @@
 
 # Atividade 04 - Poisson, saturação e BM25
 
-**Shannon Ranking · Projeto Integrador III · Ciência de Dados · Fatec Rubens Lara**
+**Team Shannon · Projeto Integrador III · Ciência de Dados · Fatec Rubens Lara**
 
 Da distribuição de Poisson ao peso do termo, até o BM25 no nosso
 corpus do Porto de Santos.
@@ -33,7 +33,7 @@ Snowball da Atividade 03.
 > **Meta:** calcular probabilidade/peso via Poisson (e 2-Poisson), ver a
 > saturação nascer do modelo e ranquear com BM25, comparando com TF-IDF.
 
-**Equipe.** Shannon Ranking  
+**Equipe.** Team Shannon  
 **Autores.** Adriane da Costa Santos · Danilo Prado de Lima Silva · Victoria Cabral Quinterio
 
 ---
@@ -117,7 +117,7 @@ No nosso corpus, o stem `port` tem média de tf ≈ **6** por documento
 (incluindo zeros). A Poisson com esse \(\lambda\) até descreve o “meio”,
 mas o texto real é **burstiness**: ou o doc quase não fala do assunto,
 ou fala bastante (`port` chega a tf=43 no artigo d1). Uma Poisson só
-não explica bem esses extremos — daí a Aula 04 ir para duas populações.
+não explica bem esses extremos - daí a Aula 04 ir para duas populações.
 
 ---
 
@@ -139,7 +139,7 @@ de verossimilhanças (parâmetros do slide: \(\lambda=3\), \(\mu=0,2\),
 
 `w(0)` cru deu −0,7304; normalizamos subtraindo esse valor para a
 ausência do termo valer zero. O teto fica em ≈ **2,52**. A partir da
-3ª ocorrência o peso quase congela — **saturação**: repetir o termo
+3ª ocorrência o peso quase congela - **saturação**: repetir o termo
 não aumenta a convicção de que o doc é elite.
 
 Na prática a gente *não* estima \(\lambda, \mu, p, q\) por termo (são
@@ -190,7 +190,7 @@ Tamanhos após o prep da Ativ 03:
 | d3 Francisco de Paula Ribeiro | 73 |
 | média (21 docs) | 202,5 |
 
-d1 é bem mais longo que d2/d3 — o parâmetro `b` existe justamente por
+d1 é bem mais longo que d2/d3 - o parâmetro `b` existe justamente por
 isso.
 
 ---
@@ -230,7 +230,7 @@ Os dois modelos batem: o artigo da APS (d2) é o certo.
 | **BM25** | **d3** (5,680) | d1 (0,864) | d2 (0) |
 | **TF-IDF** | **d3** (0,363) | d1 (0,022) | d2 (0) |
 
-De novo alinhados. d3 é curto e específico — BM25 e TF-IDF colocam ele
+De novo alinhados. d3 é curto e específico - BM25 e TF-IDF colocam ele
 na frente. (d3.1 tem o mesmo texto do artigo d3, por isso empata com
 d3 no ranking por parágrafo.)
 
@@ -257,13 +257,13 @@ a aula descreve (verbosidade vs escopo).
 
 1. **Poisson** dá a probabilidade de ver o termo *f* vezes; sozinha não
    segura o “estouro” de palavras de conteúdo no texto real.
-2. Com **duas Poissons** (elite / não-elite) o peso **satura** — e isso
+2. Com **duas Poissons** (elite / não-elite) o peso **satura** - e isso
    não foi imposto na mão, saiu do modelo.
 3. O **BM25** é a versão prática: mesma ideia de saturação (`k1`) +
    correção de tamanho (`b`) + IDF robusto.
 4. No Porto de Santos, BM25 e TF-IDF concordam nas consultas claras
    (APS, Francisco); na consulta genérica “porto de santos” o BM25
-   freia um pouco o artigo enorme (d1) — exatamente o problema que a
+   freia um pouco o artigo enorme (d1) - exatamente o problema que a
    Aula 04 queria atacar.
 
 Próximo no material: avaliação de ranking (P@k, MAP, nDCG).

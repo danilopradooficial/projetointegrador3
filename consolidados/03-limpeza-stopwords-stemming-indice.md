@@ -2,7 +2,7 @@
 
 # Atividade 03 - Limpeza, stopwords, stemming e o índice
 
-**Shannon Ranking · Projeto Integrador III · Ciência de Dados · Fatec Rubens Lara**
+**Team Shannon · Projeto Integrador III · Ciência de Dados · Fatec Rubens Lara**
 
 Pré-processar o *corpus* real, reduzir ao radical com Snowball e
 montar um índice invertido com busca booleana (AND / OR).
@@ -42,7 +42,7 @@ Também: índice invertido + `busca_AND` / `busca_OR`.
 > **Meta:** vocabulário menor, índice utilizável e busca booleana nos
 > artigos/parágrafos do corpus real.
 
-**Equipe.** Shannon Ranking  
+**Equipe.** Team Shannon  
 **Autores.** Adriane da Costa Santos · Danilo Prado de Lima Silva · Victoria Cabral Quinterio
 
 ---
@@ -137,7 +137,7 @@ Script: `03-preprocessao-indice.R`
 
 
 
-# Implementação — pré-processamento passo a passo
+# Implementação - pré-processamento passo a passo
 
 O pré-processamento desta atividade é o pipeline completo abaixo.
 Cada etapa alimenta a seguinte; a busca usa o **mesmo** `prep` da
@@ -181,7 +181,7 @@ prep <- function(x) {
 ## 2) Padronização do texto
 
 Objetivo: formas diferentes do “mesmo” termo colapsarem numa única chave
-(Aula 03 — Normalização).
+(Aula 03 - Normalização).
 
 ```r
 limpar <- function(x) {
@@ -216,7 +216,7 @@ Limpo: porto de santos e um porto estuarino localizado nos municipios...
 ## 3) Remover stopwords
 
 Stopwords = palavras muito frequentes e pouco discriminativas
-(`de`, `o`, `a`, `e`… — o problema do top 10 da Atividade 01).
+(`de`, `o`, `a`, `e`… - o problema do top 10 da Atividade 01).
 
 ```r
 stopwords <- c(
@@ -264,7 +264,7 @@ No nosso pipeline:
 SnowballC::wordStem(t, language = "portuguese")
 ```
 
-Atenção (Aula 03): stemming é **destrutivo** — o radical nem sempre é
+Atenção (Aula 03): stemming é **destrutivo** - o radical nem sempre é
 palavra real; ganha-se recall, perde-se um pouco de precisão.
 
 ---
@@ -308,7 +308,7 @@ busca_OR <- function(consulta) {
 
 | Etapa          | Termos distintos | vs limpeza |
 | -------------- | ---------------- | ---------- |
-| Após limpeza   | 1.104            | —          |
+| Após limpeza   | 1.104            | -          |
 | Após stopwords | 1.054            | −4,5%      |
 | Após Snowball  | **873**          | **−20,9%** |
 
@@ -360,9 +360,9 @@ corpus (porto, Santos, autoridade, CODESP…).
 
 - Dicionário: **873** stems
 - Exemplos de postagens:
-  - `port` → d1, d1.1–d1.10, d2, d2.1–d2.3, d2.5, d3, d3.1 (16 docs)
+  - `port` → d1, d1.1-d1.10, d2, d2.1-d2.3, d2.5, d3, d3.1 (16 docs)
   - `sant` → 16 docs
-  - `carg` → d1, d1.1, d1.2, d1.8–d1.10
+  - `carg` → d1, d1.1, d1.2, d1.8-d1.10
   - `ribeir` → d1, d1.2, d3, d3.1
 
 
@@ -380,7 +380,7 @@ corpus (porto, Santos, autoridade, CODESP…).
 
 
 **AND** restringe (interseção); **OR** amplia (união). Sem ler nenhum
-documento na hora da busca — só cruzamos listas de postagens.
+documento na hora da busca - só cruzamos listas de postagens.
 
 ## Stemming é destrutivo
 
@@ -407,10 +407,10 @@ Ganha-se *recall* (formas diferentes casam), perde-se um pouco de
 1. **Por que o vocabulário cai ~21%?** Stemming funde flexões
   (`porto`/`portos` → `port`, `santos` → `sant`).
 2. **Por que stopwords mudam pouco o tamanho do vocab, mas mudam o top 10?**
-  Poucas formas, muitas ocorrências — exatamente o problema da Atividade 01.
+  Poucas formas, muitas ocorrências - exatamente o problema da Atividade 01.
 3. **Índice invertido** transforma busca de O(N docs) em consulta ao
   dicionário + interseção/união de listas curtas.
-4. **Mesmo** `prep` **na consulta e na indexação** — sem isso, `Santos` não
+4. **Mesmo** `prep` **na consulta e na indexação** - sem isso, `Santos` não
   acharia `sant`.
 
 Próximo passo: saturação e BM25 na

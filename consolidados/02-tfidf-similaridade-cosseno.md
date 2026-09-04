@@ -2,7 +2,7 @@
 
 # Atividade 02 - Vetores TF-IDF e similaridade do cosseno
 
-**Shannon Ranking · Projeto Integrador III · Ciência de Dados · Fatec Rubens Lara**
+**Team Shannon · Projeto Integrador III · Ciência de Dados · Fatec Rubens Lara**
 
 Primeiro ranking de verdade: documentos e consulta como vetores,
 pesos TF-IDF e ordenação pela similaridade do cosseno.
@@ -22,13 +22,13 @@ pesos TF-IDF e ordenação pela similaridade do cosseno.
 *o quanto* o documento combina com a consulta (espaço vetorial + cosseno).
 
 Fizemos no **corpus de brinquedo** da aula (8 docs), como no para casa.
-O mesmo modelo depois roda no corpus wiki — na Atividade 04 comparamos
+O mesmo modelo depois roda no corpus wiki - na Atividade 04 comparamos
 TF-IDF com BM25 em cima dos três textos do Porto de Santos (já limpos
 na Ativ 03).
 
 > **Meta:** TDM → TF-IDF → `cosseno`, 3 consultas e o ranking de cada uma.
 
-**Equipe.** Shannon Ranking  
+**Equipe.** Team Shannon  
 **Autores.** Adriane da Costa Santos · Danilo Prado de Lima Silva · Victoria Cabral Quinterio
 
 ---

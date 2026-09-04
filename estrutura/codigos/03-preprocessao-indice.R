@@ -133,7 +133,7 @@ cat("\n--- Top 10 DEPOIS (sem stop + Snowball) ---\n")
 print(head(freq_stem, 10))
 cat("\n")
 
-## 7) Indice invertido (Aula 03) — todos os docs (artigos + paragrafos)
+## 7) Indice invertido (Aula 03) - todos os docs (artigos + paragrafos)
 postings <- list()
 for (d in ids_docs) {
   for (termo in unique(prep(docs[[d]]))) {
@@ -207,7 +207,7 @@ cat("\n")
 ## 9) Stemming destrutivo: formas que colapsam
 pares <- c("documentos", "documento", "portuaria", "portuario",
            "cargas", "carga", "navios", "navio")
-cat("=== SnowballC (portuguese) — colapso de formas ===\n")
+cat("=== SnowballC (portuguese) - colapso de formas ===\n")
 print(data.frame(
   forma = pares,
   stem  = wordStem(pares, language = "portuguese"),

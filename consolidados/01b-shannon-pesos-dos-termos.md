@@ -2,7 +2,7 @@
 
 # Atividade 01 · Parte B - De Shannon aos pesos dos termos
 
-**Shannon Ranking · Projeto Integrador III · Ciência de Dados · Fatec Rubens Lara**
+**Team Shannon · Projeto Integrador III · Ciência de Dados · Fatec Rubens Lara**
 
 Entender o TF-IDF pela Teoria da Informação: incerteza em bits,
 autoinformação de uma pista e por que o IDF não é heurística.
@@ -31,7 +31,7 @@ de *seleção* entre documentos, cada termo como pista que reduz incerteza.
 > **Meta (Parte B):** com o corpus de 8 documentos da Aula 01, medir bits
 > por termo, reconstruir o IDF e responder onde a fórmula "mente".
 
-**Equipe.** Shannon Ranking  
+**Equipe.** Team Shannon  
 **Autores.** Adriane da Costa Santos · Danilo Prado de Lima Silva · Victoria Cabral Quinterio
 
 ---

@@ -2,7 +2,7 @@
 
 # Atividade 01 · Parte A - Do problema da busca ao nosso motor
 
-**Shannon Ranking · Projeto Integrador III · Ciência de Dados · Fatec Rubens Lara**
+**Team Shannon · Projeto Integrador III · Ciência de Dados · Fatec Rubens Lara**
 
 Sair do *corpus* de brinquedo (8 documentos, 45 termos) e montar um
 primeiro *corpus* real com artigos da Wikipédia: vetor `docs`,
@@ -34,7 +34,7 @@ vocabulário e listar os termos mais frequentes.
 > **Meta (Parte A):** construir o primeiro *corpus* real do projeto e medir
 > o salto em relação ao corpus de brinquedo da aula (45 termos).
 
-**Equipe.** Shannon Ranking  
+**Equipe.** Team Shannon  
 **Autores.** Adriane da Costa Santos · Danilo Prado de Lima Silva · Victoria Cabral Quinterio
 
 ---

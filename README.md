@@ -1,4 +1,4 @@
-# Projeto Integrador III — Shannon Ranking
+# Projeto Integrador III - Team Shannon
 
 **Ciência de Dados · Fatec Rubens Lara - Baixada Santista**
 
@@ -6,7 +6,7 @@ Construção incremental de um motor de busca (Information Retrieval → MIR).
 
 ![R](https://img.shields.io/badge/R-base-276DC3?style=flat&logo=r&logoColor=white)
 ![Status](https://img.shields.io/badge/status-em%20andamento-yellow)
-![Equipe](https://img.shields.io/badge/equipe-Shannon%20Ranking-0B3954)
+![Equipe](https://img.shields.io/badge/equipe-Team%20Shannon-0B3954)
 ![Licença dos textos](https://img.shields.io/badge/corpus-CC%20BY--SA-lightgrey)
 
 ---
@@ -19,7 +19,7 @@ Construção incremental de um motor de busca (Information Retrieval → MIR).
 Prof. Dr. João Paulo Ferreira de Mello  
 ([joao.mello12@fatec.sp.gov.br](mailto:joao.mello12@fatec.sp.gov.br))
 
-**Equipe:** Shannon Ranking  
+**Equipe:** Team Shannon  
 
 **Alunos:**  
 Adriane da Costa Santos  
@@ -31,7 +31,7 @@ Danilo Prado de Lima Silva
 Victória Cabral Quintério  
 ([victoria.quinterio@aluno.cps.sp.gov.br](mailto:victoria.quinterio@aluno.cps.sp.gov.br))
 
-**Linguagem:** R base (Ativ. 00–02). A partir da 03: R + `SnowballC`.
+**Linguagem:** R base (Ativ. 00-02). A partir da 03: R + `SnowballC`.
 
 ---
 
@@ -68,7 +68,7 @@ Victória Cabral Quintério
 | `estrutura/codigos` | Códigos R do motor |
 | `consolidados` | Relatórios/entregas em Markdown |
 | `materiais-aulas` | Slides/PDFs |
-| `to-delete-trash` | Layout antigo — pode apagar depois de conferir |
+| `to-delete-trash` | Layout antigo - pode apagar depois de conferir |
 
 ---
 
@@ -78,7 +78,7 @@ Base: três artigos da Wikipédia (Porto de Santos, APS, Francisco de Paula Ribe
 
 | Entrega | Arquivo MD | Script | Tema |
 |:-:|---|---|---|
-| 1ª | [00-introducao-ao-r.md](consolidados/00-introducao-ao-r.md) | — | R base (Aula 00) |
+| 1ª | [00-introducao-ao-r.md](consolidados/00-introducao-ao-r.md) | - | R base (Aula 00) |
 | 2ª A | [01a-primeiro-corpus-real.md](consolidados/01a-primeiro-corpus-real.md) | `01a-corpus-aula-01.R` | Corpus · frequências (Aula 01) |
 | 2ª B | [01b-shannon-pesos-dos-termos.md](consolidados/01b-shannon-pesos-dos-termos.md) | `01b-shannon-pesos.R` | Shannon · IDF (Aula 01.5) |
 | 3ª | [02-tfidf-similaridade-cosseno.md](consolidados/02-tfidf-similaridade-cosseno.md) | `02-tfidf-cosseno.R` | TF-IDF · cosseno (Aula 02) |
