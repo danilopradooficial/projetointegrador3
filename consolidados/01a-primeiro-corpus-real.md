@@ -67,13 +67,17 @@ Cada artigo vira um documento `dN`; cada parágrafo vira `dN.k`.
 
 ---
 
-## Estrutura da pasta (Atividade 01)
+## Estrutura da pasta (Atividade 01 · Parte A)
 
 ```
+estrutura/corpus/
+├── porto_de_santos.txt
+├── autoridade_portuaria_de_santos.txt
+└── francisco_de_paula_ribeiro.txt
 estrutura/codigos/
-└── 01b-shannon-pesos.R
+└── 01a-corpus-aula-01.R
 consolidados/
-└── 01b-shannon-pesos-dos-termos.md
+└── 01a-primeiro-corpus-real.md
 ```
 
 Cada `.txt` guarda **só os parágrafos** do artigo (um bloco por parágrafo).

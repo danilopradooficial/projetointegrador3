@@ -46,6 +46,7 @@ Victória Cabral Quintério
 │   │   ├── autoridade_portuaria_de_santos.txt
 │   │   └── francisco_de_paula_ribeiro.txt
 │   └── codigos/                # todos os scripts .R
+│       ├── 00-introducao-ao-r.R
 │       ├── 01a-corpus-aula-01.R
 │       ├── 01b-shannon-pesos.R
 │       ├── 02-tfidf-cosseno.R
@@ -78,7 +79,7 @@ Base: três artigos da Wikipédia (Porto de Santos, APS, Francisco de Paula Ribe
 
 | Entrega | Arquivo MD | Script | Tema |
 |:-:|---|---|---|
-| 1ª | [00-introducao-ao-r.md](consolidados/00-introducao-ao-r.md) | - | R base (Aula 00) |
+| 1ª | [00-introducao-ao-r.md](consolidados/00-introducao-ao-r.md) | `00-introducao-ao-r.R` | R base (Aula 00) |
 | 2ª A | [01a-primeiro-corpus-real.md](consolidados/01a-primeiro-corpus-real.md) | `01a-corpus-aula-01.R` | Corpus · frequências (Aula 01) |
 | 2ª B | [01b-shannon-pesos-dos-termos.md](consolidados/01b-shannon-pesos-dos-termos.md) | `01b-shannon-pesos.R` | Shannon · IDF (Aula 01.5) |
 | 3ª | [02-tfidf-similaridade-cosseno.md](consolidados/02-tfidf-similaridade-cosseno.md) | `02-tfidf-cosseno.R` | TF-IDF · cosseno (Aula 02) |
@@ -95,6 +96,7 @@ R base → corpus wiki → IDF → TF-IDF → limpeza/índice → BM25
 
 ```bash
 cd estrutura/codigos
+Rscript 00-introducao-ao-r.R
 Rscript 01a-corpus-aula-01.R
 Rscript 01b-shannon-pesos.R
 Rscript 02-tfidf-cosseno.R
