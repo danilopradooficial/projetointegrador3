@@ -2,9 +2,7 @@
 
 **Ciência de Dados · Fatec Rubens Lara - Baixada Santista**
 
-Construção incremental de um motor de busca: dos modelos clássicos de
-*Information Retrieval* até técnicas neurais e busca por fórmulas
-matemáticas (MIR).
+Construção incremental de um motor de busca (Information Retrieval → MIR).
 
 ![R](https://img.shields.io/badge/R-base-276DC3?style=flat&logo=r&logoColor=white)
 ![Status](https://img.shields.io/badge/status-em%20andamento-yellow)
@@ -14,11 +12,7 @@ matemáticas (MIR).
 
 ## Sobre a disciplina
 
-**Objetivo:**  
-**Compreender os modernos sistemas de recuperação de informações e obter experiência prática usando ferramentas existentes para criar e configurar mecanismos de pesquisa (motor de busca) em bases de dados on-line.** Construir o próprio motor de busca.
-
-**Ementa:**  
-Sistema de recuperação de informação e sua implementação. Técnicas de análise de texto. Modelos de recuperação (Booleano, Espaço vetorial, Probabilístico, Métodos baseados em aprendizado de máquinas, Pesquisa de avaliação, Recuperação de Feedback, Mineração de log de pesquisa). Desenvolver aplicativos para o gerenciamento de informações na web. Projeto integrado com Inteligência computacional, Linguagem e seus códigos II e Teoria do aprendizado estatístico.
+**Objetivo:** compreender sistemas de recuperação de informação e construir o próprio motor de busca.
 
 **Professor:**  
 Prof. Dr. João Paulo Ferreira de Mello  
@@ -34,90 +28,75 @@ Danilo Prado de Lima Silva
 Victória Cabral Quintério  
 ([victoria.quinterio@aluno.cps.sp.gov.br](mailto:victoria.quinterio@aluno.cps.sp.gov.br))
 
-**Linguagem das entregas:**  
-Sempre **R base**.
+**Linguagem:** R base (Ativ. 00–02). A partir da 03: R + `SnowballC`.
 
 ---
-
-
 
 ## Estrutura do repositório
 
 ```
 .
 ├── README.md
-├── Atividades/
-│   ├── atividade_01/
-│   │   └── introducao_ao_r.md
-│   ├── atividade_02/
-│   │   ├── primeiro_corpus_real.md
-│   │   ├── corpus_aula_01.R
-│   │   └── *.txt                         # corpus Wikipédia (CC BY-SA)
-│   └── atividade_03/                 # uma atividade, duas partes
-│       ├── shannon_pesos_dos_termos.md      # Parte A
-│       ├── shannon_pesos.R
-│       ├── tfidf_similaridade_cosseno.md    # Parte B
-│       └── tfidf_cosseno.R
-└── MateriaisAulas/
-    ├── Aula 00 - O Básico para Acompanhar o Curso.PDF
-    ├── Aula 01 - Do Problema da Busca ao Nosso Motor.PDF
-    ├── Aula 01.5 - Do Shannon aos Pesos dos Termos.PDF
-    └── Aula 02 - Vetores TF-IDF e Similaridade do Cosseno.PDF
+├── estrutura/
+│   ├── corpus/                 # base textual (3 artigos wiki)
+│   │   ├── porto_de_santos.txt
+│   │   ├── autoridade_portuaria_de_santos.txt
+│   │   └── francisco_de_paula_ribeiro.txt
+│   └── codigos/                # todos os scripts .R
+│       ├── 01a-corpus-aula-01.R
+│       ├── 01b-shannon-pesos.R
+│       ├── 02-tfidf-cosseno.R
+│       ├── 03-preprocessao-indice.R
+│       └── 04-poisson-bm25.R
+├── consolidados/               # todas as entregas .md
+│   ├── 00-introducao-ao-r.md
+│   ├── 01a-primeiro-corpus-real.md
+│   ├── 01b-shannon-pesos-dos-termos.md
+│   ├── 02-tfidf-similaridade-cosseno.md
+│   ├── 03-limpeza-stopwords-stemming-indice.md
+│   └── 04-poisson-saturacao-bm25.md
+├── materiais-aulas/            # PDFs das aulas
+└── to-delete-trash/            # pasta antiga Atividades/ (lixo)
 ```
 
-- Teoria: [MateriaisAulas/](MateriaisAulas)
-- Entregas: [Atividades/](Atividades)
-- Um `.md` por assunto; código `.R` separado
-- A Atividade 03 reúne **Parte A** (Shannon) e **Parte B** (TDM → TF-IDF)
+| Pasta | Conteúdo |
+|---|---|
+| `estrutura/corpus` | Base textual única do semestre |
+| `estrutura/codigos` | Códigos R do motor |
+| `consolidados` | Relatórios/entregas em Markdown |
+| `materiais-aulas` | Slides/PDFs |
+| `to-delete-trash` | Layout antigo — pode apagar depois de conferir |
 
 ---
 
+## Como o motor está sendo montado
 
+Base: três artigos da Wikipédia (Porto de Santos, APS, Francisco de Paula Ribeiro).
 
-## Atividades × aulas
-
-Cada pasta responde a um “para casa” do PDF. O texto da entrega está no
-`.md` indicado; scripts `.R` ficam ao lado quando houver código.
-
-
-| #    | Entrega                                                                                | Aula                                                                                             | Tema                                                  | Status   |
-| ---- | -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ----------------------------------------------------- | -------- |
-| 01   | [introducao_ao_r.md](Atividades/atividade_01/introducao_ao_r.md)                       | [Aula 00](MateriaisAulas/Aula%2000%20-%20O%20Básico%20para%20Acompanhar%20o%20Curso.PDF)         | Introdução ao R (Explicar · Explorar · Prever)        | Entregue |
-| 02   | [primeiro_corpus_real.md](Atividades/atividade_02/primeiro_corpus_real.md)             | [Aula 01](MateriaisAulas/Aula%2001%20-%20Do%20Problema%20da%20Busca%20ao%20Nosso%20Motor.PDF)    | Corpus real · tokenização · vocabulário · frequências | Entregue |
-| 03 A | [shannon_pesos_dos_termos.md](Atividades/atividade_03/shannon_pesos_dos_termos.md)     | [Aula 01.5](MateriaisAulas/Aula%2001.5%20-%20Do%20Shannon%20aos%20Pesos%20dos%20Termos.PDF)      | Shannon · autoinformação · IDF como bits              | Entregue |
-| 03 B | [tfidf_similaridade_cosseno.md](Atividades/atividade_03/tfidf_similaridade_cosseno.md) | [Aula 02](MateriaisAulas/Aula%2002%20-%20Vetores%20TF-IDF%20e%20Similaridade%20do%20Cosseno.PDF) | TDM · espaço vetorial · TF-IDF · cosseno · ranking    | Entregue |
-
-
-
-
-### Sequência no material
+| Entrega | Arquivo MD | Script | Tema |
+|:-:|---|---|---|
+| 1ª | [00-introducao-ao-r.md](consolidados/00-introducao-ao-r.md) | — | R base (Aula 00) |
+| 2ª A | [01a-primeiro-corpus-real.md](consolidados/01a-primeiro-corpus-real.md) | `01a-corpus-aula-01.R` | Corpus · frequências (Aula 01) |
+| 2ª B | [01b-shannon-pesos-dos-termos.md](consolidados/01b-shannon-pesos-dos-termos.md) | `01b-shannon-pesos.R` | Shannon · IDF (Aula 01.5) |
+| 3ª | [02-tfidf-similaridade-cosseno.md](consolidados/02-tfidf-similaridade-cosseno.md) | `02-tfidf-cosseno.R` | TF-IDF · cosseno (Aula 02) |
+| 4ª | [03-limpeza-stopwords-stemming-indice.md](consolidados/03-limpeza-stopwords-stemming-indice.md) | `03-preprocessao-indice.R` | Limpeza · Snowball · índice (Aula 03) |
+| 5ª | [04-poisson-saturacao-bm25.md](consolidados/04-poisson-saturacao-bm25.md) | `04-poisson-bm25.R` | Poisson · BM25 (Aula 04) |
 
 ```
-Ativ 01 (Aula 00)          R base
-        |
-        v
-Ativ 02 (Aula 01)          Corpus real + top 10 (frequencia != relevancia)
-        |
-        v
-Ativ 03 · Parte A (01.5)   Por que o IDF (Shannon / bits)
-        |
-        v
-Ativ 03 · Parte B (Aula 02) Como ranquear (TDM → TF-IDF + cosseno)
+R base → corpus wiki → IDF → TF-IDF → limpeza/índice → BM25
 ```
 
+---
 
-| De   | Para | Correlação                                                                   |
-| ---- | ---- | ---------------------------------------------------------------------------- |
-| 02   | 03 A | Top 10 cheio de stopwords motiva medir *informação* do termo (bits)          |
-| 03 A | 03 B | A Parte A deriva o IDF; a Parte B usa TDM → TF-IDF + cosseno para ordenar    |
-| 02   | 03 B | Corpus real é a base do semestre; o modelo da Parte B aplica-se a ele depois |
+## Como rodar os códigos
 
-
-```
-Aula 00    █ R base e ferramentas da disciplina
-Aula 01    █ Corpus, tokens, vocabulário, frequências
-Aula 01.5  █ Shannon e pesos dos termos (IDF = bits)     ← Ativ 03 · Parte A
-Aula 02    █ Vetores TF-IDF e similaridade do cosseno    ← Ativ 03 · Parte B
-...        ░ BM25 · recuperação densa · rerank · MIR
+```bash
+cd estrutura/codigos
+Rscript 01a-corpus-aula-01.R
+Rscript 01b-shannon-pesos.R
+Rscript 02-tfidf-cosseno.R
+Rscript 03-preprocessao-indice.R
+Rscript 04-poisson-bm25.R
 ```
 
+Os scripts que leem texto usam `estrutura/corpus` (caminho relativo `../corpus`).

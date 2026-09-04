@@ -1,6 +1,6 @@
 <div align="center">
 
-# Atividade 01 - O básico para acompanhar o curso
+# Atividade 00 - O básico para acompanhar o curso
 
 **Projeto Integrador III · Ciência de Dados · Fatec Rubens Lara**
 
@@ -35,8 +35,8 @@ Para cada trecho, seguimos os três passos pedidos:
 
 ## Material de referência
 
-- [Aula 00 - O Básico para Acompanhar o Curso](../../MateriaisAulas/Aula%2000%20-%20O%20Básico%20para%20Acompanhar%20o%20Curso.PDF)
-- [README da disciplina](../../README.md)
+- [Aula 00 - O Básico para Acompanhar o Curso](../materiais-aulas/Aula%2000%20-%20O%20Básico%20para%20Acompanhar%20o%20Curso.PDF)
+- [README da disciplina](../README.md)
 
 ---
 
@@ -44,7 +44,7 @@ Para cada trecho, seguimos os três passos pedidos:
 
 ```
 .
-└── introducao_ao_r.md     # esta entrega (Partes 1, 2 e 3)
+└── 00-introducao-ao-r.md     # esta entrega (Partes 1, 2 e 3)
 ```
 
 ---

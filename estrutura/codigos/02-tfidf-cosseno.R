@@ -1,5 +1,5 @@
 # =============================================================
-# PI III - Motor de Busca - Atividade 03 · Parte B / Aula 02
+# PI III - Motor de Busca - Atividade 02 / Aula 02 (3ª entrega)
 # Fatec Rubens Lara - Ciência de Dados
 # Vetores TF-IDF e similaridade do cosseno
 # Corpus de brinquedo da Aula 01 (8 documentos, 45 termos)

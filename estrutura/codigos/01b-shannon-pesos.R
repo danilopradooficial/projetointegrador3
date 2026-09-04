@@ -1,5 +1,5 @@
 # =============================================================
-# PI III - Motor de Busca - Atividade 03 · Parte A / Aula 01.5
+# PI III - Motor de Busca - Atividade 01 · Parte B / Aula 01.5
 # Fatec Rubens Lara - Ciência de Dados
 # De Shannon aos pesos dos termos
 # Corpus de brinquedo da Aula 01 (8 documentos)

@@ -1,6 +1,6 @@
 <div align="center">
 
-# Atividade 02 - Do problema da busca ao nosso motor
+# Atividade 01 · Parte A - Do problema da busca ao nosso motor
 
 **Projeto Integrador III · Ciência de Dados · Fatec Rubens Lara**
 
@@ -10,6 +10,7 @@ tokenização, vocabulário e frequência de termos.
 
 ![R](https://img.shields.io/badge/R-base-276DC3?style=flat&logo=r&logoColor=white)
 ![Status](https://img.shields.io/badge/status-entregue-brightgreen)
+![Parte](https://img.shields.io/badge/parte-A%20corpus-lightgrey)
 ![Aula](https://img.shields.io/badge/aula-01-lightgrey)
 ![Licença dos textos](https://img.shields.io/badge/corpus-CC%20BY--SA-lightgrey)
 
@@ -17,14 +18,21 @@ tokenização, vocabulário e frequência de termos.
 
 ---
 
-## Sobre a atividade
+## Sobre esta parte
+
+A **Atividade 01** (2ª entrega) reúne Aula 01 e Aula 01.5 na mesma pasta:
+
+| Parte | Tema | Arquivo |
+|:-:|---|---|
+| **A** | Corpus real · tokenização · frequências | este documento |
+| **B** | Shannon · autoinformação · IDF como bits | [01b-shannon-pesos-dos-termos.md](01b-shannon-pesos-dos-termos.md) |
 
 Primeira entrega do motor de busca: aplicar no *corpus* real os mesmos
 conceitos vistos em sala - carregar documentos, tokenizar, montar o
 vocabulário e listar os termos mais frequentes.
 
-> **Meta:** construir o primeiro *corpus* real do projeto e medir o salto
-> em relação ao corpus de brinquedo da aula (45 termos).
+> **Meta (Parte A):** construir o primeiro *corpus* real do projeto e medir
+> o salto em relação ao corpus de brinquedo da aula (45 termos).
 
 **Autores.** Adriane da Costa Santos · Danilo Prado de Lima Silva · Victoria Cabral Quinterio
 
@@ -32,8 +40,9 @@ vocabulário e listar os termos mais frequentes.
 
 ## Material de referência
 
-- [Aula 01 - Do Problema da Busca ao Nosso Motor](../../MateriaisAulas/Aula%2001%20-%20Do%20Problema%20da%20Busca%20ao%20Nosso%20Motor.PDF)
-- [README da disciplina](../../README.md)
+- [Aula 01 - Do Problema da Busca ao Nosso Motor](../materiais-aulas/Aula%2001%20-%20Do%20Problema%20da%20Busca%20ao%20Nosso%20Motor.PDF)
+- [Parte B desta atividade](01b-shannon-pesos-dos-termos.md)
+- [README da disciplina](../README.md)
 
 ---
 
@@ -57,15 +66,13 @@ Cada artigo vira um documento `dN`; cada parágrafo vira `dN.k`.
 
 ---
 
-## Estrutura da pasta
+## Estrutura da pasta (Atividade 01)
 
 ```
-.
-├── primeiro_corpus_real.md              # esta entrega
-├── corpus_aula_01.R                        # script principal
-├── porto_de_santos.txt                    # d1 (+ d1.1 ... d1.12)
-├── autoridade_portuaria_de_santos.txt     # d2 (+ d2.1 ... d2.5)
-└── francisco_de_paula_ribeiro.txt         # d3 (+ d3.1)
+estrutura/codigos/
+└── 01b-shannon-pesos.R
+consolidados/
+└── 01b-shannon-pesos-dos-termos.md
 ```
 
 Cada `.txt` guarda **só os parágrafos** do artigo (um bloco por parágrafo).
@@ -73,13 +80,13 @@ O script monta `d1`/`d2`/`d3` concatenando esses blocos.
 
 ---
 
-## Como rodar
+## Como rodar (Parte A)
 
 Pré-requisito: [R](https://www.r-project.org/) instalado (apenas **R base**).
 
 ```bash
-cd "Atividades/atividade_02"
-Rscript corpus_aula_01.R
+cd "estrutura/codigos"
+Rscript 01a-corpus-aula-01.R
 ```
 
 O script:
@@ -143,17 +150,15 @@ cada documento. Esse caminho continua assim:
 
 | Próximo passo | Onde | O que responde |
 |---|---|---|
-| Por que o peso existe (IDF = bits) | [Ativ 03 · Parte A](../atividade_03/shannon_pesos_dos_termos.md) | Shannon: termo raro informa mais |
-| Como ranquear de verdade | [Ativ 03 · Parte B](../atividade_03/tfidf_similaridade_cosseno.md) | TDM → TF-IDF + similaridade do cosseno |
+| Por que o peso existe (IDF = bits) | [Parte B desta atividade](01b-shannon-pesos-dos-termos.md) | Shannon: termo raro informa mais |
+| Como ranquear de verdade | [Atividade 02](./02-tfidf-similaridade-cosseno.md) | TDM → TF-IDF + similaridade do cosseno |
+| Limpeza e índice | [Atividade 03](./03-limpeza-stopwords-stemming-indice.md) | stopwords · Snowball · índice |
+| Poisson → BM25 | [Atividade 04](./04-poisson-saturacao-bm25.md) | saturação · tamanho · ranking |
 
-Não são entregas extras embutidas nesta atividade: são as **partes da
-Atividade 03**, na ordem das aulas. A Atividade 02 monta o corpus
-e deixa o problema à mostra.
+A Parte B (Aula 01.5) continua nesta mesma entrega. A Atividade 02
+mostra o ranking TF-IDF no brinquedo; a 03 limpa o corpus wiki; a 04
+aplica BM25 em cima dessa base.
 
-**Correlação com a Atividade 03 · Parte B.** Aqui criamos o *corpus* real
-(base do motor no semestre) e vimos que frequência != relevância. Na
-Parte B implementamos o ranking (TF-IDF + cosseno) no corpus de brinquedo
-da aula - o mesmo modelo que depois se aplica a este corpus.
 
 **Dois níveis no mesmo `docs`.** Orientação posterior do professor: cada
 artigo (`d1`, `d2`, `d3`) e cada parágrafo (`d1.1`, `d1.2`, ...). Útil para

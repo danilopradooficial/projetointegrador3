@@ -1,5 +1,5 @@
 # =============================================================
-# PI III - Motor de Busca - Atividade 02 / Aula 01
+# PI III - Motor de Busca - Atividade 01 · Parte A / Aula 01
 # Fatec Rubens Lara - Ciência de Dados
 # Para casa - parte 2: meu primeiro corpus real
 # Fonte: Wikipédia (CC BY-SA), pt.wikipedia.org
@@ -14,8 +14,15 @@
 #   d3.1, d3.2, ...  = parágrafos de d3
 # =============================================================
 
-## 1) Arquivos locais (extraídos da Wikipédia, 1 parágrafo por bloco)
-pasta <- "."
+## cwd = pasta do script; corpus em ../corpus
+args_cmd <- commandArgs(trailingOnly = FALSE)
+file_arg <- grep("^--file=", args_cmd, value = TRUE)
+if (length(file_arg) == 1) {
+  setwd(dirname(normalizePath(sub("^--file=", "", file_arg))))
+}
+pasta_corpus <- file.path("..", "corpus")
+
+## 1) Arquivos em estrutura/corpus (extraídos da Wikipédia, 1 parágrafo por bloco)
 
 artigos <- c(
   d1 = "porto_de_santos.txt",
@@ -35,7 +42,7 @@ ler_paragrafos <- function(caminho) {
 docs <- character(0)
 
 for (id in names(artigos)) {
-  arq <- file.path(pasta, artigos[[id]])
+  arq <- file.path(pasta_corpus, artigos[[id]])
   paragrafos <- ler_paragrafos(arq)
 
   # d1 / d2 / d3 = artigo inteiro

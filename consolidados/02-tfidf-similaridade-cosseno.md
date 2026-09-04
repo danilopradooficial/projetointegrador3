@@ -1,6 +1,6 @@
 <div align="center">
 
-# Atividade 03 · Parte B - Vetores TF-IDF e similaridade do cosseno
+# Atividade 02 - Vetores TF-IDF e similaridade do cosseno
 
 **Projeto Integrador III · Ciência de Dados · Fatec Rubens Lara**
 
@@ -9,45 +9,51 @@ pesos TF-IDF e ordenação pela similaridade do cosseno.
 
 ![R](https://img.shields.io/badge/R-base-276DC3?style=flat&logo=r&logoColor=white)
 ![Status](https://img.shields.io/badge/status-entregue-brightgreen)
-![Parte](https://img.shields.io/badge/parte-B%20TF--IDF-lightgrey)
+![Entrega](https://img.shields.io/badge/entrega-3%C2%AA-blue)
 ![Aula](https://img.shields.io/badge/aula-02-lightgrey)
 
 </div>
 
 ---
 
-## Sobre esta parte
+## Sobre a atividade
 
-A **Atividade 03** tem duas partes na mesma pasta:
+**3ª entrega.** Aqui a gente sai do “o termo aparece?” e passa a medir
+*o quanto* o documento combina com a consulta (espaço vetorial + cosseno).
 
-| Parte | Tema | Arquivo |
-|:-:|---|---|
-| **A** | Shannon · autoinformação · IDF como bits | [shannon_pesos_dos_termos.md](shannon_pesos_dos_termos.md) |
-| **B** | TDM · TF-IDF · cosseno · ranking | este documento |
+Fizemos no **corpus de brinquedo** da aula (8 docs), como no para casa.
+O mesmo modelo depois roda no corpus wiki — na Atividade 04 comparamos
+TF-IDF com BM25 em cima dos três textos do Porto de Santos (já limpos
+na Ativ 03).
 
-Sair da busca booleana ("o termo aparece?") e medir *o quanto* o
-documento combina com a consulta - Modelo do Espaço Vetorial + cosseno.
-
-> **Meta (Parte B):** implementar TDM → TF-IDF e `cosseno` no corpus de
-> 8 documentos da Aula 01, escolher 3 consultas e reportar o ranking.
+> **Meta:** TDM → TF-IDF → `cosseno`, 3 consultas e o ranking de cada uma.
 
 **Autores.** Adriane da Costa Santos · Danilo Prado de Lima Silva · Victoria Cabral Quinterio
 
 ---
 
-## Sequência e correlação com a Atividade 02
+## Sequência e correlação com a Atividade 01
 
 ```
-Ativ 02  corpus real + top 10 (stopwords dominam)
+Ativ 00              R base                         ← 1ª entrega
    |
    v
-Ativ 03 · Parte A  por que pesar termos (IDF = bits)
+Ativ 01 · Parte A    corpus real + top 10           ← 2ª entrega
    |
    v
-Ativ 03 · Parte B  como ranquear (TDM → TF-IDF + cosseno)   <-- esta parte
+Ativ 01 · Parte B    por que pesar termos (IDF)
+   |
+   v
+Ativ 02              TF-IDF + cosseno               ← 3ª entrega (esta)
+   |
+   v
+Ativ 03              limpeza · stopwords · índice   ← 4ª
+   |
+   v
+Ativ 04              Poisson · saturação · BM25     ← 5ª
 ```
 
-| | Atividade 02 | Atividade 03 · Parte B |
+| | Atividade 01 · Parte A | Atividade 02 |
 |---|---|---|
 | Corpus | Real (Porto / APS / Francisco) | Brinquedo da aula (8 docs) |
 | Pergunta | Frequência informa relevância? | Como ordenar por relevância? |
@@ -58,29 +64,28 @@ Ativ 03 · Parte B  como ranquear (TDM → TF-IDF + cosseno)   <-- esta parte
 
 ## Material de referência
 
-- [Aula 02 - Vetores TF-IDF e Similaridade do Cosseno](../../MateriaisAulas/Aula%2002%20-%20Vetores%20TF-IDF%20e%20Similaridade%20do%20Cosseno.PDF)
-- [Parte A desta atividade](shannon_pesos_dos_termos.md)
-- [README da disciplina](../../README.md)
+- [Aula 02 - Vetores TF-IDF e Similaridade do Cosseno](../materiais-aulas/Aula%2002%20-%20Vetores%20TF-IDF%20e%20Similaridade%20do%20Cosseno.PDF)
+- [Atividade 01 · Parte B - Shannon](./01b-shannon-pesos-dos-termos.md)
+- [README da disciplina](../README.md)
 
 ---
 
-## Estrutura da pasta (Atividade 03)
+## Estrutura da pasta
 
 ```
-atividade_03/
-├── shannon_pesos_dos_termos.md       # Parte A
-├── shannon_pesos.R                   # script Parte A
-├── tfidf_similaridade_cosseno.md     # Parte B (esta entrega)
-└── tfidf_cosseno.R                   # script Parte B
+estrutura/codigos/
+└── 02-tfidf-cosseno.R
+consolidados/
+└── 02-tfidf-similaridade-cosseno.md
 ```
 
 ---
 
-## Como rodar (Parte B)
+## Como rodar
 
 ```bash
-cd "Atividades/atividade_03"
-Rscript tfidf_cosseno.R
+cd "estrutura/codigos"
+Rscript 02-tfidf-cosseno.R
 ```
 
 Apenas **R base**.
@@ -93,7 +98,7 @@ Apenas **R base**.
 2. Implementar a matriz TF-IDF e a função `cosseno`  
 3. Escolher 3 consultas e reportar o ranking de cada uma  
 
-Script: `tfidf_cosseno.R`
+Script: `02-tfidf-cosseno.R`
 
 ---
 
@@ -167,13 +172,13 @@ não `estatistica` - limite da tokenização exata / bag of words.
 
 ---
 
-# Correlação com a Atividade 02
+# Correlação com a Atividade 01
 
-| | Atividade 02 | Atividade 03 · Parte B |
+| | Atividade 01 · Parte A | Atividade 02 |
 |---|---|---|
 | Corpus | Real (Porto / APS / Francisco) | Brinquedo (8 docs) - pedido da Aula 02 |
 | Achado | Frequência bruta != relevância | Ranking por TF-IDF + cosseno |
 | Papel | Base textual do semestre | Modelo de ranqueamento |
 
-Sequência: Atividade 02 (problema) → Atividade 03 · Parte A (por que pesar)
-→ Atividade 03 · Parte B (como ordenar).
+Sequência: Atividade 01 (corpus + IDF) → 02 (TF-IDF) → 03 (limpeza/índice)
+→ 04 (BM25 no corpus real).

@@ -1,6 +1,6 @@
 <div align="center">
 
-# Atividade 03 · Parte A - De Shannon aos pesos dos termos
+# Atividade 01 · Parte B - De Shannon aos pesos dos termos
 
 **Projeto Integrador III · Ciência de Dados · Fatec Rubens Lara**
 
@@ -9,8 +9,8 @@ autoinformação de uma pista e por que o IDF não é heurística.
 
 ![R](https://img.shields.io/badge/R-base-276DC3?style=flat&logo=r&logoColor=white)
 ![Status](https://img.shields.io/badge/status-entregue-brightgreen)
-![Parte](https://img.shields.io/badge/parte-A%20Shannon-lightgrey)
-![Aula](https://img.shields.io/badge/aula-01.5-lightgrey)
+![Parte](https://img.shields.io/badge/parte-B%20Shannon-lightgrey)
+![Aula](https://img.shields.io/badge/aula-01b-lightgrey)
 
 </div>
 
@@ -18,17 +18,17 @@ autoinformação de uma pista e por que o IDF não é heurística.
 
 ## Sobre esta parte
 
-A **Atividade 03** tem duas partes na mesma pasta:
+A **Atividade 01** (2ª entrega) reúne Aula 01 e Aula 01.5 na mesma pasta:
 
 | Parte | Tema | Arquivo |
 |:-:|---|---|
-| **A** | Shannon · autoinformação · IDF como bits | este documento |
-| **B** | TDM · TF-IDF · cosseno · ranking | [tfidf_similaridade_cosseno.md](tfidf_similaridade_cosseno.md) |
+| **A** | Corpus real · tokenização · frequências | [01a-primeiro-corpus-real.md](01a-primeiro-corpus-real.md) |
+| **B** | Shannon · autoinformação · IDF como bits | este documento |
 
 Derivamos o peso dos termos a partir de Shannon: a busca como problema
 de *seleção* entre documentos, cada termo como pista que reduz incerteza.
 
-> **Meta (Parte A):** com o corpus de 8 documentos da Aula 01, medir bits
+> **Meta (Parte B):** com o corpus de 8 documentos da Aula 01, medir bits
 > por termo, reconstruir o IDF e responder onde a fórmula "mente".
 
 **Autores.** Adriane da Costa Santos · Danilo Prado de Lima Silva · Victoria Cabral Quinterio
@@ -38,45 +38,48 @@ de *seleção* entre documentos, cada termo como pista que reduz incerteza.
 ## Sequência
 
 ```
-Ativ 02 (frequencia != relevancia)
+Ativ 00 (R base)
     |
     v
-Ativ 03 · Parte A (por que o IDF = bits)   <-- esta parte
+Ativ 01 · Parte A (frequencia != relevancia)
     |
     v
-Ativ 03 · Parte B (TDM → TF-IDF + cosseno)
+Ativ 01 · Parte B (por que o IDF = bits)   <-- esta parte
+    |
+    v
+Ativ 02 (TDM → TF-IDF + cosseno)
 ```
 
-Responde à pergunta deixada em aberto no top 10 da Atividade 02
+Responde à pergunta deixada em aberto no top 10 da Parte A
 (Aula 01.5 no material do professor).
 
 ---
 
 ## Material de referência
 
-- [Aula 01.5 - Do Shannon aos Pesos dos Termos](../../MateriaisAulas/Aula%2001.5%20-%20Do%20Shannon%20aos%20Pesos%20dos%20Termos.PDF)
-- [Parte B desta atividade](tfidf_similaridade_cosseno.md)
-- [README da disciplina](../../README.md)
+- [Aula 01.5 - Do Shannon aos Pesos dos Termos](../materiais-aulas/Aula%2001.5%20-%20Do%20Shannon%20aos%20Pesos%20dos%20Termos.PDF)
+- [Parte A desta atividade](01a-primeiro-corpus-real.md)
+- [Atividade 02 - TF-IDF e cosseno](./02-tfidf-similaridade-cosseno.md)
+- [README da disciplina](../README.md)
 
 ---
 
-## Estrutura da pasta (Atividade 03)
+## Estrutura da pasta (Atividade 01)
 
 ```
-atividade_03/
-├── shannon_pesos_dos_termos.md       # Parte A (esta entrega)
-├── shannon_pesos.R                   # script Parte A
-├── tfidf_similaridade_cosseno.md     # Parte B
-└── tfidf_cosseno.R                   # script Parte B
+estrutura/codigos/
+└── 01b-shannon-pesos.R
+consolidados/
+└── 01b-shannon-pesos-dos-termos.md
 ```
 
 ---
 
-## Como rodar (Parte A)
+## Como rodar (Parte B)
 
 ```bash
-cd "Atividades/atividade_03"
-Rscript shannon_pesos.R
+cd "estrutura/codigos"
+Rscript 01b-shannon-pesos.R
 ```
 
 Apenas **R base**.
@@ -421,10 +424,10 @@ vale só ~0,68 bit.
 
 # 3. Sequência e correlação
 
-A Atividade 03 vem **depois** da 02 e se divide em duas partes:
+A Atividade 01 (2ª entrega) vem **depois** da 00 e **antes** da 02:
 
-- **Atividade 02** mostrou que frequência bruta não ranqueia bem (stopwords).
-- **Atividade 03 · Parte A** (esta) explica *por que* o IDF: bits de Shannon.
-- **Atividade 03 · Parte B** aplica TDM → TF-IDF + cosseno para ordenar de verdade.
+- **Atividade 01 · Parte A** mostrou que frequência bruta não ranqueia bem (stopwords).
+- **Atividade 01 · Parte B** (esta) explica *por que* o IDF: bits de Shannon.
+- **Atividade 02** aplica TDM → TF-IDF + cosseno para ordenar de verdade.
 
-Próximo passo: [Parte B - TF-IDF e cosseno](tfidf_similaridade_cosseno.md).
+Próximo passo: [Atividade 02 - TF-IDF e cosseno](./02-tfidf-similaridade-cosseno.md).
