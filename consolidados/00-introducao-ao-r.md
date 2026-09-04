@@ -2,7 +2,7 @@
 
 # Atividade 00 - O básico para acompanhar o curso
 
-**Projeto Integrador III · Ciência de Dados · Fatec Rubens Lara**
+**Shannon Ranking · Projeto Integrador III · Ciência de Dados · Fatec Rubens Lara**
 
 Introdução ao R: vetores, texto, funções, `lapply`/`sapply`,
 `table`/`factor`, matrizes e regex - no método
@@ -29,6 +29,7 @@ Para cada trecho, seguimos os três passos pedidos:
 > (`docs` nomeado, `tokenizar`, `lapply`/`sapply`, `table` + `factor`,
 > matrizes e limpeza com regex).
 
+**Equipe.** Shannon Ranking  
 **Autores.** Adriane da Costa Santos · Danilo Prado de Lima Silva · Victoria Cabral Quinterio
 
 ---

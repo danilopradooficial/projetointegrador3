@@ -2,7 +2,7 @@
 
 # Atividade 03 - Limpeza, stopwords, stemming e o índice
 
-**Projeto Integrador III · Ciência de Dados · Fatec Rubens Lara**
+**Shannon Ranking · Projeto Integrador III · Ciência de Dados · Fatec Rubens Lara**
 
 Pré-processar o *corpus* real, reduzir ao radical com Snowball e
 montar um índice invertido com busca booleana (AND / OR).
@@ -42,6 +42,7 @@ Também: índice invertido + `busca_AND` / `busca_OR`.
 > **Meta:** vocabulário menor, índice utilizável e busca booleana nos
 > artigos/parágrafos do corpus real.
 
+**Equipe.** Shannon Ranking  
 **Autores.** Adriane da Costa Santos · Danilo Prado de Lima Silva · Victoria Cabral Quinterio
 
 ---

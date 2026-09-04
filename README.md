@@ -1,4 +1,4 @@
-# Projeto Integrador III
+# Projeto Integrador III — Shannon Ranking
 
 **Ciência de Dados · Fatec Rubens Lara - Baixada Santista**
 
@@ -6,6 +6,7 @@ Construção incremental de um motor de busca (Information Retrieval → MIR).
 
 ![R](https://img.shields.io/badge/R-base-276DC3?style=flat&logo=r&logoColor=white)
 ![Status](https://img.shields.io/badge/status-em%20andamento-yellow)
+![Equipe](https://img.shields.io/badge/equipe-Shannon%20Ranking-0B3954)
 ![Licença dos textos](https://img.shields.io/badge/corpus-CC%20BY--SA-lightgrey)
 
 ---
@@ -17,6 +18,8 @@ Construção incremental de um motor de busca (Information Retrieval → MIR).
 **Professor:**  
 Prof. Dr. João Paulo Ferreira de Mello  
 ([joao.mello12@fatec.sp.gov.br](mailto:joao.mello12@fatec.sp.gov.br))
+
+**Equipe:** Shannon Ranking  
 
 **Alunos:**  
 Adriane da Costa Santos  

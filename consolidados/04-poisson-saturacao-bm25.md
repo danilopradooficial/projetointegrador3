@@ -2,7 +2,7 @@
 
 # Atividade 04 - Poisson, saturação e BM25
 
-**Projeto Integrador III · Ciência de Dados · Fatec Rubens Lara**
+**Shannon Ranking · Projeto Integrador III · Ciência de Dados · Fatec Rubens Lara**
 
 Da distribuição de Poisson ao peso do termo, até o BM25 no nosso
 corpus do Porto de Santos.
@@ -33,6 +33,7 @@ Snowball da Atividade 03.
 > **Meta:** calcular probabilidade/peso via Poisson (e 2-Poisson), ver a
 > saturação nascer do modelo e ranquear com BM25, comparando com TF-IDF.
 
+**Equipe.** Shannon Ranking  
 **Autores.** Adriane da Costa Santos · Danilo Prado de Lima Silva · Victoria Cabral Quinterio
 
 ---
