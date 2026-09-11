@@ -266,4 +266,4 @@ a aula descreve (verbosidade vs escopo).
    freia um pouco o artigo enorme (d1) - exatamente o problema que a
    Aula 04 queria atacar.
 
-Próximo no material: avaliação de ranking (P@k, MAP, nDCG).
+Próximo passo: [Atividade 05 - julgamento, pooling e κ](./05-julgamento-pooling-kappa.md).

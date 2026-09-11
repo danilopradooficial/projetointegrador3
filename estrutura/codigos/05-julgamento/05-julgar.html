@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Team Shannon · Julgar · PI III · Aula 05</title>
+<style>
+:root {
+  --bg: #f3f5f7;
+  --paper: #fff;
+  --ink: #1a2332;
+  --muted: #5c6b7a;
+  --line: #d7dee7;
+  --accent: #0b3954;
+  --ok: #1b7f4e;
+  --warn: #9a6b00;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--ink); }
+header { background: var(--accent); color: #fff; padding: .9rem 1.1rem; }
+header h1 { margin: 0; font-size: 1.1rem; }
+header p { margin: .25rem 0 0; opacity: .85; font-size: .88rem; }
+main { max-width: 880px; margin: 0 auto; padding: 1rem 1rem 3rem; }
+.card { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 1rem 1.1rem; margin-bottom: 1rem; }
+label { display: block; font-size: .85rem; color: var(--muted); margin: .55rem 0 .2rem; }
+input[type=text], input[type=number], textarea, select {
+  width: 100%; padding: .55rem .65rem; border: 1px solid var(--line); border-radius: 8px; font: inherit;
+}
+textarea { min-height: 90px; font-family: ui-monospace, Consolas, monospace; font-size: .8rem; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+@media (max-width: 640px) { .row { grid-template-columns: 1fr; } }
+button, .btn {
+  font: inherit; border: 0; border-radius: 8px; padding: .6rem .9rem; cursor: pointer;
+}
+.primary { background: var(--accent); color: #fff; }
+.secondary { background: #e8edf3; color: var(--ink); }
+.danger { background: #fde8e8; color: #9b1c1c; }
+.actions { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .75rem; }
+.need-bar {
+  position: sticky; top: 0; z-index: 5; background: #eef5f9; border: 1px solid #c5d8e6;
+  border-left: 4px solid var(--accent); border-radius: 0 10px 10px 0; padding: .75rem .9rem; margin-bottom: 1rem;
+}
+.need-bar .qid { font-size: .75rem; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+.need-bar .nec { margin: .25rem 0; font-size: 1.05rem; font-weight: 600; }
+.need-bar .meta { font-size: .88rem; color: var(--muted); }
+.need-bar code { background: #e4ebf1; padding: .05rem .35rem; border-radius: 4px; color: var(--ink); }
+.doc-box { border: 1px solid var(--line); border-radius: 10px; padding: 1rem; background: #fafbfc; }
+.doc-box h2 { margin: 0 0 .5rem; font-size: 1.15rem; }
+.doc-box .texto { white-space: pre-wrap; line-height: 1.5; max-height: 45vh; overflow: auto; }
+.notas { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; margin-top: 1rem; }
+.notas button {
+  border: 2px solid var(--line); background: #fff; padding: .9rem .5rem; font-weight: 650;
+}
+.notas button small { display: block; font-weight: 400; color: var(--muted); margin-top: .25rem; font-size: .78rem; }
+.notas button:hover { border-color: var(--accent); }
+.prog { font-size: .9rem; color: var(--muted); }
+.prog b { color: var(--ink); }
+.bar { height: 8px; background: #e5eaf0; border-radius: 999px; overflow: hidden; margin-top: .4rem; }
+.bar > span { display: block; height: 100%; background: var(--ok); width: 0; }
+.hidden { display: none !important; }
+.msg { font-size: .9rem; color: var(--warn); }
+.ok { color: var(--ok); }
+.guia-panel {
+  position: fixed; right: 0; top: 0; bottom: 0; width: min(360px, 92vw);
+  background: #fff; border-left: 1px solid var(--line); padding: 1rem; overflow: auto;
+  box-shadow: -8px 0 24px rgba(0,0,0,.08); z-index: 20;
+}
+.guia-panel h3 { margin-top: 0; }
+.kbd { font-family: ui-monospace, Consolas, monospace; background: #eef1f5; padding: .05rem .3rem; border-radius: 4px; font-size: .85rem; }
+.extras { font-size: .85rem; color: var(--muted); margin: .4rem 0 .8rem; }
+.hint { font-size: .8rem; color: var(--muted); margin: .15rem 0 .55rem; line-height: 1.35; }
+.file-block { margin-top: 1rem; padding-top: .75rem; border-top: 1px solid var(--line); }
+.file-block:first-of-type { border-top: 0; padding-top: 0; }
+.file-block h3 { margin: 0 0 .2rem; font-size: .95rem; color: var(--ink); }
+label.strong { color: var(--ink); font-weight: 600; font-size: .9rem; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Team Shannon · Julgamento de relevância</h1>
+  <p>PI III · Aula 05 · Fatec Rubens Lara · offline · julgue pela necessidade, não pela consulta</p>
+</header>
+
+<main>
+  <!-- PASSO 0: setup -->
+  <section id="setup" class="card">
+    <h2 style="margin-top:0;font-size:1rem">1) Quem está julgando</h2>
+    <label class="strong" for="juiz">Seu nome (juiz)</label>
+    <p class="hint">Use sempre o mesmo nome (ex.: adriane, danilo, victoria). Ele vai no arquivo final de votos.</p>
+    <input id="juiz" type="text" placeholder="ex.: adriane" autocomplete="off" />
+
+    <div class="row" style="margin-top:.75rem">
+      <div>
+        <label class="strong" for="semente">Número da ordem aleatória</label>
+        <p class="hint">
+          É um número que “embaralha” a ordem dos documentos de forma reproduzível
+          (padrão: 42). Assim ninguém vê o ranking do BM25/TF-IDF e o viés de posição cai.
+          Anote no relatório o número que usou.
+        </p>
+        <input id="semente" type="number" value="42" />
+      </div>
+      <div>
+        <label class="strong">Atalhos no teclado</label>
+        <p class="hint" style="margin-top:.55rem">
+          <span class="kbd">0</span> <span class="kbd">1</span> <span class="kbd">2</span> = nota ·
+          <span class="kbd">←</span> = corrigir ·
+          <span class="kbd">P</span> = pular ·
+          <span class="kbd">G</span> = guia
+        </p>
+      </div>
+    </div>
+
+    <h2 style="font-size:1rem;margin-top:1.4rem">2) Carregar os arquivos da pasta <code>csv/</code></h2>
+    <p class="hint">Escolha os três arquivos abaixo (ou cole o conteúdo). A página funciona offline, sem internet.</p>
+
+    <div class="file-block">
+      <h3>Arquivo 1 - Documentos a julgar</h3>
+      <p class="hint">Arquivo: <code>csv/05-corpus.csv</code> · cada linha é um parágrafo (ex.: d1.1, d2.3) com o texto completo.</p>
+      <label class="strong" for="f-corpus">Selecionar 05-corpus.csv</label>
+      <input id="f-corpus" type="file" accept=".csv,text/csv,text/plain" />
+      <label for="t-corpus">Ou colar o conteúdo de 05-corpus.csv</label>
+      <textarea id="t-corpus" placeholder="id,titulo,texto,data,fonte,url"></textarea>
+    </div>
+
+    <div class="file-block">
+      <h3>Arquivo 2 - Perguntas (necessidades + consultas)</h3>
+      <p class="hint">Arquivo: <code>csv/05-necessidades.csv</code> · o que a pessoa queria saber (em prosa) e o que digitaria na busca.</p>
+      <label class="strong" for="f-nec">Selecionar 05-necessidades.csv</label>
+      <input id="f-nec" type="file" accept=".csv,text/csv,text/plain" />
+      <label for="t-nec">Ou colar o conteúdo de 05-necessidades.csv</label>
+      <textarea id="t-nec" placeholder="consulta,texto_consulta,necessidade,escopo"></textarea>
+    </div>
+
+    <div class="file-block">
+      <h3>Arquivo 3 - Lista do que julgar (pool)</h3>
+      <p class="hint">
+        Arquivo: <code>csv/05-pool.csv</code> · pares consulta + documento.
+        Se deixar vazio, a página julga <b>todas</b> as combinações (pode ser muito).
+      </p>
+      <label class="strong" for="f-pool">Selecionar 05-pool.csv (recomendado)</label>
+      <input id="f-pool" type="file" accept=".csv,text/csv,text/plain" />
+      <label for="t-pool">Ou colar o conteúdo de 05-pool.csv</label>
+      <textarea id="t-pool" placeholder="consulta,documento"></textarea>
+    </div>
+
+    <p id="setup-msg" class="msg"></p>
+    <div class="actions">
+      <button type="button" class="primary" id="btn-iniciar">Começar a julgar</button>
+      <button type="button" class="secondary" id="btn-retomar">Continuar de onde parei</button>
+    </div>
+  </section>
+
+  <!-- PASSO julgamento -->
+  <section id="judge" class="hidden">
+    <div class="need-bar">
+      <div class="qid" id="ui-qid"></div>
+      <div class="nec" id="ui-nec"></div>
+      <div class="meta">Consulta digitada: <code id="ui-qtext"></code></div>
+      <div class="meta" id="ui-escopo"></div>
+    </div>
+
+    <div class="card">
+      <p class="prog">Progresso: <b id="ui-prog">0 / 0</b> · tempo neste item: <b id="ui-timer">0</b>s</p>
+      <div class="bar"><span id="ui-bar"></span></div>
+    </div>
+
+    <div class="card">
+      <div class="doc-box">
+        <div class="prog" id="ui-docid"></div>
+        <h2 id="ui-titulo"></h2>
+        <div class="extras" id="ui-extras"></div>
+        <div class="texto" id="ui-texto"></div>
+      </div>
+      <div class="notas">
+        <button type="button" data-g="0">0 - não serve<small>irrelevante para a necessidade</small></button>
+        <button type="button" data-g="1">1 - fala do assunto<small>contexto, sem responder</small></button>
+        <button type="button" data-g="2">2 - responde<small>atende a necessidade</small></button>
+      </div>
+      <div class="actions">
+        <button type="button" class="secondary" id="btn-voltar">← corrigir anterior</button>
+        <button type="button" class="secondary" id="btn-pular">Pular</button>
+        <button type="button" class="secondary" id="btn-guia">Guia (G)</button>
+        <button type="button" class="secondary" id="btn-segunda">Rejulgar 20% (checar concordância)</button>
+        <button type="button" class="primary" id="btn-exportar">Salvar votos (05-qrels.csv)</button>
+        <button type="button" class="danger" id="btn-sair">Voltar ao início</button>
+      </div>
+      <p id="judge-msg" class="msg"></p>
+    </div>
+  </section>
+</main>
+
+<div id="guia" class="guia-panel hidden">
+  <h3>Guia rápido</h3>
+  <p><b>2</b> - responde à necessidade em prosa.</p>
+  <p><b>1</b> - fala do assunto / dá contexto, sem responder.</p>
+  <p><b>0</b> - não serve para aquela necessidade.</p>
+  <p>Julgue contra a <b>necessidade</b>, nunca só contra as palavras da consulta.</p>
+  <p>A ordem dos documentos é aleatória de propósito (número da ordem aleatória), para não favorecer o BM25 nem o TF-IDF.</p>
+  <button type="button" class="secondary" id="btn-fecha-guia">Fechar</button>
+</div>
+
+<script>
+/* ============================================================
+   julgar.html - especificação GUIA Aula 05 / Módulo 12
+   Arquivo único · offline · sem CDN · sem fetch · sem servidor
+   O "motor" de votação é este JavaScript (não Python).
+   ============================================================ */
+
+const STORAGE_KEY = "pi3_julgar_aula05_v1";
+
+/* ---------- CSV ---------- */
+function detectSep(headerLine) {
+  const c = (headerLine.match(/,/g) || []).length;
+  const s = (headerLine.match(/;/g) || []).length;
+  const t = (headerLine.match(/\t/g) || []).length;
+  if (t >= c && t >= s && t > 0) return "\t";
+  if (s > c) return ";";
+  return ",";
+}
+
+function parseCSV(text) {
+  text = text.replace(/^\uFEFF/, "");
+  if (!text.trim()) return [];
+  const lines = [];
+  let i = 0, field = "", row = [], inQ = false;
+  while (i < text.length) {
+    const ch = text[i];
+    if (inQ) {
+      if (ch === '"') {
+        if (text[i + 1] === '"') { field += '"'; i += 2; continue; }
+        inQ = false; i++; continue;
+      }
+      field += ch; i++; continue;
+    }
+    if (ch === '"') { inQ = true; i++; continue; }
+    if (ch === "\r") { i++; continue; }
+    if (lines.length === 0 && row.length === 0 && field === "" && (ch === "," || ch === ";" || ch === "\t")) {
+      /* sep decided after first line assembled */
+    }
+    const sep = lines._sep;
+    if (sep && ch === sep) { row.push(field); field = ""; i++; continue; }
+    if (!sep && (ch === "\n")) {
+      row.push(field);
+      const headerLine = row.join(",");
+      lines._sep = detectSep(text.split(/\r?\n/)[0]);
+      // reparse whole with known sep
+      return parseCSVWithSep(text, lines._sep);
+    }
+    if (ch === "\n") { row.push(field); lines.push(row); row = []; field = ""; i++; continue; }
+    field += ch; i++;
+  }
+  if (field.length || row.length) { row.push(field); lines.push(row); }
+  if (!lines._sep) return parseCSVWithSep(text, detectSep(text.split(/\r?\n/)[0] || ""));
+  return rowsToObjects(lines);
+}
+
+function parseCSVWithSep(text, sep) {
+  text = text.replace(/^\uFEFF/, "");
+  const rows = [];
+  let field = "", row = [], inQ = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (inQ) {
+      if (ch === '"') {
+        if (text[i + 1] === '"') { field += '"'; i++; continue; }
+        inQ = false; continue;
+      }
+      field += ch; continue;
+    }
+    if (ch === '"') { inQ = true; continue; }
+    if (ch === sep) { row.push(field); field = ""; continue; }
+    if (ch === "\r") continue;
+    if (ch === "\n") { row.push(field); rows.push(row); row = []; field = ""; continue; }
+    field += ch;
+  }
+  if (field.length || row.length) { row.push(field); rows.push(row); }
+  return rowsToObjects(rows);
+}
+
+function rowsToObjects(rows) {
+  if (!rows.length) return [];
+  const header = rows[0].map(h => h.trim().toLowerCase());
+  const out = [];
+  for (let r = 1; r < rows.length; r++) {
+    if (rows[r].every(c => !String(c).trim())) continue;
+    const o = {};
+    header.forEach((h, j) => { o[h] = rows[r][j] != null ? String(rows[r][j]) : ""; });
+    out.push(o);
+  }
+  return out;
+}
+
+function readFileAsText(file) {
+  return new Promise((resolve, reject) => {
+    const fr = new FileReader();
+    fr.onload = () => resolve(String(fr.result || ""));
+    fr.onerror = () => reject(fr.error);
+    fr.readAsText(file, "UTF-8");
+  });
+}
+
+/* ---------- aleatório com semente ---------- */
+function mulberry32(a) {
+  return function () {
+    let t = a += 0x6D2B79F5;
+    t = Math.imul(t ^ t >>> 15, t | 1);
+    t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+
+function shuffle(arr, seed) {
+  const rnd = mulberry32(Number(seed) >>> 0 || 1);
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(rnd() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+/* ---------- estado ---------- */
+const state = {
+  juiz: "",
+  semente: 42,
+  corpus: {},      // id -> {id,titulo,texto,data,fonte,url}
+  necessidades: {}, // id -> row
+  fila: [],         // [{consulta, documento}]
+  idx: 0,
+  votos: {},        // key consulta|documento|juiz -> record
+  historico: [],    // keys na ordem julgada (para voltar)
+  t0: 0,
+  timerId: null,
+  segunda: false
+};
+
+function voteKey(consulta, documento, juiz) {
+  return consulta + "|" + documento + "|" + juiz;
+}
+
+function saveLocal() {
+  const payload = {
+    juiz: state.juiz,
+    semente: state.semente,
+    fila: state.fila,
+    idx: state.idx,
+    votos: state.votos,
+    historico: state.historico,
+    segunda: state.segunda,
+    // corpus/necs podem ser grandes: guardar ids essenciais
+    corpus: state.corpus,
+    necessidades: state.necessidades
+  };
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+  } catch (e) {
+    document.getElementById("judge-msg").textContent =
+      "Aviso: localStorage cheio. Exporte o CSV agora - a retomada pode pedir os arquivos de novo.";
+  }
+}
+
+function loadLocal() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
+  } catch {
+    return null;
+  }
+}
+
+/* ---------- carregar dados ---------- */
+function normCorpus(rows) {
+  const map = {};
+  const idKey = ["id", "docid", "documento"].find(k => rows[0] && k in rows[0]);
+  if (!rows.length) throw new Error("corpus.csv vazio");
+  rows.forEach((r, i) => {
+    const id = (r.id || r.docid || r.documento || "").trim();
+    const texto = (r.texto || r.text || r.conteudo || "").trim();
+    if (!id || !texto) throw new Error("Linha " + (i + 2) + " do corpus sem id ou texto");
+    map[id] = {
+      id,
+      titulo: r.titulo || r.title || id,
+      texto,
+      data: r.data || "",
+      fonte: r.fonte || "",
+      url: r.url || ""
+    };
+  });
+  return map;
+}
+
+function normNecs(rows) {
+  const map = {};
+  if (!rows.length) throw new Error("necessidades.csv vazio");
+  rows.forEach((r, i) => {
+    const id = (r.consulta || r.qid || r.id || "").trim();
+    if (!id) throw new Error("Linha " + (i + 2) + " de necessidades sem consulta");
+    map[id] = {
+      consulta: id,
+      texto_consulta: r.texto_consulta || r.consulta_texto || r.query || "",
+      necessidade: r.necessidade || r.need || "",
+      escopo: r.escopo || r.scope || ""
+    };
+  });
+  return map;
+}
+
+function buildFila(poolRows) {
+  const items = [];
+  if (poolRows && poolRows.length) {
+    poolRows.forEach((r, i) => {
+      const c = (r.consulta || "").trim();
+      const d = (r.documento || r.docid || r.id || "").trim();
+      if (!c || !d) throw new Error("pool.csv linha " + (i + 2) + " incompleta");
+      if (!state.necessidades[c]) throw new Error("pool referencia consulta inexistente: " + c);
+      if (!state.corpus[d]) throw new Error("pool referencia documento inexistente: " + d);
+      items.push({ consulta: c, documento: d });
+    });
+  } else {
+    Object.keys(state.necessidades).forEach(c => {
+      Object.keys(state.corpus).forEach(d => {
+        items.push({ consulta: c, documento: d });
+      });
+    });
+  }
+  return shuffle(items, state.semente);
+}
+
+async function textFromInput(fileEl, taEl) {
+  if (fileEl.files && fileEl.files[0]) return readFileAsText(fileEl.files[0]);
+  return taEl.value || "";
+}
+
+/* ---------- UI julgamento ---------- */
+function showSetup() {
+  document.getElementById("setup").classList.remove("hidden");
+  document.getElementById("judge").classList.add("hidden");
+  stopTimer();
+}
+
+function showJudge() {
+  document.getElementById("setup").classList.add("hidden");
+  document.getElementById("judge").classList.remove("hidden");
+  desenhar();
+}
+
+function stopTimer() {
+  if (state.timerId) clearInterval(state.timerId);
+  state.timerId = null;
+}
+
+function startTimer() {
+  stopTimer();
+  state.t0 = Date.now();
+  document.getElementById("ui-timer").textContent = "0";
+  state.timerId = setInterval(() => {
+    document.getElementById("ui-timer").textContent = String(Math.floor((Date.now() - state.t0) / 1000));
+  }, 250);
+}
+
+function progresso() {
+  const total = state.fila.length;
+  let done = 0;
+  state.fila.forEach(it => {
+    if (state.votos[voteKey(it.consulta, it.documento, state.juiz)]) done++;
+  });
+  document.getElementById("ui-prog").textContent = done + " / " + total;
+  document.getElementById("ui-bar").style.width = (total ? (100 * done / total) : 0) + "%";
+  return { done, total };
+}
+
+function desenhar() {
+  if (!state.fila.length) {
+    document.getElementById("judge-msg").textContent = "Fila vazia.";
+    return;
+  }
+  if (state.idx >= state.fila.length) {
+    const { done, total } = progresso();
+    document.getElementById("judge-msg").innerHTML =
+      '<span class="ok">Fila concluída (' + done + "/" + total + '). Exporte o qrels.csv.</span>';
+    const rapidos = Object.values(state.votos).filter(v => v.juiz === state.juiz && Number(v.segundos) < 5).length;
+    if (rapidos) {
+      document.getElementById("judge-msg").innerHTML +=
+        " · Aviso: " + rapidos + " item(ns) com menos de 5s - vale rever.";
+    }
+    stopTimer();
+    return;
+  }
+
+  const it = state.fila[state.idx];
+  const nec = state.necessidades[it.consulta];
+  const doc = state.corpus[it.documento];
+
+  document.getElementById("ui-qid").textContent = it.consulta + (state.segunda ? " · segunda passada" : "");
+  document.getElementById("ui-nec").textContent = nec.necessidade;
+  document.getElementById("ui-qtext").textContent = nec.texto_consulta;
+  document.getElementById("ui-escopo").textContent = nec.escopo ? ("Escopo: " + nec.escopo) : "";
+  document.getElementById("ui-docid").textContent = "documento: " + doc.id;
+  document.getElementById("ui-titulo").textContent = doc.titulo;
+  const extras = [];
+  if (doc.fonte) extras.push("fonte: " + doc.fonte);
+  if (doc.data) extras.push("data: " + doc.data);
+  if (doc.url) extras.push("url: " + doc.url);
+  document.getElementById("ui-extras").textContent = extras.join(" · ");
+  document.getElementById("ui-texto").textContent = doc.texto;
+  document.getElementById("judge-msg").textContent = "";
+  progresso();
+  startTimer();
+}
+
+function registrar(grau) {
+  if (state.idx >= state.fila.length) return;
+  const it = state.fila[state.idx];
+  const segundos = Math.max(0, Math.round((Date.now() - state.t0) / 1000));
+  const juiz = state.segunda && !state.juiz.endsWith("_p2") ? state.juiz + "_p2" : state.juiz;
+  const key = voteKey(it.consulta, it.documento, juiz);
+  state.votos[key] = {
+    consulta: it.consulta,
+    documento: it.documento,
+    grau: grau,
+    juiz: juiz,
+    timestamp: new Date().toISOString(),
+    segundos: segundos
+  };
+  state.historico.push({ idx: state.idx, key });
+  state.idx++;
+  saveLocal();
+  desenhar();
+}
+
+function voltar() {
+  if (!state.historico.length) return;
+  const last = state.historico.pop();
+  delete state.votos[last.key];
+  state.idx = last.idx;
+  saveLocal();
+  desenhar();
+}
+
+function pular() {
+  if (state.idx >= state.fila.length) return;
+  state.idx++;
+  saveLocal();
+  desenhar();
+}
+
+function segundaPassada() {
+  const feitos = state.fila.filter(it => state.votos[voteKey(it.consulta, it.documento, state.juiz)]);
+  if (feitos.length < 5) {
+    document.getElementById("judge-msg").textContent = "Julgue mais itens antes da segunda passada.";
+    return;
+  }
+  const n = Math.max(1, Math.round(feitos.length * 0.2));
+  const amostra = shuffle(feitos, state.semente + 99).slice(0, n);
+  state.fila = amostra;
+  state.idx = 0;
+  state.historico = [];
+  state.segunda = true;
+  if (!state.juiz.endsWith("_p2")) {
+    /* juiz efetivo vira *_p2 só na gravação */
+  }
+  saveLocal();
+  document.getElementById("judge-msg").textContent =
+    "Segunda passada: " + n + " itens (20%), sem mostrar nota anterior.";
+  desenhar();
+}
+
+function exportar() {
+  const rows = Object.values(state.votos).sort((a, b) =>
+    (a.juiz + a.consulta + a.documento).localeCompare(b.juiz + b.consulta + b.documento)
+  );
+  if (!rows.length) {
+    document.getElementById("judge-msg").textContent = "Nenhum voto para exportar.";
+    return;
+  }
+  const header = ["consulta", "documento", "grau", "juiz", "timestamp", "segundos"];
+  const esc = (x) => '"' + String(x).replace(/"/g, '""') + '"';
+  const lines = [header.join(",")];
+  rows.forEach(r => {
+    lines.push([r.consulta, r.documento, r.grau, r.juiz, r.timestamp, r.segundos].map(esc).join(","));
+  });
+  // BOM para Excel
+  const blob = new Blob(["\uFEFF" + lines.join("\n") + "\n"], { type: "text/csv;charset=utf-8" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "05-qrels.csv";
+  a.click();
+  URL.revokeObjectURL(a.href);
+  document.getElementById("judge-msg").innerHTML =
+    '<span class="ok">Baixado qrels.csv (' + rows.length + " linhas). Salve como csv/05-qrels.csv</span>";
+}
+
+/* ---------- wire ---------- */
+document.querySelectorAll(".notas button").forEach(btn => {
+  btn.addEventListener("click", () => registrar(Number(btn.getAttribute("data-g"))));
+});
+document.getElementById("btn-voltar").addEventListener("click", voltar);
+document.getElementById("btn-pular").addEventListener("click", pular);
+document.getElementById("btn-exportar").addEventListener("click", exportar);
+document.getElementById("btn-segunda").addEventListener("click", segundaPassada);
+document.getElementById("btn-guia").addEventListener("click", () => document.getElementById("guia").classList.remove("hidden"));
+document.getElementById("btn-fecha-guia").addEventListener("click", () => document.getElementById("guia").classList.add("hidden"));
+document.getElementById("btn-sair").addEventListener("click", showSetup);
+
+document.addEventListener("keydown", (ev) => {
+  if (document.getElementById("judge").classList.contains("hidden")) return;
+  const tag = (ev.target && ev.target.tagName) || "";
+  if (tag === "INPUT" || tag === "TEXTAREA") return;
+  if (ev.key === "0" || ev.key === "1" || ev.key === "2") { registrar(Number(ev.key)); ev.preventDefault(); }
+  if (ev.key === "ArrowLeft") { voltar(); ev.preventDefault(); }
+  if (ev.key === "p" || ev.key === "P") { pular(); ev.preventDefault(); }
+  if (ev.key === "g" || ev.key === "G") {
+    document.getElementById("guia").classList.toggle("hidden");
+    ev.preventDefault();
+  }
+});
+
+document.getElementById("btn-iniciar").addEventListener("click", async () => {
+  const msg = document.getElementById("setup-msg");
+  msg.textContent = "";
+  try {
+    const juiz = document.getElementById("juiz").value.trim();
+    if (!juiz) throw new Error("Informe o nome do juiz.");
+    state.juiz = juiz;
+    state.semente = Number(document.getElementById("semente").value) || 42;
+    state.segunda = false;
+    state.historico = [];
+    state.idx = 0;
+    state.votos = {};
+
+    const corpusTxt = await textFromInput(document.getElementById("f-corpus"), document.getElementById("t-corpus"));
+    const necTxt = await textFromInput(document.getElementById("f-nec"), document.getElementById("t-nec"));
+    const poolTxt = await textFromInput(document.getElementById("f-pool"), document.getElementById("t-pool"));
+    if (!corpusTxt.trim()) throw new Error("Selecione ou cole o arquivo 05-corpus.csv (documentos)");
+    if (!necTxt.trim()) throw new Error("Selecione ou cole o arquivo 05-necessidades.csv (perguntas)");
+
+    state.corpus = normCorpus(parseCSV(corpusTxt));
+    state.necessidades = normNecs(parseCSV(necTxt));
+    const poolRows = poolTxt.trim() ? parseCSV(poolTxt) : [];
+    state.fila = buildFila(poolRows);
+    saveLocal();
+    showJudge();
+  } catch (e) {
+    msg.textContent = String(e.message || e);
+  }
+});
+
+document.getElementById("btn-retomar").addEventListener("click", () => {
+  const msg = document.getElementById("setup-msg");
+  const saved = loadLocal();
+  if (!saved || !saved.fila || !saved.fila.length) {
+    msg.textContent = "Nenhuma sessão salva neste navegador.";
+    return;
+  }
+  Object.assign(state, saved);
+  document.getElementById("juiz").value = state.juiz || "";
+  document.getElementById("semente").value = state.semente || 42;
+  if (!state.corpus || !Object.keys(state.corpus).length) {
+    msg.textContent = "Sessão incompleta (corpus grande demais). Carregue os CSVs de novo e use Iniciar.";
+    return;
+  }
+  showJudge();
+});
+</script>
+</body>
+</html>

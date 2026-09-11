@@ -41,41 +41,43 @@ Victória Cabral Quintério
 .
 ├── README.md
 ├── estrutura/
-│   ├── corpus/                 # base textual (3 artigos wiki)
-│   │   ├── porto_de_santos.txt
-│   │   ├── autoridade_portuaria_de_santos.txt
-│   │   └── francisco_de_paula_ribeiro.txt
-│   └── codigos/                # todos os scripts .R
+│   ├── corpus/
+│   └── codigos/
 │       ├── 00-introducao-ao-r.R
 │       ├── 01a-corpus-aula-01.R
 │       ├── 01b-shannon-pesos.R
 │       ├── 02-tfidf-cosseno.R
 │       ├── 03-preprocessao-indice.R
-│       └── 04-poisson-bm25.R
-├── consolidados/               # todas as entregas .md
-│   ├── 00-introducao-ao-r.md
-│   ├── 01a-primeiro-corpus-real.md
-│   ├── 01b-shannon-pesos-dos-termos.md
-│   ├── 02-tfidf-similaridade-cosseno.md
-│   ├── 03-limpeza-stopwords-stemming-indice.md
-│   └── 04-poisson-saturacao-bm25.md
-├── materiais-aulas/            # PDFs das aulas
-└── to-delete-trash/            # pasta antiga Atividades/ (lixo)
+│       ├── 04-poisson-bm25.R
+│       └── 05-julgamento/
+│           ├── 05a-kappa.R
+│           ├── 05b-montar-corpus.R
+│           ├── 05c-ficha-corpus.R
+│           ├── 05d-gerar-pool.R
+│           ├── 05-julgar.html
+│           └── csv/
+│               ├── 05-corpus.csv
+│               ├── 05-necessidades.csv
+│               ├── 05-pool.csv
+│               └── 05-qrels.csv
+├── consolidados/
+├── materiais-aulas/            # PDFs + GUIA/PROMPT da Aula 05
+└── to-delete-trash/
 ```
+
+Relatório da Aula 05: [`consolidados/05-julgamento-pooling-kappa.md`](consolidados/05-julgamento-pooling-kappa.md).
 
 | Pasta | Conteúdo |
 |---|---|
-| `estrutura/corpus` | Base textual única do semestre |
-| `estrutura/codigos` | Códigos R do motor |
-| `consolidados` | Relatórios/entregas em Markdown |
-| `materiais-aulas` | Slides/PDFs |
-| `to-delete-trash` | Layout antigo - pode apagar depois de conferir |
+| `estrutura/corpus` | Base textual (3 artigos wiki) |
+| `estrutura/codigos` | Scripts R do motor |
+| `estrutura/codigos/05-julgamento` | Aula 05 (κ, corpus, pool, HTML) |
+| `consolidados` | Relatórios em Markdown |
+| `materiais-aulas` | Slides/PDFs e materiais do professor |
 
 ---
 
 ## Como o motor está sendo montado
-
-Base: três artigos da Wikipédia (Porto de Santos, APS, Francisco de Paula Ribeiro).
 
 | Entrega | Arquivo MD | Script | Tema |
 |:-:|---|---|---|
@@ -85,9 +87,10 @@ Base: três artigos da Wikipédia (Porto de Santos, APS, Francisco de Paula Ribe
 | 3ª | [02-tfidf-similaridade-cosseno.md](consolidados/02-tfidf-similaridade-cosseno.md) | `02-tfidf-cosseno.R` | TF-IDF · cosseno (Aula 02) |
 | 4ª | [03-limpeza-stopwords-stemming-indice.md](consolidados/03-limpeza-stopwords-stemming-indice.md) | `03-preprocessao-indice.R` | Limpeza · Snowball · índice (Aula 03) |
 | 5ª | [04-poisson-saturacao-bm25.md](consolidados/04-poisson-saturacao-bm25.md) | `04-poisson-bm25.R` | Poisson · BM25 (Aula 04) |
+| 6ª | [05-julgamento-pooling-kappa.md](consolidados/05-julgamento-pooling-kappa.md) | `05-julgamento/05a-kappa.R` | Julgamento · pooling · κ (Aula 05) |
 
 ```
-R base → corpus wiki → IDF → TF-IDF → limpeza/índice → BM25
+R base → corpus wiki → IDF → TF-IDF → limpeza/índice → BM25 → gabarito/κ
 ```
 
 ---
@@ -102,6 +105,11 @@ Rscript 01b-shannon-pesos.R
 Rscript 02-tfidf-cosseno.R
 Rscript 03-preprocessao-indice.R
 Rscript 04-poisson-bm25.R
-```
 
-Os scripts que leem texto usam `estrutura/corpus` (caminho relativo `../corpus`).
+cd 05-julgamento
+Rscript 05a-kappa.R
+Rscript 05b-montar-corpus.R
+Rscript 05c-ficha-corpus.R
+Rscript 05d-gerar-pool.R
+# abrir 05-julgar.html → carregar csv/05-*.csv → exportar 05-qrels.csv
+```
