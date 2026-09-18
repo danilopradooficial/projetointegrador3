@@ -47,24 +47,62 @@ vocabulário e listar os termos mais frequentes.
 
 ---
 
-## Corpus
+## Corpus e unidade de recuperação canônica
 
 Três artigos da Wikipédia em português, todos ligados ao Porto de Santos.
-Cada artigo vira um documento `dN`; cada **frase pontuada** (ponto final) vira `dN.k`.
-Frases muito longas são partidas em `;` quando existe ponto e vírgula.
+Cada artigo vira um documento `dN`; cada **frase pontuada** vira `dN.k`.
 
-| ID | Nível | Documento | Artigo |
-|---|---|---|---|
-| `d1` | artigo | Porto de Santos | [Wikipédia](https://pt.wikipedia.org/wiki/Porto_de_Santos) |
-| `d1.1` ... `d1.88` | frase | frases de `d1` | - |
-| `d2` | artigo | Autoridade Portuária de Santos | [Wikipédia](https://pt.wikipedia.org/wiki/Autoridade_Portuária_de_Santos) |
-| `d2.1` ... `d2.29` | frase | frases de `d2` | - |
-| `d3` | artigo | Francisco de Paula Ribeiro | [Wikipédia](https://pt.wikipedia.org/wiki/Francisco_de_Paula_Ribeiro) |
-| `d3.1` ... `d3.5` | frase | frases de `d3` | - |
+**Esta regra vale para todo o motor:** o ID `d1.1` no índice (Atividade 03),
+no BM25 (04) e no julgamento (05) é **a mesma frase**.
 
-> Conteúdo licenciado sob **CC BY-SA** (Wikipédia) - uso permitido desde que
-> citada a fonte. Unidade de recuperação: **frase com contexto** (ponto final),
-> para o julgamento humano na Aula 05.
+| ID | Nível | Significado |
+|---|---|---|
+| `d1`, `d2`, `d3` | artigo | Texto completo (Wikipédia) |
+| `d1.1` … `d1.88` | frase | Frases de `d1`, na ordem do texto |
+| `d2.1` … `d2.29` | frase | Frases de `d2` |
+| `d3.1` … `d3.5` | frase | Frases de `d3` |
+
+| Artigo | Arquivo | Frases |
+|---|---|--:|
+| `d1` Porto de Santos | `porto_de_santos.txt` | 88 |
+| `d2` Autoridade Portuária | `autoridade_portuaria_de_santos.txt` | 29 |
+| `d3` Francisco de Paula Ribeiro | `francisco_de_paula_ribeiro.txt` | 5 |
+| **Total de frases** | | **122** |
+| **Total indexável** | 3 artigos + 122 frases | **125** |
+
+Exemplo:
+
+> **`d1.1`** — *Porto de Santos é um porto estuarino, localizado nos municípios de Santos, Guarujá e Cubatão, no estado de São Paulo.*
+
+> Conteúdo licenciado sob **CC BY-SA** (Wikipédia) - uso permitido desde que citada a fonte.
+
+### Regra de fatiamento (`01a-ler-frases.R`)
+
+Implementada em [`estrutura/codigos/01a-ler-frases.R`](../estrutura/codigos/01a-ler-frases.R):
+
+1. Junta o `.txt` em um único bloco de texto.
+2. Protege abreviações (`S.A.`, `Dr.`, …) e decimais (`8.630`).
+3. Quebra por **ponto final / `!` / `?`** (frase com contexto).
+4. Se a frase tiver **mais de 45 palavras** e existir **`;`**, parte no ponto e vírgula.
+5. Descarta pedaços com menos de 3 palavras.
+
+Não usamos corte por número fixo de palavras (ex.: 7–10) — isso perdia o sentido no julgamento.
+
+### Onde a regra é usada (mesmos IDs)
+
+| Etapa | Script | Como carrega |
+|---|---|---|
+| 01a · corpus | `01a-corpus-aula-01.R` | `source("01a-ler-frases.R")` → `carregar_docs_canonico()` |
+| 03 · índice | `03-preprocessao-indice.R` | idem |
+| 04 · BM25 | `04-poisson-bm25.R` | idem |
+| 05 · CSV julgamento | `05-julgamento/05b-montar-corpus.R` | `source("../01a-ler-frases.R")` → `ler_frases()` |
+
+Catálogo versionado:
+
+- [`estrutura/corpus/frases-canonicas.csv`](../estrutura/corpus/frases-canonicas.csv) — `id`, `artigo`, `texto`
+- [`estrutura/codigos/05-julgamento/csv/05-corpus.csv`](../estrutura/codigos/05-julgamento/csv/05-corpus.csv) — mesmo texto, formato do `julgar.html`
+
+Ao rodar `05b-montar-corpus.R`, os dois CSVs são regravados juntos. Conferência: o texto de `d1.1` no `05b` deve ser igual a `docs[["d1.1"]]` nesta atividade.
 
 ---
 
@@ -74,19 +112,14 @@ Frases muito longas são partidas em `;` quando existe ponto e vírgula.
 estrutura/corpus/
 ├── porto_de_santos.txt
 ├── autoridade_portuaria_de_santos.txt
-└── francisco_de_paula_ribeiro.txt
+├── francisco_de_paula_ribeiro.txt
+└── frases-canonicas.csv          # catálogo dos IDs dN.k
 estrutura/codigos/
+├── 01a-ler-frases.R            # regra canônica (01a/03/04/05)
 └── 01a-corpus-aula-01.R
 consolidados/
 └── 01a-primeiro-corpus-real.md
 ```
-
-Cada `.txt` guarda o texto do artigo. O script `01a` (e também `03`, `04`, `05b`)
-carrega via [`ler-frases-comum.R`](../estrutura/codigos/ler-frases-comum.R):
-monta `d1`/`d2`/`d3` e as frases `dN.k` **com os mesmos IDs em todo o projeto**.
-
-Catálogo: [`estrutura/corpus/frases-canonicas.csv`](../estrutura/corpus/frases-canonicas.csv).  
-Documentação da regra: [unidade-recuperacao-frases.md](unidade-recuperacao-frases.md).
 
 ---
 

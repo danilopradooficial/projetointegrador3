@@ -1,6 +1,6 @@
 # 05b-montar-corpus.R
 # Frases canonicas d1.1, d1.2, ... -> csv/05-corpus.csv
-# Mesma regra de ler-frases-comum.R (01a / 03 / 04 / 05)
+# Mesma regra da Ativ. 01a (01a-ler-frases.R)
 # Fonte: estrutura/corpus/*.txt · R base
 
 args <- commandArgs(trailingOnly = FALSE)
@@ -9,7 +9,7 @@ if (length(file_arg)) {
   setwd(dirname(normalizePath(sub("^--file=", "", file_arg))))
 }
 
-source(file.path("..", "ler-frases-comum.R"))
+source(file.path("..", "01a-ler-frases.R"))
 
 pasta_txt <- file.path("..", "..", "corpus")
 dir_csv <- "csv"

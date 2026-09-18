@@ -1,7 +1,7 @@
 # =============================================================
 # 05a-kappa.R - Aula 05 - explorar kappa de Cohen
 # Team Shannon · estrutura/codigos/05-julgamento/
-# Gabarito humano: 05-julgar.html -> csv/05-qrels.csv
+# Gabarito humano: 05-julgar.html -> csv/05-qrels-respostas/ -> 05e-consolidar-qrels.R -> csv/05-qrels.csv
 # =============================================================
 
 args_cmd <- commandArgs(trailingOnly = FALSE)

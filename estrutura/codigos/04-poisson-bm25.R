@@ -26,7 +26,7 @@ pasta_corpus <- file.path("..", "corpus")
 ## ============================================================
 ## 1) Corpus real CANONICO (mesmos IDs d1.k de 01a/03/05)
 ## ============================================================
-source("ler-frases-comum.R")
+source("01a-ler-frases.R")
 docs <- carregar_docs_canonico(pasta_corpus)
 
 ## ============================================================

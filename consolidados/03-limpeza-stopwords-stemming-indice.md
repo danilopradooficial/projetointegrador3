@@ -232,7 +232,7 @@ sem_stop <- function(x) {
 ```
 
 Na amostra `d1.1`: **~20** tokens após padronizar → **~12** sem stopwords.
-(O mesmo `d1.1` vale no índice, no BM25 e no julgamento — ver [unidade-recuperacao-frases.md](unidade-recuperacao-frases.md).)
+(O mesmo `d1.1` vale no índice, no BM25 e no julgamento — ver [01a-primeiro-corpus-real.md](01a-primeiro-corpus-real.md).)
 
 ---
 

@@ -429,7 +429,8 @@ estrutura/codigos/05-julgamento/
     ├── 05-pool.csv
     └── 05-qrels.csv
 
-Relatório: consolidados/05-julgamento-pooling-kappa.md
+Relatório: consolidados/05a-julgamento-pooling-kappa.md
+Métricas (Aula 05b): consolidados/05b-metricas-avaliacao.md
 ```
 
 E em `consolidados/`, um `.md` dizendo o que cada membro julgou e as decisões de fronteira que vocês tomaram durante o processo — inclusive as que contrariaram o guia.

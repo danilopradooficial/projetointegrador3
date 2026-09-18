@@ -265,4 +265,4 @@ frases da APS. Faz sentido com o que a aula descreve
    freia um pouco o artigo enorme (d1) - exatamente o problema que a
    Aula 04 queria atacar.
 
-Próximo passo: [Atividade 05 - julgamento, pooling e κ](./05-julgamento-pooling-kappa.md).
+Próximo passo: [Atividade 05a - julgamento, pooling e κ](./05a-julgamento-pooling-kappa.md).

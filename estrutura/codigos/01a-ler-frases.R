@@ -1,8 +1,10 @@
-# ler-frases-comum.R
+# 01a-ler-frases.R
 # ------------------------------------------------------------
-# Unidade de recuperacao CANONICA do projeto (Team Shannon)
-# Usada por: 01a, 03, 04 e 05b — os IDs d1.1, d1.2, ... devem
-# ser os mesmos em todo o motor (indice, BM25 e julgamento).
+# Atividade 01 · Parte A — unidade de recuperacao canônica
+# Team Shannon · PI III
+#
+# Pertence à 2ª entrega (01a). Reutilizado por 03, 04 e 05-julgamento/05b
+# para que d1.1, d1.2, ... sejam os mesmos no motor inteiro.
 #
 # Regra:
 #   1) Quebra por ponto final / ! / ? (frase pontuada)
@@ -10,7 +12,7 @@
 #      parte no ponto e virgula (sem perder o contexto)
 #   3) Protege abreviacoes (S.A., Dr., ...) e decimais (8.630)
 #
-# Catalogo gerado: estrutura/corpus/frases-canonicas.csv
+# Catalogo: estrutura/corpus/frases-canonicas.csv
 # ------------------------------------------------------------
 
 ler_frases <- function(caminho, max_w = 45L, min_w = 3L) {
@@ -54,8 +56,6 @@ ler_frases <- function(caminho, max_w = 45L, min_w = 3L) {
 }
 
 # Monta docs nomeados: d1, d2, d3 + d1.1, d1.2, ...
-# pasta_corpus: caminho para estrutura/corpus
-# Retorna lista nomeada de character.
 carregar_docs_canonico <- function(pasta_corpus) {
   artigos <- c(
     d1 = "porto_de_santos.txt",

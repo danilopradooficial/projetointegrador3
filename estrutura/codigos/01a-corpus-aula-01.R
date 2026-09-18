@@ -22,8 +22,8 @@ if (length(file_arg) == 1) {
 }
 pasta_corpus <- file.path("..", "corpus")
 
-## Unidade de recuperacao CANONICA (mesmo d1.1 em 01a/03/04/05)
-source("ler-frases-comum.R")
+## Unidade de recuperacao CANONICA (Ativ. 01a — mesmo d1.1 em 03/04/05)
+source("01a-ler-frases.R")
 docs <- carregar_docs_canonico(pasta_corpus)
 
 length(docs)

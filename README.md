@@ -45,39 +45,49 @@ Victória Cabral Quintério
 │   │   ├── *.txt                    # artigos wiki
 │   │   └── frases-canonicas.csv     # IDs d1.1… (fonte única)
 │   └── codigos/
-│       ├── ler-frases-comum.R       # regra canônica de frase
+│       ├── 01a-ler-frases.R       # regra canônica de frase
 │       ├── 00-introducao-ao-r.R
 │       ├── 01a-corpus-aula-01.R
 │       ├── 01b-shannon-pesos.R
 │       ├── 02-tfidf-cosseno.R
 │       ├── 03-preprocessao-indice.R
 │       ├── 04-poisson-bm25.R
-│       └── 05-julgamento/
+│       ├── 05b-metricas.R           # P@k · MAP · MRR · nDCG (Aula 05b)
+│       └── 05-julgamento/           # Aula 05a (julgamento)
+│           ├── README.md                # documentação operacional
 │           ├── 05a-kappa.R
 │           ├── 05b-montar-corpus.R
 │           ├── 05c-ficha-corpus.R
 │           ├── 05d-gerar-pool.R
+│           ├── 05e-consolidar-qrels.R
 │           ├── 05-julgar.html
 │           └── csv/
 │               ├── 05-corpus.csv
 │               ├── 05-necessidades.csv
 │               ├── 05-pool.csv
-│               └── 05-qrels.csv
+│               ├── 05-qrels.csv              # gabarito consolidado
+│               ├── 05b-metricas-por-consulta.csv
+│               └── 05-qrels-respostas/       # exports por juiz
 ├── consolidados/
-├── materiais-aulas/            # PDFs + GUIA/PROMPT da Aula 05
+├── materiais-aulas/            # PDFs + guias (05a julgamento · 05b métricas)
 └── to-delete-trash/
 ```
 
-**Unidade de recuperação (obrigatório ler):**  
-[`consolidados/unidade-recuperacao-frases.md`](consolidados/unidade-recuperacao-frases.md) — define `d1.1`, `d1.2`, … iguais em 01a → 05.
+**Unidade de recuperação (IDs `d1.1`…):** definida na [Atividade 01a](consolidados/01a-primeiro-corpus-real.md) (`01a-ler-frases.R`) — a mesma frase em 01a → 05b.
 
-Relatório da Aula 05: [`consolidados/05-julgamento-pooling-kappa.md`](consolidados/05-julgamento-pooling-kappa.md).
+**Aula 05a (julgamento concluído):**  
+[`estrutura/codigos/05-julgamento/README.md`](estrutura/codigos/05-julgamento/README.md) ·  
+[`consolidados/05a-julgamento-pooling-kappa.md`](consolidados/05a-julgamento-pooling-kappa.md).
+
+**Aula 05b (métricas):**  
+[`estrutura/codigos/05b-metricas.R`](estrutura/codigos/05b-metricas.R) ·  
+[`consolidados/05b-metricas-avaliacao.md`](consolidados/05b-metricas-avaliacao.md).
 
 | Pasta | Conteúdo |
 |---|---|
 | `estrutura/corpus` | Artigos wiki + `frases-canonicas.csv` |
-| `estrutura/codigos` | Scripts R do motor + `ler-frases-comum.R` |
-| `estrutura/codigos/05-julgamento` | Aula 05 (κ, corpus, pool, HTML) |
+| `estrutura/codigos` | Scripts R do motor + `01a-ler-frases.R` + `05b-metricas.R` |
+| `estrutura/codigos/05-julgamento` | Aula 05a (κ, corpus, pool, HTML, qrels) |
 | `consolidados` | Relatórios em Markdown |
 | `materiais-aulas` | Slides/PDFs e materiais do professor |
 
@@ -93,12 +103,13 @@ Relatório da Aula 05: [`consolidados/05-julgamento-pooling-kappa.md`](consolida
 | 3ª | [02-tfidf-similaridade-cosseno.md](consolidados/02-tfidf-similaridade-cosseno.md) | `02-tfidf-cosseno.R` | TF-IDF · cosseno (Aula 02) |
 | 4ª | [03-limpeza-stopwords-stemming-indice.md](consolidados/03-limpeza-stopwords-stemming-indice.md) | `03-preprocessao-indice.R` | Limpeza · Snowball · índice (Aula 03) |
 | 5ª | [04-poisson-saturacao-bm25.md](consolidados/04-poisson-saturacao-bm25.md) | `04-poisson-bm25.R` | Poisson · BM25 (Aula 04) |
-| 6ª | [05-julgamento-pooling-kappa.md](consolidados/05-julgamento-pooling-kappa.md) | `05-julgamento/05a-kappa.R` | Julgamento · pooling · κ (Aula 05) |
+| 6ª A | [05a-julgamento-pooling-kappa.md](consolidados/05a-julgamento-pooling-kappa.md) | `05-julgamento/05a-kappa.R` | Julgamento · pooling · κ (Aula 05a) |
+| 7ª | [05b-metricas-avaliacao.md](consolidados/05b-metricas-avaliacao.md) | `05b-metricas.R` | P@k · MAP · MRR · nDCG (Aula 05b) |
 
-**IDs canônicos:** [unidade-recuperacao-frases.md](consolidados/unidade-recuperacao-frases.md) (`ler-frases-comum.R`).
+**IDs canônicos:** seção *Corpus e unidade de recuperação* em [01a-primeiro-corpus-real.md](consolidados/01a-primeiro-corpus-real.md) (`01a-ler-frases.R`).
 
 ```
-R base → corpus wiki (frases por ponto) → IDF → TF-IDF → limpeza/índice → BM25 → gabarito/κ
+R base → corpus wiki (frases por ponto) → IDF → TF-IDF → limpeza/índice → BM25 → gabarito/κ → métricas
 ```
 
 ---
@@ -120,4 +131,8 @@ Rscript 05b-montar-corpus.R
 Rscript 05c-ficha-corpus.R
 Rscript 05d-gerar-pool.R
 # abrir 05-julgar.html → carregar csv/05-*.csv → exportar 05-qrels.csv
+Rscript 05e-consolidar-qrels.R
+
+cd ..
+Rscript 05b-metricas.R
 ```
