@@ -40,7 +40,7 @@ limpar, tirar stopword, stemmar com Snowball e montar o índice.
 Também: índice invertido + `busca_AND` / `busca_OR`.
 
 > **Meta:** vocabulário menor, índice utilizável e busca booleana nos
-> artigos/parágrafos do corpus real.
+> artigos/frases do corpus real.
 
 **Equipe.** Team Shannon  
 **Autores.** Adriane da Costa Santos · Danilo Prado de Lima Silva · Victoria Cabral Quinterio
@@ -301,7 +301,7 @@ busca_OR <- function(consulta) {
 
 # Resultados no corpus real
 
-**21 documentos** indexados: 3 artigos (`d1`, `d2`, `d3`) + 18 parágrafos.
+**439 documentos** indexados: 3 artigos (`d1`, `d2`, `d3`) + 436 frases curtas (7-10 palavras).
 
 ## Efeito no vocabulário (só artigos)
 
@@ -359,11 +359,11 @@ corpus (porto, Santos, autoridade, CODESP…).
 ## Índice
 
 - Dicionário: **873** stems
-- Exemplos de postagens:
-  - `port` → d1, d1.1-d1.10, d2, d2.1-d2.3, d2.5, d3, d3.1 (16 docs)
-  - `sant` → 16 docs
-  - `carg` → d1, d1.1, d1.2, d1.8-d1.10
-  - `ribeir` → d1, d1.2, d3, d3.1
+- Exemplos de postagens (artigos + frases):
+  - `port` → d1 e dezenas de frases `d1.*` / `d2.*` (e d3 quando aparece)
+  - `sant` → artigos e frases ligadas a Santos
+  - `carg` → frases de d1 sobre movimentação de carga
+  - `ribeir` → d3 e frases biográficas / menções em d1
 
 
 

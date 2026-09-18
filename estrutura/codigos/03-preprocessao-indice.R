@@ -31,29 +31,94 @@ artigos <- c(
   d3 = "francisco_de_paula_ribeiro.txt"
 )
 
-ler_paragrafos <- function(caminho) {
+## Unidade de recuperacao: frases de 7-10 palavras (alvo = 8)
+ler_frases <- function(caminho, min_w = 7L, max_w = 10L, alvo = 8L) {
   linhas <- readLines(caminho, encoding = "UTF-8", warn = FALSE)
-  texto <- paste(linhas, collapse = "\n")
-  blocos <- unlist(strsplit(texto, "\n[[:space:]]*\n+"))
-  trimws(blocos[nzchar(trimws(blocos))])
-}
+  texto <- paste(linhas, collapse = " ")
+  texto <- gsub("\\s+", " ", texto)
+  texto <- trimws(texto)
+  palavras <- unlist(strsplit(texto, "\\s+"))
+  palavras <- palavras[nzchar(palavras)]
+  n <- length(palavras)
+  if (n == 0L) return(character(0))
 
+  # Particiona n em tamanhos 7..10 (alvo 8); sobras <7 redistribuidas
+  if (n <= max_w) {
+    sizes <- n
+  } else {
+    q <- n %/% alvo
+    r <- n %% alvo
+    sizes <- rep(alvo, q)
+    if (r == 0L) {
+      # ok
+    } else if (r >= min_w) {
+      sizes <- c(sizes, r)
+    } else {
+      capacidade <- sum(max_w - sizes)
+      if (r <= capacidade) {
+        i <- 1L
+        while (r > 0L) {
+          if (sizes[i] < max_w) {
+            sizes[i] <- sizes[i] + 1L
+            r <- r - 1L
+          }
+          i <- if (i == length(sizes)) 1L else i + 1L
+        }
+      } else {
+        sizes <- c(sizes, r)
+      }
+    }
+  }
+
+  chunks <- list()
+  i <- 1L
+  for (s in sizes) {
+    chunks[[length(chunks) + 1L]] <- palavras[i:(i + s - 1L)]
+    i <- i + s
+  }
+
+  if (length(chunks) >= 2L && length(chunks[[length(chunks)]]) < min_w) {
+    comb <- c(chunks[[length(chunks) - 1L]], chunks[[length(chunks)]])
+    if (length(comb) <= max_w) {
+      chunks <- c(chunks[seq_len(length(chunks) - 2L)], list(comb))
+    } else {
+      best <- NA_integer_
+      best_score <- -1L
+      lo <- max(1L, length(comb) - max_w)
+      hi <- min(max_w, length(comb) - 1L)
+      for (m in lo:hi) {
+        a <- m
+        b <- length(comb) - m
+        if (a <= max_w && b <= max_w && min(a, b) > best_score) {
+          best_score <- min(a, b)
+          best <- as.integer(m)
+        }
+      }
+      if (is.na(best)) best <- as.integer(min(max_w, length(comb) - 1L))
+      chunks <- c(
+        chunks[seq_len(length(chunks) - 2L)],
+        list(comb[seq_len(best)], comb[(best + 1L):length(comb)])
+      )
+    }
+  }
+  vapply(chunks, paste, character(1), collapse = " ")
+}
 docs <- character(0)
 for (id in names(artigos)) {
-  paragrafos <- ler_paragrafos(file.path(pasta_corpus, artigos[[id]]))
-  docs[[id]] <- paste(paragrafos, collapse = " ")
-  if (length(paragrafos) > 0) {
-    docs[paste0(id, ".", seq_along(paragrafos))] <- paragrafos
+  frases <- ler_frases(file.path(pasta_corpus, artigos[[id]]))
+  docs[[id]] <- paste(frases, collapse = " ")
+  if (length(frases) > 0) {
+    docs[paste0(id, ".", seq_along(frases))] <- frases
   }
 }
 
-# Indexamos artigos e paragrafos (unidades de busca)
+# Indexamos artigos e frases curtas (unidades de busca)
 ids_docs <- names(docs)
 ids_artigos <- c("d1", "d2", "d3")
 
 cat("Documentos carregados:", length(docs),
     "| artigos:", length(ids_artigos),
-    "| paragrafos:", length(docs) - length(ids_artigos), "\n\n")
+    "| frases:", length(docs) - length(ids_artigos), "\n\n")
 
 ## 2) Limpeza (Aula 03) + remocao de acentos (texto real em PT)
 limpar <- function(x) {
@@ -108,7 +173,7 @@ cat("Sem stopwords:", length(sem_stop(amostra)), "\n")
 cat("Apos Snowball:", length(prep(amostra)), "\n")
 cat("Stems (15 primeiros):", paste(head(prep(amostra), 15), collapse = " "), "\n\n")
 
-## 6) Vocabulario: efeito de cada etapa (so artigos, sem duplicar paragrafos)
+## 6) Vocabulario: efeito de cada etapa (so artigos, sem duplicar frases)
 tok_bruto   <- lapply(docs[ids_artigos], tok)
 tok_semstop <- lapply(docs[ids_artigos], sem_stop)
 tok_stem    <- lapply(docs[ids_artigos], prep)
@@ -133,7 +198,7 @@ cat("\n--- Top 10 DEPOIS (sem stop + Snowball) ---\n")
 print(head(freq_stem, 10))
 cat("\n")
 
-## 7) Indice invertido (Aula 03) - todos os docs (artigos + paragrafos)
+## 7) Indice invertido (Aula 03) - todos os docs (artigos + frases)
 postings <- list()
 for (d in ids_docs) {
   for (termo in unique(prep(docs[[d]]))) {

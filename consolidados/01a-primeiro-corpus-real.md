@@ -50,20 +50,20 @@ vocabulário e listar os termos mais frequentes.
 ## Corpus
 
 Três artigos da Wikipédia em português, todos ligados ao Porto de Santos.
-Cada artigo vira um documento `dN`; cada parágrafo vira `dN.k`.
+Cada artigo vira um documento `dN`; cada frase curta (7 a 10 palavras) vira `dN.k`.
 
 | ID | Nível | Documento | Artigo |
 |---|---|---|---|
 | `d1` | artigo | Porto de Santos | [Wikipédia](https://pt.wikipedia.org/wiki/Porto_de_Santos) |
-| `d1.1` ... `d1.12` | parágrafo | parágrafos de `d1` | - |
+| `d1.1` ... `d1.310` | frase | frases de `d1` | - |
 | `d2` | artigo | Autoridade Portuária de Santos | [Wikipédia](https://pt.wikipedia.org/wiki/Autoridade_Portuária_de_Santos) |
-| `d2.1` ... `d2.5` | parágrafo | parágrafos de `d2` | - |
+| `d2.1` ... `d2.111` | frase | frases de `d2` | - |
 | `d3` | artigo | Francisco de Paula Ribeiro | [Wikipédia](https://pt.wikipedia.org/wiki/Francisco_de_Paula_Ribeiro) |
-| `d3.1` | parágrafo | parágrafo de `d3` | - |
+| `d3.1` ... `d3.15` | frase | frases de `d3` | - |
 
 > Conteúdo licenciado sob **CC BY-SA** (Wikipédia) - uso permitido desde que
-> citada a fonte. Textos reextraídos da API com parágrafos separados por
-> linha em branco.
+> citada a fonte. Unidade de recuperação: frase de **7 a 10 palavras** (alvo 8),
+> para facilitar o julgamento humano na Aula 05.
 
 ---
 
@@ -80,8 +80,8 @@ consolidados/
 └── 01a-primeiro-corpus-real.md
 ```
 
-Cada `.txt` guarda **só os parágrafos** do artigo (um bloco por parágrafo).
-O script monta `d1`/`d2`/`d3` concatenando esses blocos.
+Cada `.txt` guarda o texto do artigo. O script monta `d1`/`d2`/`d3`
+(artigo inteiro) e fatia o mesmo texto em frases curtas `dN.k`.
 
 ---
 
@@ -97,9 +97,9 @@ Rscript 01a-corpus-aula-01.R
 O script:
 
 1. **Carrega** os 3 `.txt` e monta `docs` com artigos (`d1`, `d2`, `d3`) e
-   parágrafos (`d1.1`, `d1.2`, ...)
+   frases curtas (`d1.1`, `d1.2`, ...; 7-10 palavras)
 2. **Tokeniza** (`tolower` + `strsplit` por espaço)
-3. **Monta o vocabulário** a partir dos **artigos** (sem duplicar os parágrafos)
+3. **Monta o vocabulário** a partir dos **artigos** (sem duplicar as frases)
 4. **Lista** os 10 termos mais frequentes
 
 ---
@@ -108,12 +108,12 @@ O script:
 
 ### Artigos (`d1`, `d2`, `d3`)
 
-| Documento | Parágrafos | Caracteres | Tokens | Termos distintos |
+| Documento | Frases | Caracteres | Tokens | Termos distintos |
 |---|--:|--:|--:|--:|
-| `d1` - Porto de Santos | 12 | 15.762 | 2.480 | 1.100 |
-| `d2` - Autoridade Portuária de Santos | 5 | 5.812 | 888 | 433 |
-| `d3` - Francisco de Paula Ribeiro | 1 | 711 | 125 | 83 |
-| **Total (artigos)** | **18** | **22.285** | **3.493** | **1.281** |
+| `d1` - Porto de Santos | 310 | 15.762 | 2.480 | 1.100 |
+| `d2` - Autoridade Portuária de Santos | 111 | 5.812 | 888 | 433 |
+| `d3` - Francisco de Paula Ribeiro | 15 | 711 | 125 | 83 |
+| **Total (artigos)** | **436** | **22.285** | **3.493** | **1.281** |
 
 ### Vocabulário: corpus real × corpus de brinquedo
 
@@ -165,9 +165,9 @@ mostra o ranking TF-IDF no brinquedo; a 03 limpa o corpus wiki; a 04
 aplica BM25 em cima dessa base.
 
 
-**Dois níveis no mesmo `docs`.** Orientação posterior do professor: cada
-artigo (`d1`, `d2`, `d3`) e cada parágrafo (`d1.1`, `d1.2`, ...). Útil para
-buscar no artigo inteiro ou no trecho.
+**Dois níveis no mesmo `docs`.** Cada artigo (`d1`, `d2`, `d3`) e cada
+frase curta (`d1.1`, `d1.2`, ...; 7-10 palavras). Útil para buscar no
+artigo inteiro ou no trecho julgável.
 
 **Frequências só nos artigos.** Tokenizar também os `dN.k` no mesmo cálculo
 contaria o texto duas vezes; o script usa `d1`/`d2`/`d3` para vocabulário e

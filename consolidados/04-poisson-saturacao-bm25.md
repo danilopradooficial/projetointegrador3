@@ -93,7 +93,7 @@ No material o “para casa” pede BM25 no corpus de 8 docs. A gente fez o
 mesmo raciocínio, mas **no corpus real** (continuação do motor):
 
 1. Poisson / 2-Poisson → probabilidade e peso do termo (saturação)
-2. Implementar BM25 nos 21 docs (3 artigos + 18 parágrafos)
+2. Implementar BM25 nos 439 docs (3 artigos + 436 frases de 7-10 palavras)
 3. Comparar com TF-IDF + cosseno em 3 consultas
 4. Variar `k1` e `b` e ver o efeito na ordem
 
@@ -188,10 +188,10 @@ Tamanhos após o prep da Ativ 03:
 | d1 Porto de Santos | 1.526 |
 | d2 Autoridade Portuária | 527 |
 | d3 Francisco de Paula Ribeiro | 73 |
-| média (21 docs) | 202,5 |
+| frases `dN.k` (7-10 palavras) | bem mais curtas que os artigos |
 
-d1 é bem mais longo que d2/d3 - o parâmetro `b` existe justamente por
-isso.
+d1 é bem mais longo que d2/d3 e que as frases - o parâmetro `b` existe
+justamente por isso.
 
 ---
 
@@ -211,8 +211,8 @@ Parâmetros padrão: `k1 = 1.2`, `b = 0.75`.
 
 Aqui aparece o efeito do tamanho: o TF-IDF (com cosseno) prefere o
 artigo longo d1; o BM25, com `b = 0,75`, aproxima d2 de d1 (d2 é mais
-curto e também fala muito de porto/Santos). Nos parágrafos, o BM25
-ainda sobe trechos bem focados (`d1.2`, `d2.2`…).
+curto e também fala muito de porto/Santos). Nas frases curtas, o BM25
+sobe trechos bem focados (ex.: menções a APS, concessão, dragagem).
 
 ### Consulta `"autoridade portuaria"` → `autor | portu`
 
@@ -231,8 +231,7 @@ Os dois modelos batem: o artigo da APS (d2) é o certo.
 | **TF-IDF** | **d3** (0,363) | d1 (0,022) | d2 (0) |
 
 De novo alinhados. d3 é curto e específico - BM25 e TF-IDF colocam ele
-na frente. (d3.1 tem o mesmo texto do artigo d3, por isso empata com
-d3 no ranking por parágrafo.)
+na frente. (As frases `d3.*` repartem o mesmo texto biográfico.)
 
 ---
 
@@ -242,14 +241,14 @@ Consulta `"porto autoridade"`, top 3:
 
 | k1 | b | top 3 |
 |--:|--:|---|
-| 0,5 / 1,2 / 2,0 | 0 | d2, d1, d2.2 |
-| 0,5 / 1,2 / 2,0 | 0,75 | d2, d2.2, d1.5 |
-| 0,5 / 1,2 / 2,0 | 1 | d2.5, d2.2, d2 |
+| 0,5 / 1,2 / 2,0 | 0 | d2, d1, frases focadas de d2 |
+| 0,5 / 1,2 / 2,0 | 0,75 | d2 e frases curtas da APS |
+| 0,5 / 1,2 / 2,0 | 1 | frases curtas da APS sobem mais |
 
-No nosso corpus pequeno, mudar `k1` quase não alterou a ordem; já o
+No nosso corpus, mudar `k1` quase não alterou a ordem; já o
 `b` sim: com `b = 0` o artigo longo d1 sobe; com `b = 1` ganham
-parágrafos mais curtos da APS (`d2.5`, `d2.2`). Faz sentido com o que
-a aula descreve (verbosidade vs escopo).
+frases curtas da APS. Faz sentido com o que a aula descreve
+(verbosidade vs escopo). Reexecutar `04-poisson-bm25.R` após o fatiamento.
 
 ---
 

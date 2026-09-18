@@ -78,7 +78,7 @@ label.strong { color: var(--ink); font-weight: 600; font-size: .9rem; }
 <body>
 <header>
   <h1>Team Shannon · Julgamento de relevância</h1>
-  <p>PI III · Aula 05 · Fatec Rubens Lara · offline · julgue pela necessidade, não pela consulta</p>
+  <p>PI III · Aula 05 · Team Shannon · ~90 frases/pessoa · ≤ 20 min · 0 / 1 / 2</p>
 </header>
 
 <main>
@@ -86,36 +86,45 @@ label.strong { color: var(--ink); font-weight: 600; font-size: .9rem; }
   <section id="setup" class="card">
     <h2 style="margin-top:0;font-size:1rem">1) Quem está julgando</h2>
     <label class="strong" for="juiz">Seu nome (juiz)</label>
-    <p class="hint">Use sempre o mesmo nome (ex.: adriane, danilo, victoria). Ele vai no arquivo final de votos.</p>
-    <input id="juiz" type="text" placeholder="ex.: adriane" autocomplete="off" />
+    <p class="hint">
+      Cada pessoa recebe <b>~90 frases</b> (~15 min a 10 s/item; teto 20 min).
+      Há sobreposição em dupla para calcular κ depois.
+    </p>
+    <select id="juiz">
+      <option value="">— escolha —</option>
+      <option value="adriane">Adriane</option>
+      <option value="danilo">Danilo</option>
+      <option value="victoria">Victória</option>
+    </select>
+    <p id="fatia-info" class="hint ok" style="margin-top:.45rem"></p>
 
     <div class="row" style="margin-top:.75rem">
       <div>
         <label class="strong" for="semente">Número da ordem aleatória</label>
         <p class="hint">
-          É um número que “embaralha” a ordem dos documentos de forma reproduzível
-          (padrão: 42). Assim ninguém vê o ranking do BM25/TF-IDF e o viés de posição cai.
-          Anote no relatório o número que usou.
+          Embaralha a ordem (padrão 42), sem mostrar ranking do BM25.
+          Anote no relatório o número usado.
         </p>
         <input id="semente" type="number" value="42" />
       </div>
       <div>
-        <label class="strong">Atalhos no teclado</label>
+        <label class="strong">Atalhos (rápido)</label>
         <p class="hint" style="margin-top:.55rem">
           <span class="kbd">0</span> <span class="kbd">1</span> <span class="kbd">2</span> = nota ·
-          <span class="kbd">←</span> = corrigir ·
+          <span class="kbd">←</span> = voltar ·
           <span class="kbd">P</span> = pular ·
           <span class="kbd">G</span> = guia
         </p>
+        <p class="hint">Leia a pergunta objetiva no topo e a frase curta. Responda em poucos segundos.</p>
       </div>
     </div>
 
     <h2 style="font-size:1rem;margin-top:1.4rem">2) Carregar os arquivos da pasta <code>csv/</code></h2>
-    <p class="hint">Escolha os três arquivos abaixo (ou cole o conteúdo). A página funciona offline, sem internet.</p>
+    <p class="hint">Escolha os três arquivos abaixo (ou cole o conteúdo). A página funciona offline.</p>
 
     <div class="file-block">
-      <h3>Arquivo 1 - Documentos a julgar</h3>
-      <p class="hint">Arquivo: <code>csv/05-corpus.csv</code> · cada linha é um parágrafo (ex.: d1.1, d2.3) com o texto completo.</p>
+      <h3>Arquivo 1 - Frases (documentos)</h3>
+      <p class="hint">Arquivo: <code>csv/05-corpus.csv</code> · frases de 7 a 10 palavras (ex.: d1.1).</p>
       <label class="strong" for="f-corpus">Selecionar 05-corpus.csv</label>
       <input id="f-corpus" type="file" accept=".csv,text/csv,text/plain" />
       <label for="t-corpus">Ou colar o conteúdo de 05-corpus.csv</label>
@@ -123,8 +132,8 @@ label.strong { color: var(--ink); font-weight: 600; font-size: .9rem; }
     </div>
 
     <div class="file-block">
-      <h3>Arquivo 2 - Perguntas (necessidades + consultas)</h3>
-      <p class="hint">Arquivo: <code>csv/05-necessidades.csv</code> · o que a pessoa queria saber (em prosa) e o que digitaria na busca.</p>
+      <h3>Arquivo 2 - Perguntas objetivas</h3>
+      <p class="hint">Arquivo: <code>csv/05-necessidades.csv</code> · cada pergunta é uma frase sim/não objetiva.</p>
       <label class="strong" for="f-nec">Selecionar 05-necessidades.csv</label>
       <input id="f-nec" type="file" accept=".csv,text/csv,text/plain" />
       <label for="t-nec">Ou colar o conteúdo de 05-necessidades.csv</label>
@@ -132,15 +141,15 @@ label.strong { color: var(--ink); font-weight: 600; font-size: .9rem; }
     </div>
 
     <div class="file-block">
-      <h3>Arquivo 3 - Lista do que julgar (pool)</h3>
+      <h3>Arquivo 3 - Sua fatia (pool)</h3>
       <p class="hint">
-        Arquivo: <code>csv/05-pool.csv</code> · pares consulta + documento.
-        Se deixar vazio, a página julga <b>todas</b> as combinações (pode ser muito).
+        Arquivo: <code>csv/05-pool.csv</code> · pares com coluna <code>juiz</code>.
+        Ao escolher o nome acima, a página mostra só a sua fatia (~90 itens).
       </p>
-      <label class="strong" for="f-pool">Selecionar 05-pool.csv (recomendado)</label>
+      <label class="strong" for="f-pool">Selecionar 05-pool.csv</label>
       <input id="f-pool" type="file" accept=".csv,text/csv,text/plain" />
       <label for="t-pool">Ou colar o conteúdo de 05-pool.csv</label>
-      <textarea id="t-pool" placeholder="consulta,documento"></textarea>
+      <textarea id="t-pool" placeholder="consulta,documento,juiz,tipo"></textarea>
     </div>
 
     <p id="setup-msg" class="msg"></p>
@@ -160,8 +169,9 @@ label.strong { color: var(--ink); font-weight: 600; font-size: .9rem; }
     </div>
 
     <div class="card">
-      <p class="prog">Progresso: <b id="ui-prog">0 / 0</b> · tempo neste item: <b id="ui-timer">0</b>s</p>
+      <p class="prog">Progresso: <b id="ui-prog">0 / 0</b> · juiz: <b id="ui-juiznome"></b> · tempo neste item: <b id="ui-timer">0</b>s</p>
       <div class="bar"><span id="ui-bar"></span></div>
+      <p class="hint" id="ui-meta-fatia" style="margin-top:.4rem"></p>
     </div>
 
     <div class="card">
@@ -169,18 +179,18 @@ label.strong { color: var(--ink); font-weight: 600; font-size: .9rem; }
         <div class="prog" id="ui-docid"></div>
         <h2 id="ui-titulo"></h2>
         <div class="extras" id="ui-extras"></div>
-        <div class="texto" id="ui-texto"></div>
+        <div class="texto" id="ui-texto" style="max-height:none;font-size:1.15rem;line-height:1.45"></div>
       </div>
       <div class="notas">
-        <button type="button" data-g="0">0 - não serve<small>irrelevante para a necessidade</small></button>
-        <button type="button" data-g="1">1 - fala do assunto<small>contexto, sem responder</small></button>
-        <button type="button" data-g="2">2 - responde<small>atende a necessidade</small></button>
+        <button type="button" data-g="0">0 · não<small>não fala disso</small></button>
+        <button type="button" data-g="1">1 · parcial<small>assunto, sem responder</small></button>
+        <button type="button" data-g="2">2 · sim<small>responde a pergunta</small></button>
       </div>
       <div class="actions">
-        <button type="button" class="secondary" id="btn-voltar">← corrigir anterior</button>
+        <button type="button" class="secondary" id="btn-voltar">← corrigir</button>
         <button type="button" class="secondary" id="btn-pular">Pular</button>
         <button type="button" class="secondary" id="btn-guia">Guia (G)</button>
-        <button type="button" class="secondary" id="btn-segunda">Rejulgar 20% (checar concordância)</button>
+        <button type="button" class="secondary" id="btn-segunda">Rejulgar 20% (κ)</button>
         <button type="button" class="primary" id="btn-exportar">Salvar votos (05-qrels.csv)</button>
         <button type="button" class="danger" id="btn-sair">Voltar ao início</button>
       </div>
@@ -190,12 +200,12 @@ label.strong { color: var(--ink); font-weight: 600; font-size: .9rem; }
 </main>
 
 <div id="guia" class="guia-panel hidden">
-  <h3>Guia rápido</h3>
-  <p><b>2</b> - responde à necessidade em prosa.</p>
-  <p><b>1</b> - fala do assunto / dá contexto, sem responder.</p>
-  <p><b>0</b> - não serve para aquela necessidade.</p>
-  <p>Julgue contra a <b>necessidade</b>, nunca só contra as palavras da consulta.</p>
-  <p>A ordem dos documentos é aleatória de propósito (número da ordem aleatória), para não favorecer o BM25 nem o TF-IDF.</p>
+  <h3>Guia rápido (~10 s/item)</h3>
+  <p>Leia a <b>pergunta objetiva</b> no topo (sim/não).</p>
+  <p>Leia a <b>frase curta</b> abaixo.</p>
+  <p><b>2</b> = sim, responde · <b>1</b> = fala do tema, sem responder · <b>0</b> = não serve.</p>
+  <p>Não julgue só pelas palavras da consulta digitada.</p>
+  <p>Meta: terminar sua fatia em até <b>20 minutos</b>.</p>
   <button type="button" class="secondary" id="btn-fecha-guia">Fechar</button>
 </div>
 
@@ -206,7 +216,10 @@ label.strong { color: var(--ink); font-weight: 600; font-size: .9rem; }
    O "motor" de votação é este JavaScript (não Python).
    ============================================================ */
 
-const STORAGE_KEY = "pi3_julgar_aula05_v1";
+const STORAGE_KEY = "pi3_julgar_aula05_v2";
+const JUIZ_LABEL = { adriane: "Adriane", danilo: "Danilo", victoria: "Victória" };
+const SEGUNDOS_POR_ITEM = 10; // estimativa para a barra de fatia
+
 
 /* ---------- CSV ---------- */
 function detectSep(headerLine) {
@@ -406,21 +419,33 @@ function normNecs(rows) {
 
 function buildFila(poolRows) {
   const items = [];
+  const juiz = state.juiz;
   if (poolRows && poolRows.length) {
-    poolRows.forEach((r, i) => {
+    const temColJuiz = poolRows.some(r => (r.juiz || "").trim());
+    let daFatia = poolRows;
+    if (temColJuiz) {
+      daFatia = poolRows.filter(r => (r.juiz || "").trim().toLowerCase() === juiz);
+      if (!daFatia.length) {
+        throw new Error(
+          "Nenhum item no pool para o juiz \"" + juiz + "\". " +
+          "Confira a coluna juiz em 05-pool.csv (adriane / danilo / victoria)."
+        );
+      }
+    }
+    daFatia.forEach((r, i) => {
       const c = (r.consulta || "").trim();
       const d = (r.documento || r.docid || r.id || "").trim();
-      if (!c || !d) throw new Error("pool.csv linha " + (i + 2) + " incompleta");
+      if (!c || !d) throw new Error("pool.csv linha incompleta (consulta/documento)");
       if (!state.necessidades[c]) throw new Error("pool referencia consulta inexistente: " + c);
       if (!state.corpus[d]) throw new Error("pool referencia documento inexistente: " + d);
-      items.push({ consulta: c, documento: d });
-    });
-  } else {
-    Object.keys(state.necessidades).forEach(c => {
-      Object.keys(state.corpus).forEach(d => {
-        items.push({ consulta: c, documento: d });
+      items.push({
+        consulta: c,
+        documento: d,
+        tipo: (r.tipo || "").trim() || ""
       });
     });
+  } else {
+    throw new Error("Carregue 05-pool.csv (fatia por juiz). Sem pool a fila fica grande demais.");
   }
   return shuffle(items, state.semente);
 }
@@ -493,17 +518,19 @@ function desenhar() {
   document.getElementById("ui-qid").textContent = it.consulta + (state.segunda ? " · segunda passada" : "");
   document.getElementById("ui-nec").textContent = nec.necessidade;
   document.getElementById("ui-qtext").textContent = nec.texto_consulta;
-  document.getElementById("ui-escopo").textContent = nec.escopo ? ("Escopo: " + nec.escopo) : "";
-  document.getElementById("ui-docid").textContent = "documento: " + doc.id;
+  document.getElementById("ui-escopo").textContent = nec.escopo ? ("Dica: " + nec.escopo) : "";
+  document.getElementById("ui-docid").textContent = "frase: " + doc.id + (it.tipo === "duplo" ? " · item em duplo (κ)" : "");
   document.getElementById("ui-titulo").textContent = doc.titulo;
   const extras = [];
-  if (doc.fonte) extras.push("fonte: " + doc.fonte);
-  if (doc.data) extras.push("data: " + doc.data);
-  if (doc.url) extras.push("url: " + doc.url);
+  if (doc.fonte) extras.push(doc.fonte);
   document.getElementById("ui-extras").textContent = extras.join(" · ");
   document.getElementById("ui-texto").textContent = doc.texto;
+  document.getElementById("ui-juiznome").textContent = JUIZ_LABEL[state.juiz] || state.juiz;
+  const { done, total } = progresso();
+  const minEst = Math.ceil((total - done) * SEGUNDOS_POR_ITEM / 60);
+  document.getElementById("ui-meta-fatia").textContent =
+    "Restam ~" + minEst + " min (estimativa " + SEGUNDOS_POR_ITEM + " s/frase). Meta: ≤ 20 min.";
   document.getElementById("judge-msg").textContent = "";
-  progresso();
   startTimer();
 }
 
@@ -618,8 +645,8 @@ document.getElementById("btn-iniciar").addEventListener("click", async () => {
   const msg = document.getElementById("setup-msg");
   msg.textContent = "";
   try {
-    const juiz = document.getElementById("juiz").value.trim();
-    if (!juiz) throw new Error("Informe o nome do juiz.");
+    const juiz = document.getElementById("juiz").value.trim().toLowerCase();
+    if (!juiz || !JUIZ_LABEL[juiz]) throw new Error("Escolha Adriane, Danilo ou Victória no combobox.");
     state.juiz = juiz;
     state.semente = Number(document.getElementById("semente").value) || 42;
     state.segunda = false;
@@ -630,13 +657,21 @@ document.getElementById("btn-iniciar").addEventListener("click", async () => {
     const corpusTxt = await textFromInput(document.getElementById("f-corpus"), document.getElementById("t-corpus"));
     const necTxt = await textFromInput(document.getElementById("f-nec"), document.getElementById("t-nec"));
     const poolTxt = await textFromInput(document.getElementById("f-pool"), document.getElementById("t-pool"));
-    if (!corpusTxt.trim()) throw new Error("Selecione ou cole o arquivo 05-corpus.csv (documentos)");
+    if (!corpusTxt.trim()) throw new Error("Selecione ou cole o arquivo 05-corpus.csv (frases)");
     if (!necTxt.trim()) throw new Error("Selecione ou cole o arquivo 05-necessidades.csv (perguntas)");
+    if (!poolTxt.trim()) throw new Error("Selecione ou cole o arquivo 05-pool.csv (sua fatia)");
 
     state.corpus = normCorpus(parseCSV(corpusTxt));
     state.necessidades = normNecs(parseCSV(necTxt));
-    const poolRows = poolTxt.trim() ? parseCSV(poolTxt) : [];
+    const poolRows = parseCSV(poolTxt);
     state.fila = buildFila(poolRows);
+    const n = state.fila.length;
+    const minEst = Math.ceil(n * SEGUNDOS_POR_ITEM / 60);
+    document.getElementById("fatia-info").textContent =
+      "Fatia de " + (JUIZ_LABEL[juiz] || juiz) + ": " + n + " frases · ~" + minEst + " min.";
+    if (minEst > 20) {
+      msg.textContent = "Aviso: fatia estimada acima de 20 min (" + minEst + " min).";
+    }
     saveLocal();
     showJudge();
   } catch (e) {
@@ -652,13 +687,23 @@ document.getElementById("btn-retomar").addEventListener("click", () => {
     return;
   }
   Object.assign(state, saved);
-  document.getElementById("juiz").value = state.juiz || "";
+  const sel = document.getElementById("juiz");
+  if (state.juiz && [...sel.options].some(o => o.value === state.juiz)) {
+    sel.value = state.juiz;
+  }
   document.getElementById("semente").value = state.semente || 42;
   if (!state.corpus || !Object.keys(state.corpus).length) {
-    msg.textContent = "Sessão incompleta (corpus grande demais). Carregue os CSVs de novo e use Iniciar.";
+    msg.textContent = "Sessão incompleta. Carregue os CSVs de novo e use Começar.";
     return;
   }
   showJudge();
+});
+
+document.getElementById("juiz").addEventListener("change", () => {
+  const j = document.getElementById("juiz").value;
+  const info = document.getElementById("fatia-info");
+  if (!j) { info.textContent = ""; return; }
+  info.textContent = "Ao carregar o pool, só entram itens de " + (JUIZ_LABEL[j] || j) + " (~90 frases, ≤ 20 min).";
 });
 </script>
 </body>
