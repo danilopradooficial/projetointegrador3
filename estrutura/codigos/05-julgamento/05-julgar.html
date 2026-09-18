@@ -78,7 +78,7 @@ label.strong { color: var(--ink); font-weight: 600; font-size: .9rem; }
 <body>
 <header>
   <h1>Team Shannon · Julgamento de relevância</h1>
-  <p>PI III · Aula 05 · Team Shannon · ~90 frases/pessoa · ≤ 20 min · 0 / 1 / 2</p>
+  <p>PI III · Aula 05 · Team Shannon · frases por ponto · ~60/pessoa · ≤ 20 min</p>
 </header>
 
 <main>
@@ -87,7 +87,7 @@ label.strong { color: var(--ink); font-weight: 600; font-size: .9rem; }
     <h2 style="margin-top:0;font-size:1rem">1) Quem está julgando</h2>
     <label class="strong" for="juiz">Seu nome (juiz)</label>
     <p class="hint">
-      Cada pessoa recebe <b>~90 frases</b> (~15 min a 10 s/item; teto 20 min).
+      Cada pessoa recebe <b>~60 frases completas</b> (~15 min a 15 s/item; teto 20 min).
       Há sobreposição em dupla para calcular κ depois.
     </p>
     <select id="juiz">
@@ -115,7 +115,7 @@ label.strong { color: var(--ink); font-weight: 600; font-size: .9rem; }
           <span class="kbd">P</span> = pular ·
           <span class="kbd">G</span> = guia
         </p>
-        <p class="hint">Leia a pergunta objetiva no topo e a frase curta. Responda em poucos segundos.</p>
+        <p class="hint">Leia a pergunta objetiva no topo e a frase completa. Responda em poucos segundos.</p>
       </div>
     </div>
 
@@ -124,7 +124,7 @@ label.strong { color: var(--ink); font-weight: 600; font-size: .9rem; }
 
     <div class="file-block">
       <h3>Arquivo 1 - Frases (documentos)</h3>
-      <p class="hint">Arquivo: <code>csv/05-corpus.csv</code> · frases de 7 a 10 palavras (ex.: d1.1).</p>
+      <p class="hint">Arquivo: <code>csv/05-corpus.csv</code> · cada linha é uma frase completa (ponto final; ex.: d1.1).</p>
       <label class="strong" for="f-corpus">Selecionar 05-corpus.csv</label>
       <input id="f-corpus" type="file" accept=".csv,text/csv,text/plain" />
       <label for="t-corpus">Ou colar o conteúdo de 05-corpus.csv</label>
@@ -200,9 +200,9 @@ label.strong { color: var(--ink); font-weight: 600; font-size: .9rem; }
 </main>
 
 <div id="guia" class="guia-panel hidden">
-  <h3>Guia rápido (~10 s/item)</h3>
-  <p>Leia a <b>pergunta objetiva</b> no topo (sim/não).</p>
-  <p>Leia a <b>frase curta</b> abaixo.</p>
+  <h3>Guia rápido (~15 s/item)</h3>
+  <p>Leia a <b>pergunta objetiva</b> no topo.</p>
+  <p>Leia a <b>frase completa</b> (com contexto) abaixo.</p>
   <p><b>2</b> = sim, responde · <b>1</b> = fala do tema, sem responder · <b>0</b> = não serve.</p>
   <p>Não julgue só pelas palavras da consulta digitada.</p>
   <p>Meta: terminar sua fatia em até <b>20 minutos</b>.</p>
@@ -216,9 +216,9 @@ label.strong { color: var(--ink); font-weight: 600; font-size: .9rem; }
    O "motor" de votação é este JavaScript (não Python).
    ============================================================ */
 
-const STORAGE_KEY = "pi3_julgar_aula05_v2";
+const STORAGE_KEY = "pi3_julgar_aula05_v3";
 const JUIZ_LABEL = { adriane: "Adriane", danilo: "Danilo", victoria: "Victória" };
-const SEGUNDOS_POR_ITEM = 10; // estimativa para a barra de fatia
+const SEGUNDOS_POR_ITEM = 15; // frase completa com contexto
 
 
 /* ---------- CSV ---------- */
@@ -703,7 +703,7 @@ document.getElementById("juiz").addEventListener("change", () => {
   const j = document.getElementById("juiz").value;
   const info = document.getElementById("fatia-info");
   if (!j) { info.textContent = ""; return; }
-  info.textContent = "Ao carregar o pool, só entram itens de " + (JUIZ_LABEL[j] || j) + " (~90 frases, ≤ 20 min).";
+  info.textContent = "Ao carregar o pool, só entram itens de " + (JUIZ_LABEL[j] || j) + " (~60 frases, ≤ 20 min).";
 });
 </script>
 </body>

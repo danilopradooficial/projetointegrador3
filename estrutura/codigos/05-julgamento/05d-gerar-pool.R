@@ -1,6 +1,6 @@
 # 05d-gerar-pool.R
 # Amostra enxuta (~20 min/juiz) com fatias adriane/danilo/victoria
-# + pares em duplo para kappa. Saida: csv/05-pool.csv
+# Corpus = frases por ponto final. Saida: csv/05-pool.csv
 # Colunas: consulta, documento, juiz, tipo
 
 args <- commandArgs(trailingOnly = FALSE)
@@ -17,28 +17,27 @@ necs <- read.csv(file.path(dir_csv, "05-necessidades.csv"),
 
 juizes <- c("adriane", "danilo", "victoria")
 seed <- 42L
-unicos_por_juiz <- 60L
-duplo_por_par <- 15L
+unicos_por_juiz <- 40L
+duplo_por_par <- 10L
 
 indicios <- list(
-  q01 = c("d1.18", "d1.11", "d1.24", "d1.19", "d1.6"),
-  q02 = c("d2.1", "d2.11", "d2.2", "d2.8", "d1.100"),
-  q03 = c("d2.25", "d2.29", "d1.133", "d2.8", "d1.130"),
-  q04 = c("d3.1", "d3.3", "d1.59", "d3.4", "d3.2"),
-  q05 = c("d1.172", "d1.204", "d1.178", "d1.174", "d1.169"),
-  q06 = c("d1.243", "d1.246", "d1.247", "d1.255", "d2.80"),
-  q07 = c("d1.229", "d1.230", "d2.89", "d1.231", "d2.91"),
-  q08 = c("d1.46", "d1.51", "d1.43", "d1.44", "d1.38"),
-  q09 = c("d1.6", "d1.7", "d1.20", "d1.8", "d1.18"),
-  q10 = c("d2.8", "d2.25", "d2.29", "d1.130", "d1.133"),
-  q11 = c("d2.97", "d2.111", "d2.103", "d2.99", "d2.105"),
-  q12 = c("d1.88", "d1.89", "d1.102", "d1.90", "d1.91"),
-  q13 = c("d2.35", "d2.36", "d1.139", "d2.29", "d1.133"),
-  q14 = c("d1.69", "d1.70", "d1.75", "d1.72", "d1.71"),
-  q15 = c("d1.1", "d1.2", "d1.3", "d1.4", "d1.8")
+  q01 = c("d1.4", "d1.6", "d1.8", "d1.19", "d1.76"),
+  q02 = c("d1.13", "d1.17", "d1.24", "d2.1", "d2.2"),
+  q03 = c("d1.33", "d1.34", "d1.35", "d1.37", "d2.7"),
+  q04 = c("d3.1", "d3.2", "d1.17", "d3.3", "d3.4"),
+  q05 = c("d1.44", "d1.45", "d1.47", "d1.48", "d1.49"),
+  q06 = c("d1.67", "d1.68", "d1.69", "d1.70", "d1.72"),
+  q07 = c("d1.57", "d1.60", "d1.63", "d1.64", "d1.65"),
+  q08 = c("d1.12", "d1.13", "d1.14", "d1.17", "d2.1"),
+  q09 = c("d1.3", "d1.6", "d1.7", "d1.8", "d1.9"),
+  q10 = c("d2.3", "d2.7", "d1.34", "d2.24", "d1.85"),
+  q11 = c("d2.26", "d2.29", "d1.88", "d2.25", "d2.27"),
+  q12 = c("d1.25", "d1.26", "d1.28", "d1.29", "d1.62"),
+  q13 = c("d2.9", "d1.36", "d2.21", "d1.15", "d1.66"),
+  q14 = c("d1.20", "d1.21", "d1.12", "d1.19", "d1.22"),
+  q15 = c("d1.1", "d1.29", "d1.52", "d1.61", "d1.82")
 )
 
-# Hash estavel -> [0,1] (R base)
 rnd <- function(key) {
   bytes <- charToRaw(enc2utf8(paste0(seed, ":", key)))
   s <- 0
@@ -56,13 +55,13 @@ for (q in consultas) {
   outros <- ids[order(vapply(ids, function(d) rnd(paste0(q, "|", d)), numeric(1)))]
   for (d in outros) {
     if (!(d %in% pref)) pref <- c(pref, d)
-    if (length(pref) >= 20L) break
+    if (length(pref) >= 12L) break
   }
   candidatos[[q]] <- pref
 }
 
 pares <- list()
-for (i in seq_len(20L)) {
+for (i in seq_len(12L)) {
   for (q in consultas) {
     if (i <= length(candidatos[[q]])) {
       pares[[length(pares) + 1L]] <- c(q, candidatos[[q]][[i]])
@@ -132,6 +131,6 @@ out <- file.path(dir_csv, "05-pool.csv")
 write.csv(pool, out, row.names = FALSE, fileEncoding = "UTF-8")
 cat(out, ":", nrow(pool), "linhas\n")
 print(table(pool$juiz))
-cat("tempo estimado @10s/item:",
-    round(mean(as.numeric(table(pool$juiz))) * 10 / 60, 1),
+cat("tempo estimado @15s/item:",
+    round(mean(as.numeric(table(pool$juiz))) * 15 / 60, 1),
     "min por juiz\n")

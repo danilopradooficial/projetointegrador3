@@ -204,11 +204,11 @@ No corpus de brinquedo da aula não havia acentos. No texto da Wikipédia
 há (`portuária`, `municípios`): por isso usamos `iconv`, como a Aula 03
 sugere.
 
-**Amostra (`d1.1`):**
+**Amostra (`d1.1` — primeira frase canônica):**
 
 ```
-Bruto: Porto de Santos é um porto estuarino, localizado nos municípios...
-Limpo: porto de santos e um porto estuarino localizado nos municipios...
+Bruto: Porto de Santos é um porto estuarino, localizado nos municípios de Santos, Guarujá e Cubatão, no estado de São Paulo.
+Limpo: porto de santos e um porto estuarino localizado nos municipios de santos guarujá e cubatao no estado de sao paulo
 ```
 
 ---
@@ -231,7 +231,8 @@ sem_stop <- function(x) {
 }
 ```
 
-Na amostra `d1.1`: **214** tokens após padronizar → **132** sem stopwords.
+Na amostra `d1.1`: **~20** tokens após padronizar → **~12** sem stopwords.
+(O mesmo `d1.1` vale no índice, no BM25 e no julgamento — ver [unidade-recuperacao-frases.md](unidade-recuperacao-frases.md).)
 
 ---
 
@@ -301,7 +302,7 @@ busca_OR <- function(consulta) {
 
 # Resultados no corpus real
 
-**439 documentos** indexados: 3 artigos (`d1`, `d2`, `d3`) + 436 frases curtas (7-10 palavras).
+**125 documentos** indexados: 3 artigos (`d1`, `d2`, `d3`) + 122 frases (ponto final).
 
 ## Efeito no vocabulário (só artigos)
 

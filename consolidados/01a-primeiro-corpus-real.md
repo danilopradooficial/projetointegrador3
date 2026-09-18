@@ -50,20 +50,21 @@ vocabulário e listar os termos mais frequentes.
 ## Corpus
 
 Três artigos da Wikipédia em português, todos ligados ao Porto de Santos.
-Cada artigo vira um documento `dN`; cada frase curta (7 a 10 palavras) vira `dN.k`.
+Cada artigo vira um documento `dN`; cada **frase pontuada** (ponto final) vira `dN.k`.
+Frases muito longas são partidas em `;` quando existe ponto e vírgula.
 
 | ID | Nível | Documento | Artigo |
 |---|---|---|---|
 | `d1` | artigo | Porto de Santos | [Wikipédia](https://pt.wikipedia.org/wiki/Porto_de_Santos) |
-| `d1.1` ... `d1.310` | frase | frases de `d1` | - |
+| `d1.1` ... `d1.88` | frase | frases de `d1` | - |
 | `d2` | artigo | Autoridade Portuária de Santos | [Wikipédia](https://pt.wikipedia.org/wiki/Autoridade_Portuária_de_Santos) |
-| `d2.1` ... `d2.111` | frase | frases de `d2` | - |
+| `d2.1` ... `d2.29` | frase | frases de `d2` | - |
 | `d3` | artigo | Francisco de Paula Ribeiro | [Wikipédia](https://pt.wikipedia.org/wiki/Francisco_de_Paula_Ribeiro) |
-| `d3.1` ... `d3.15` | frase | frases de `d3` | - |
+| `d3.1` ... `d3.5` | frase | frases de `d3` | - |
 
 > Conteúdo licenciado sob **CC BY-SA** (Wikipédia) - uso permitido desde que
-> citada a fonte. Unidade de recuperação: frase de **7 a 10 palavras** (alvo 8),
-> para facilitar o julgamento humano na Aula 05.
+> citada a fonte. Unidade de recuperação: **frase com contexto** (ponto final),
+> para o julgamento humano na Aula 05.
 
 ---
 
@@ -80,8 +81,12 @@ consolidados/
 └── 01a-primeiro-corpus-real.md
 ```
 
-Cada `.txt` guarda o texto do artigo. O script monta `d1`/`d2`/`d3`
-(artigo inteiro) e fatia o mesmo texto em frases curtas `dN.k`.
+Cada `.txt` guarda o texto do artigo. O script `01a` (e também `03`, `04`, `05b`)
+carrega via [`ler-frases-comum.R`](../estrutura/codigos/ler-frases-comum.R):
+monta `d1`/`d2`/`d3` e as frases `dN.k` **com os mesmos IDs em todo o projeto**.
+
+Catálogo: [`estrutura/corpus/frases-canonicas.csv`](../estrutura/corpus/frases-canonicas.csv).  
+Documentação da regra: [unidade-recuperacao-frases.md](unidade-recuperacao-frases.md).
 
 ---
 
@@ -97,7 +102,7 @@ Rscript 01a-corpus-aula-01.R
 O script:
 
 1. **Carrega** os 3 `.txt` e monta `docs` com artigos (`d1`, `d2`, `d3`) e
-   frases curtas (`d1.1`, `d1.2`, ...; 7-10 palavras)
+   frases (`d1.1`, `d1.2`, ...; quebra por ponto final)
 2. **Tokeniza** (`tolower` + `strsplit` por espaço)
 3. **Monta o vocabulário** a partir dos **artigos** (sem duplicar as frases)
 4. **Lista** os 10 termos mais frequentes
@@ -110,10 +115,10 @@ O script:
 
 | Documento | Frases | Caracteres | Tokens | Termos distintos |
 |---|--:|--:|--:|--:|
-| `d1` - Porto de Santos | 310 | 15.762 | 2.480 | 1.100 |
-| `d2` - Autoridade Portuária de Santos | 111 | 5.812 | 888 | 433 |
-| `d3` - Francisco de Paula Ribeiro | 15 | 711 | 125 | 83 |
-| **Total (artigos)** | **436** | **22.285** | **3.493** | **1.281** |
+| `d1` - Porto de Santos | 88 | 15.762 | 2.480 | 1.100 |
+| `d2` - Autoridade Portuária de Santos | 29 | 5.812 | 888 | 433 |
+| `d3` - Francisco de Paula Ribeiro | 5 | 711 | 125 | 83 |
+| **Total (artigos)** | **122** | **22.285** | **3.493** | **1.281** |
 
 ### Vocabulário: corpus real × corpus de brinquedo
 
@@ -166,8 +171,8 @@ aplica BM25 em cima dessa base.
 
 
 **Dois níveis no mesmo `docs`.** Cada artigo (`d1`, `d2`, `d3`) e cada
-frase curta (`d1.1`, `d1.2`, ...; 7-10 palavras). Útil para buscar no
-artigo inteiro ou no trecho julgável.
+frase pontuada (`d1.1`, `d1.2`, ...). Útil para buscar no artigo inteiro
+ou no trecho julgável com contexto.
 
 **Frequências só nos artigos.** Tokenizar também os `dN.k` no mesmo cálculo
 contaria o texto duas vezes; o script usa `d1`/`d2`/`d3` para vocabulário e

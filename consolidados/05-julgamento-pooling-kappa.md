@@ -26,7 +26,8 @@ monta o processo: necessidade → consulta → julgamento 0/1/2 → qrels → κ
 
 **Equipe.** Team Shannon  
 **Autores.** Adriane da Costa Santos · Danilo Prado de Lima Silva · Victória Cabral Quintério  
-**Juízes.** Adriane, Danilo, Victória · **~30 min** por pessoa
+**Juízes.** Adriane, Danilo, Victória · **≤ 20 min** por pessoa  
+**IDs:** os mesmos de 01a/03/04 — [unidade-recuperacao-frases.md](unidade-recuperacao-frases.md)
 
 ---
 
@@ -45,7 +46,7 @@ monta o processo: necessidade → consulta → julgamento 0/1/2 → qrels → κ
 ```
 estrutura/codigos/05-julgamento/
 ├── 05a-kappa.R              # explorar κ
-├── 05b-montar-corpus.R      # wiki → csv/05-corpus.csv (d1.1, d1.2, …)
+├── 05b-montar-corpus.R      # wiki → csv/05-corpus.csv (IDs = ler-frases-comum.R)
 ├── 05c-ficha-corpus.R
 ├── 05d-gerar-pool.R
 ├── 05-julgar.html
@@ -99,42 +100,43 @@ kappa <- (po - pe) / (1 - pe)
 
 ---
 
-# Corpus (436 frases curtas · 7-10 palavras)
+# Corpus (122 frases · ponto final)
 
 | artigo | ids | n |
 |---|---|---:|
-| Porto de Santos | `d1.1` … `d1.310` | 310 |
-| Autoridade Portuária | `d2.1` … `d2.111` | 111 |
-| Francisco de Paula Ribeiro | `d3.1` … `d3.15` | 15 |
+| Porto de Santos | `d1.1` … `d1.88` | 88 |
+| Autoridade Portuária | `d2.1` … `d2.29` | 29 |
+| Francisco de Paula Ribeiro | `d3.1` … `d3.5` | 5 |
 
 Usuário: alunos de CD treinando o motor (local/acadêmico).  
 Arquivo: [`csv/05-corpus.csv`](../estrutura/codigos/05-julgamento/csv/05-corpus.csv).  
-Unidade de recuperação: frase curta (7 a 10 palavras) para julgamento em ~15 s.
+Unidade de recuperação: **frase com contexto** (quebra por `.` / `!` / `?`; `;` só se a frase for longa).  
+**Mesmos IDs** que 01a/03/04 — ver [unidade-recuperacao-frases.md](unidade-recuperacao-frases.md) e [`frases-canonicas.csv`](../estrutura/corpus/frases-canonicas.csv).
 
 ---
 
 # Necessidades (15) — perguntas objetivas
 
 Arquivo: [`csv/05-necessidades.csv`](../estrutura/codigos/05-julgamento/csv/05-necessidades.csv).  
-Cada necessidade é uma pergunta **sim/parcial/não**, para julgamento em ~10 s.  
+Cada necessidade é uma pergunta **sim/parcial/não**.  
 Indícios **não** são graus.
 
 ```
-q01  importância econômica porto de santos          → d1.18, d1.11, d1.24
-q02  quem administra porto santos autoridade        → d2.1, d2.11, d2.2
-q03  codesp landlord port autoridade portuária      → d2.25, d2.29, d1.133
-q04  francisco de paula ribeiro porto santos        → d3.1, d3.3, d1.59
-q05  incêndio porto de santos açúcar ultracargo     → d1.172, d1.204, d1.178
-q06  acesso ferroviário rodoviário porto santos     → d1.243, d1.246, d1.247
-q07  dragagem calado estuário santos                → d1.229, d1.230, d2.89
-q08  companhia docas de santos concessão            → d1.46, d1.51, d1.43
-q09  tipos de carga movimentação porto santos       → d1.6, d1.7, d1.20
-q10  lei 8630 landlord port santos                  → d2.8, d2.25, d2.29
-q11  autoridade portuária santos museu meio ambiente → d2.97, d2.111, d2.103
-q12  usina itatinga paquetá outeirinhos porto       → d1.88, d1.89, d1.102
-q13  o que é porto organizado santos                → d2.35, d2.36, d1.139
-q14  porto da morte santos epidemias saneamento     → d1.69, d1.70, d1.75
-q15  localização porto de santos guarujá cubatão    → d1.1, d1.2, d1.3
+q01  importância econômica porto de santos          → d1.4, d1.6, d1.8
+q02  quem administra porto santos autoridade        → d1.13, d1.17, d2.1
+q03  codesp landlord port autoridade portuária      → d1.33, d1.34, d1.35
+q04  francisco de paula ribeiro porto santos        → d3.1, d3.2, d1.17
+q05  incêndio porto de santos açúcar ultracargo     → d1.44, d1.45, d1.47
+q06  acesso ferroviário rodoviário porto santos     → d1.67, d1.68, d1.69
+q07  dragagem calado estuário santos                → d1.57, d1.60, d1.63
+q08  companhia docas de santos concessão            → d1.12, d1.13, d1.14
+q09  tipos de carga movimentação porto santos       → d1.3, d1.6, d1.7
+q10  lei 8630 landlord port santos                  → d2.3, d2.7, d1.34
+q11  autoridade portuária santos museu meio ambiente → d2.26, d2.29, d1.88
+q12  usina itatinga paquetá outeirinhos porto       → d1.25, d1.26, d1.28
+q13  o que é porto organizado santos                → d2.9, d1.36, d2.21
+q14  porto da morte santos epidemias saneamento     → d1.20, d1.21, d1.12
+q15  localização porto de santos guarujá cubatão    → d1.1, d1.29, d1.52
 ```
 
 # Pool por juiz (~20 min)
@@ -142,15 +144,15 @@ q15  localização porto de santos guarujá cubatão    → d1.1, d1.2, d1.3
 Arquivo: [`csv/05-pool.csv`](../estrutura/codigos/05-julgamento/csv/05-pool.csv)  
 Colunas: `consulta`, `documento`, `juiz`, `tipo` (`unico` | `duplo`).
 
-| Juiz | Itens | Tempo @10 s | Observação |
+| Juiz | Itens | Tempo @15 s | Observação |
 |---|--:|---:|---|
-| Adriane | 90 | ~15 min | 60 únicos + 30 em duplo |
-| Danilo | 90 | ~15 min | idem |
-| Victória | 90 | ~15 min | idem |
+| Adriane | 60 | ~15 min | 40 únicos + 20 em duplo |
+| Danilo | 60 | ~15 min | idem |
+| Victória | 60 | ~15 min | idem |
 
-- Total de linhas no CSV: **270** (225 pares distintos + 45 reaparecem em duplo)
-- Duplos: 15 Adriane↔Danilo + 15 Adriane↔Victória + 15 Danilo↔Victória (para κ)
-- Regenerar: `Rscript 05d-gerar-pool.R`
+- Total de linhas no CSV: **180**
+- Duplos: 10 Adriane↔Danilo + 10 Adriane↔Victória + 10 Danilo↔Victória (para κ)
+- Regenerar: `Rscript 05b-montar-corpus.R` e `Rscript 05d-gerar-pool.R`
 
 **Viés do pooling:** o que nenhum modelo recupera nunca entra na pool.
 

@@ -42,7 +42,10 @@ Victória Cabral Quintério
 ├── README.md
 ├── estrutura/
 │   ├── corpus/
+│   │   ├── *.txt                    # artigos wiki
+│   │   └── frases-canonicas.csv     # IDs d1.1… (fonte única)
 │   └── codigos/
+│       ├── ler-frases-comum.R       # regra canônica de frase
 │       ├── 00-introducao-ao-r.R
 │       ├── 01a-corpus-aula-01.R
 │       ├── 01b-shannon-pesos.R
@@ -65,12 +68,15 @@ Victória Cabral Quintério
 └── to-delete-trash/
 ```
 
+**Unidade de recuperação (obrigatório ler):**  
+[`consolidados/unidade-recuperacao-frases.md`](consolidados/unidade-recuperacao-frases.md) — define `d1.1`, `d1.2`, … iguais em 01a → 05.
+
 Relatório da Aula 05: [`consolidados/05-julgamento-pooling-kappa.md`](consolidados/05-julgamento-pooling-kappa.md).
 
 | Pasta | Conteúdo |
 |---|---|
-| `estrutura/corpus` | Base textual (3 artigos wiki) |
-| `estrutura/codigos` | Scripts R do motor |
+| `estrutura/corpus` | Artigos wiki + `frases-canonicas.csv` |
+| `estrutura/codigos` | Scripts R do motor + `ler-frases-comum.R` |
 | `estrutura/codigos/05-julgamento` | Aula 05 (κ, corpus, pool, HTML) |
 | `consolidados` | Relatórios em Markdown |
 | `materiais-aulas` | Slides/PDFs e materiais do professor |
@@ -89,8 +95,10 @@ Relatório da Aula 05: [`consolidados/05-julgamento-pooling-kappa.md`](consolida
 | 5ª | [04-poisson-saturacao-bm25.md](consolidados/04-poisson-saturacao-bm25.md) | `04-poisson-bm25.R` | Poisson · BM25 (Aula 04) |
 | 6ª | [05-julgamento-pooling-kappa.md](consolidados/05-julgamento-pooling-kappa.md) | `05-julgamento/05a-kappa.R` | Julgamento · pooling · κ (Aula 05) |
 
+**IDs canônicos:** [unidade-recuperacao-frases.md](consolidados/unidade-recuperacao-frases.md) (`ler-frases-comum.R`).
+
 ```
-R base → corpus wiki → IDF → TF-IDF → limpeza/índice → BM25 → gabarito/κ
+R base → corpus wiki (frases por ponto) → IDF → TF-IDF → limpeza/índice → BM25 → gabarito/κ
 ```
 
 ---
