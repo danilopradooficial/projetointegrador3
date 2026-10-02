@@ -172,15 +172,13 @@ serem tabelas numéricas, não prosa.
 
 O corpo de cada artigo, sem infobox nem referências, foi salvo em UTF-8 em
 \texttt{estrutura/corpus/} (19/08/2026). O script \texttt{01a-ler-frases.R}
-quebra o texto por \texttt{.}, \texttt{!} e \texttt{?} (e \texttt{;} acima de
-45 palavras), descarta fragmentos de menos de 3 palavras e numera as frases em
-\texttt{frases-canonicas.csv}, com os mesmos IDs da Aula 01 à 05.
-
-\textbf{O que deu errado.} (i) O artigo inteiro como documento dava só 3
-documentos. (ii) Cortes fixos de 7 a 10 palavras partiam frases, e os juízes
-não julgavam sem contexto; passou-se à pontuação. (iii) Abreviações e decimais
-(\texttt{S.A.}, \texttt{1,5}) quebravam frases e passaram a ser protegidas.
-(iv) Fragmentos de 1 ou 2 palavras foram descartados.
+fragmenta o texto em frases pela pontuação final (\texttt{.}, \texttt{!} e
+\texttt{?}), usando \texttt{;} como corte adicional quando a frase passa de 45
+palavras. Antes do corte, abreviações e decimais (\texttt{S.A.}, \texttt{Dr.},
+\texttt{1,5}) são protegidos, para que o ponto deles não divida a frase; depois,
+fragmentos com menos de 3 palavras são descartados. As frases são numeradas em
+\texttt{frases-canonicas.csv}, e os mesmos IDs valem da Aula 01 ao julgamento
+da Aula 05.
 
 % ==========================================================================
 \section{Defesa do corpus}
