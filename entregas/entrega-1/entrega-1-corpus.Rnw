@@ -34,14 +34,14 @@
 % ----------------------------------------------------------
 % DADOS DA ENTREGA
 % ----------------------------------------------------------
-\titulo{O corpus do projeto: \textit{o Porto de Santos --- o lugar, a autoridade pública e o fundador}}
+\titulo{O corpus do projeto: \textit{o Porto de Santos - o lugar, a autoridade pública e o fundador}}
 \tituloestrangeiro{}
 \autor{Equipe Shannon}
 \local{Santos-SP}
 \data{\today}
 
 \newcommand{\nomecurso}{Tecnologia em Ciência de Dados}
-\newcommand{\nomedisciplina}{Projeto Integrador III --- Motor de Busca}
+\newcommand{\nomedisciplina}{Projeto Integrador III - Motor de Busca}
 \newcommand{\nomeprofessor}{Prof.\ Dr.\ João Paulo Ferreira de Mello}
 \newcommand{\repositorio}{projetointegrador3}
 \newcommand{\integrantes}{%
@@ -110,6 +110,7 @@ ms.med <- tapply(met$ms, met$metodo, mean)
 
 \selectlanguage{brazil}
 \frenchspacing
+\captiondelim{ - }
 
 \begin{center}
   \SingleSpacing
@@ -158,13 +159,13 @@ São $N = \Sexpr{r[["n.docs"]]}$ documentos.
 
 Um documento é \textbf{uma frase pontuada}, \texttt{dN.k} (página \texttt{N},
 frase \texttt{k}): a menor unidade que responde sozinha a uma pergunta. O
-artigo inteiro diria só ``está no artigo do porto'', e o parágrafo --- padrão do
-curso --- daria \Sexpr{r[["n.paragrafos"]]} documentos, abaixo da faixa e
+artigo inteiro diria só ``está no artigo do porto'', e o parágrafo - padrão do
+curso - daria \Sexpr{r[["n.paragrafos"]]} documentos, abaixo da faixa e
 misturando assuntos. A frase \texttt{d1.1}, \Sexpr{cita("d1.1", 14)}, responde
 sozinha à pergunta~1.
 
 A motivação foi o conhecimento prévio: o grupo já estuda o porto em Teoria do
-Aprendizado Estatístico, com dados da ANTAQ --- a alternativa descartada, por
+Aprendizado Estatístico, com dados da ANTAQ - a alternativa descartada, por
 serem tabelas numéricas, não prosa.
 
 % ==========================================================================
