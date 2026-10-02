@@ -29,6 +29,7 @@
 \usepackage[alf]{abntex2cite}
 
 \hypersetup{hidelinks}
+\setlength{\emergencystretch}{3em}
 
 % ----------------------------------------------------------
 % DADOS DA ENTREGA
@@ -58,9 +59,9 @@ opts_chunk$set(
   message    = FALSE,
   warning    = FALSE,
   fig.align  = "center",
-  out.width  = "0.55\\linewidth",
+  out.width  = "0.5\\linewidth",
   fig.width  = 5.6,
-  fig.height = 1.9
+  fig.height = 1.6
 )
 options(OutDec = ",", digits = 4)
 @
@@ -134,16 +135,15 @@ ms.med <- tapply(met$ms, met$metodo, mean)
 \section{Introdução}
 % ==========================================================================
 
-O motor de busca do grupo é sobre o Porto de Santos, o porto mais movimentado
-da América Latina e o eixo econômico da Baixada Santista. Quem o usaria é um estudante,
-jornalista ou analista regional que precisa achar \emph{a frase} que responde
-a uma dúvida sobre o porto, e não um artigo inteiro para ler. Em recuperação de
-informação, o que se atende é a \emph{necessidade de informação} de alguém, não
-a consulta literal \cite[cap.~1]{manning2008}; por isso as perguntas vieram
-antes do corpus: \textbf{(1)} onde fica o Porto de Santos; \textbf{(2)} quem
-administra o porto hoje; \textbf{(3)} quem foi Francisco de Paula Ribeiro e
-qual a sua ligação com o porto. Este texto apresenta a fonte, descreve como o
-corpus foi montado e mostra, com números, que ele responde às três perguntas.
+O motor de busca do grupo é sobre o Porto de Santos, o mais movimentado da
+América Latina e eixo econômico da Baixada Santista. Quem o usaria é um
+estudante, jornalista ou analista que precisa achar \emph{a frase} que responde
+a uma dúvida sobre o porto. O que se atende é a \emph{necessidade de
+informação}, não a consulta literal \cite[cap.~1]{manning2008}; por isso as
+perguntas vieram antes do corpus: \textbf{(1)} onde fica o porto; \textbf{(2)}
+quem o administra hoje; \textbf{(3)} quem foi Francisco de Paula Ribeiro e
+qual a sua ligação com o porto. Este texto apresenta a fonte, a coleta e a
+evidência de que o corpus responde às três.
 
 % ==========================================================================
 \section{A fonte e o documento}
@@ -152,50 +152,40 @@ corpus foi montado e mostra, com números, que ele responde às três perguntas.
 O texto vem da Wikipédia em português, sob licença CC BY-SA, de três páginas:
 \textit{Porto de Santos} \cite{wikiporto}, \textit{Autoridade Portuária de
 Santos} \cite{wikiaps} e \textit{Francisco de Paula Ribeiro}
-\cite{wikiribeiro}, salvas em agosto de 2026. Cada página cobre um eixo de
-uma pergunta: o \textbf{lugar} (pergunta 1), a \textbf{autoridade pública}
-que administra o porto (pergunta 2) e o \textbf{fundador} histórico
-(pergunta 3). O corpus tem $N = \Sexpr{r[["n.docs"]]}$ documentos vindos de
-\Sexpr{r[["n.paginas"]]} páginas.
+\cite{wikiribeiro}, salvas em agosto de 2026: o \textbf{lugar}, a
+\textbf{autoridade pública} e o \textbf{fundador}, uma para cada pergunta.
+São $N = \Sexpr{r[["n.docs"]]}$ documentos.
 
-Um documento é \textbf{uma frase pontuada}, identificada como
-\texttt{dN.k} (página \texttt{N}, frase \texttt{k}). O critério foi ``a menor
-unidade que responde sozinha a uma pergunta'': o artigo inteiro faria a busca
-devolver ``a resposta está no artigo do porto'' sem dizer onde, e o parágrafo
---- padrão do curso --- daria só \Sexpr{r[["n.paragrafos"]]} documentos,
-abaixo da faixa pedida e misturando assuntos. A frase \texttt{d1.1},
-\Sexpr{cita("d1.1", 14)}, responde sozinha à pergunta~1.
+Um documento é \textbf{uma frase pontuada}, \texttt{dN.k} (página \texttt{N},
+frase \texttt{k}): a menor unidade que responde sozinha a uma pergunta. O
+artigo inteiro diria só ``está no artigo do porto'', e o parágrafo --- padrão do
+curso --- daria \Sexpr{r[["n.paragrafos"]]} documentos, abaixo da faixa e
+misturando assuntos. A frase \texttt{d1.1}, \Sexpr{cita("d1.1", 14)}, responde
+sozinha à pergunta~1.
 
-A motivação foi o conhecimento prévio: o grupo já estuda o Porto de Santos em
-Teoria do Aprendizado Estatístico, com dados de atracação da ANTAQ. Esses dados
-foram a alternativa descartada: são tabelas numéricas (navios, horas,
-toneladas), não prosa que responda a perguntas.
+A motivação foi o conhecimento prévio: o grupo já estuda o porto em Teoria do
+Aprendizado Estatístico, com dados da ANTAQ --- a alternativa descartada, por
+serem tabelas numéricas, não prosa.
 
 % ==========================================================================
 \section{Como o corpus foi obtido}
 % ==========================================================================
 
-O corpo de cada artigo foi salvo como texto em UTF-8, sem infobox, listas nem
-referências, em \texttt{estrutura/corpus/} (um \texttt{.txt} por página,
-enviados ao repositório em 19/08/2026). O script
-\texttt{estrutura/codigos/01a-ler-frases.R} quebra o texto em frases por
-\texttt{.}, \texttt{!} e \texttt{?} (e por \texttt{;} acima de 45 palavras),
-descarta fragmentos com menos de 3 palavras e numera as frases; o catálogo fica
-em \texttt{estrutura/corpus/frases-canonicas.csv}, com os mesmos IDs da Aula 01
-ao julgamento da Aula 05.
+O corpo de cada artigo, sem infobox nem referências, foi salvo em UTF-8 em
+\texttt{estrutura/corpus/} (19/08/2026). O script \texttt{01a-ler-frases.R}
+quebra o texto por \texttt{.}, \texttt{!} e \texttt{?} (e \texttt{;} acima de
+45 palavras), descarta fragmentos de menos de 3 palavras e numera as frases em
+\texttt{frases-canonicas.csv}, com os mesmos IDs da Aula 01 à 05.
 
-\textbf{O que deu errado.} (i) O primeiro documento foi o artigo inteiro: só 3
-documentos, e a busca não apontava o trecho. (ii) Cortes fixos de 7 a 10
-palavras partiam frases ao meio, e os juízes não conseguiam julgar sem o
-contexto; a regra passou a ser a pontuação. (iii) Abreviações e decimais
-(\texttt{S.A.}, \texttt{Dr.}, \texttt{1,5}) quebravam frases no lugar errado e
-passaram a ser protegidas. (iv) Fragmentos de 1 ou 2 palavras foram descartados.
+\textbf{O que deu errado.} (i) O artigo inteiro como documento dava só 3
+documentos. (ii) Cortes fixos de 7 a 10 palavras partiam frases, e os juízes
+não julgavam sem contexto; passou-se à pontuação. (iii) Abreviações e decimais
+(\texttt{S.A.}, \texttt{1,5}) quebravam frases e passaram a ser protegidas.
+(iv) Fragmentos de 1 ou 2 palavras foram descartados.
 
 % ==========================================================================
 \section{Defesa do corpus}
 % ==========================================================================
-
-A Tabela~\ref{tab:diag} reúne as verificações feitas sobre o corpus.
 
 \begin{table}[htb]
   \centering
@@ -218,29 +208,19 @@ A Tabela~\ref{tab:diag} reúne as verificações feitas sobre o corpus.
   \fonte{Elaborada pelos autores (\texttt{entrega-1-corpus.R}).}
 \end{table}
 
-\textbf{Tamanho.} São \Sexpr{r[["n.docs"]]} documentos, acima da meta de 20 a
-60. O excesso vem da unidade, não de páginas a mais: as mesmas três páginas
-dão \Sexpr{r[["n.paragrafos"]]} parágrafos, abaixo da faixa. O grupo mantém a
-frase, que já foi indexada e julgada nas Aulas 03 a 05.
-
-\textbf{Domínio de uma página.} O porto responde por
-\Sexpr{f1(r[["dom.pct"]], 0)}\% do corpus, e o fundador por
-\Sexpr{pag$frases[pag$artigo == "d3"]} frases. É a cara do tema --- o artigo do
-porto é o mais longo e geral ---, mas a pergunta 3 depende de poucas frases; a
-correção é acrescentar páginas, não cortar.
-
-\textbf{Documentos que não são prosa.} Nenhuma frase tem menos de
-\Sexpr{r[["curto"]]} tokens, porque a coleta descarta fragmentos. A única acima
-de \Sexpr{r[["longo"]]}, \texttt{\Sexpr{longo_id}}, foi lida e \emph{não} é
-prosa: é a lista de terminais do artigo, que perdeu as quebras de linha e virou
-uma frase só. Ela mostra o efeito do tamanho: é o 1.º lugar do TF-IDF na
-pergunta 2 só por ser longa, e o BM25, que normaliza pelo tamanho, a tira do
-top-5 \cite{robertson2009}.
-
-\textbf{Sujeira.} Quase todas as frases têm acento, todas têm pontuação
-grudada e \Sexpr{r[["com.digito"]]} têm dígitos (anos, leis, toneladas): o
-esperado, tratado na Aula 03. Pela Figura~\ref{fig:tam}, a maioria das frases
-tem entre 15 e 40 tokens.
+\textbf{Tamanho.} São \Sexpr{r[["n.docs"]]} documentos (Tabela~\ref{tab:diag}),
+acima da meta de 20 a 60, por causa da unidade: em parágrafos seriam
+\Sexpr{r[["n.paragrafos"]]}. A frase fica, pois já foi indexada e julgada.
+\textbf{Domínio.} O porto tem \Sexpr{f1(r[["dom.pct"]], 0)}\% do corpus e o
+fundador só \Sexpr{pag$frases[pag$artigo == "d3"]} frases: é a cara do tema,
+mas a pergunta 3 depende de poucas frases; a correção é acrescentar páginas.
+\textbf{Não prosa.} A única frase acima de \Sexpr{r[["longo"]]} tokens,
+\texttt{\Sexpr{longo_id}}, é uma lista de terminais que perdeu as quebras de
+linha; por ser longa, é o 1.º lugar do TF-IDF na pergunta 2, e o BM25, que
+normaliza pelo tamanho, a tira do top-5 \cite{robertson2009}.
+\textbf{Sujeira.} Acentos, pontuação grudada e \Sexpr{r[["com.digito"]]} frases
+com dígitos: o esperado, tratado na Aula 03. Pela Figura~\ref{fig:tam}, a
+maioria das frases tem de 15 a 40 tokens.
 
 \begin{figure}[htb]
   \centering
@@ -254,20 +234,15 @@ hist(tam, breaks = 15, col = "#D6EAF3", border = "white",
   \fonte{Elaborada pelos autores.}
 \end{figure}
 
-\textbf{Os termos mais frequentes} são \Sexpr{texto_top10}. Só
-\Sexpr{n_tema} deles (\texttt{porto}) diz algo sobre o tema; os outros são
-artigos, preposições e conjunções --- exatamente o que as \textit{stopwords}
-da Aula 03 removem e o IDF da Aula 01 penaliza.
+\textbf{Os termos mais frequentes} são \Sexpr{texto_top10}: só
+\texttt{porto} fala do tema; o resto é o que as \textit{stopwords} removem.
 
-\textbf{Veredito.} A Tabela~\ref{tab:busca} roda as três perguntas no corpus
-com os métodos das aulas, avaliados pelo gabarito de graus 0/1/2 da Aula 05.
-As perguntas 1 e 3 são respondidas na 1.ª posição por todos os métodos
-ranqueados (\texttt{d1.1} e \texttt{d3.1}, ambas de grau 2). Na pergunta 2 o
-nDCG é zero, mas o defeito está no gabarito, não no corpus: a frase
-\texttt{d2.4}, \Sexpr{cita("d2.4", 11)}, responde à pergunta e aparece em
-3.º lugar no cosseno e no BM25, mas os dois juízes que a avaliaram deram
-grau~0, em 1 e 4 segundos. O AND não devolve nada nas três, porque nenhuma
-frase contém todos os termos; o OR devolve cerca de metade do corpus.
+\textbf{Veredito.} Na Tabela~\ref{tab:busca}, as perguntas 1 e 3 têm a
+resposta (\texttt{d1.1}, \texttt{d3.1}, grau 2) em 1.º lugar em todos os
+métodos ranqueados. Na pergunta 2 o nDCG é zero por defeito do gabarito, não
+do corpus: \texttt{d2.4}, \Sexpr{cita("d2.4", 11)}, responde e fica em 3.º no
+cosseno e no BM25, mas recebeu grau~0 dos dois juízes, em 1 e 4 segundos. O AND
+não devolve nada; o OR devolve metade do corpus.
 
 \begin{table}[htb]
   \centering
@@ -288,14 +263,13 @@ frase contém todos os termos; o OR devolve cerca de metade do corpus.
   \fonte{Elaborada pelos autores. 1.º lugar do BM25; nDCG@5 com os graus 0/1/2 de \texttt{05-qrels.csv} \cite{jarvelin2002}; tempo médio de 200 execuções por consulta.}
 \end{table}
 
-O corpus, portanto, contém a resposta às três perguntas. Ele é
-\textbf{provisório}: antes de congelar o gabarito, o grupo vai rejulgar a
-pergunta 2 (\texttt{d2.2} e \texttt{d2.4}), quebrar a lista \texttt{\Sexpr{longo_id}}
-em itens e acrescentar uma página sobre a Companhia Docas de Santos, para que a
-pergunta 3 não dependa de só \Sexpr{pag$frases[pag$artigo == "d3"]} frases.
+O corpus contém a resposta às três perguntas e é \textbf{provisório}: antes
+de congelar o gabarito, o grupo vai rejulgar a pergunta 2, quebrar
+\texttt{\Sexpr{longo_id}} em itens e acrescentar uma página sobre a Companhia
+Docas de Santos.
 
 \postextual
-{\SingleSpacing\small
+{\SingleSpacing\footnotesize
 \bibliography{referencias}}
 
 \end{document}
