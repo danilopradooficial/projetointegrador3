@@ -46,6 +46,9 @@ Victória Cabral Quintério
 │   │   └── frases-canonicas.csv     # IDs d1.1… (fonte única)
 │   └── codigos/
 │       ├── 01a-ler-frases.R       # regra canônica de frase
+│       ├── coletar.R                # regenera frases-canonicas.csv
+│       ├── aula02.R                 # top-5 cosseno · 3 consultas de trabalho
+│       ├── entrega-meio-semestre-demo.R  # auditoria multi-método
 │       ├── 00-introducao-ao-r.R
 │       ├── 01a-corpus-aula-01.R
 │       ├── 01b-shannon-pesos.R
@@ -53,6 +56,8 @@ Victória Cabral Quintério
 │       ├── 03-preprocessao-indice.R
 │       ├── 04-poisson-bm25.R
 │       ├── 05b-metricas.R           # P@k · MAP · MRR · nDCG (Aula 05b)
+│       ├── csv/
+│       │   └── entrega-meio-semestre-auditoria.csv
 │       └── 05-julgamento/           # Aula 05a (julgamento)
 │           ├── README.md                # documentação operacional
 │           ├── 05a-kappa.R
@@ -74,6 +79,10 @@ Victória Cabral Quintério
 ```
 
 **Unidade de recuperação (IDs `d1.1`…):** definida na [Atividade 01a](consolidados/01a-primeiro-corpus-real.md) (`01a-ler-frases.R`) — a mesma frase em 01a → 05b.
+
+**Ficha do projeto (entrega de meio de semestre):**  
+[`consolidados/00_FICHA_PROJETO.md`](consolidados/00_FICHA_PROJETO.md) ·  
+auditoria LaTeX [`consolidados/entrega-meio-semestre.tex`](consolidados/entrega-meio-semestre.tex).
 
 **Aula 05a (julgamento concluído):**  
 [`estrutura/codigos/05-julgamento/README.md`](estrutura/codigos/05-julgamento/README.md) ·  
@@ -115,6 +124,22 @@ R base → corpus wiki (frases por ponto) → IDF → TF-IDF → limpeza/índice
 ---
 
 ## Como rodar os códigos
+
+### Entrega de meio de semestre (o que o professor clona e roda)
+
+```bash
+cd estrutura/codigos
+Rscript coletar.R                        # regenera frases-canonicas.csv a partir dos .txt
+Rscript buscar.R                         # auditoria senior (Booleano·TF-IDF·cosseno·BM25·qrels)
+Rscript aula02.R                         # top-5 cosseno apenas (teste minimo da ficha)
+Rscript entrega-meio-semestre-demo.R     # mesma auditoria (alias / CSV)
+```
+
+Ficha: [`consolidados/00_FICHA_PROJETO.md`](consolidados/00_FICHA_PROJETO.md)  
+CSV de auditoria: `estrutura/codigos/csv/entrega-meio-semestre-auditoria.csv`  
+LaTeX (extra): `pdflatex consolidados/entrega-meio-semestre.tex`
+
+### Pipeline completo das aulas
 
 ```bash
 cd estrutura/codigos

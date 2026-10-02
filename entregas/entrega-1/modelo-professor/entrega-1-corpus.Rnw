@@ -1,0 +1,361 @@
+% ==========================================================
+% ENTREGA 1 — O corpus do projeto
+% Projeto Integrador III — Motor de Busca — Ciência de Dados
+% Fatec Baixada Santista – Rubens Lara
+% Derivado de modelo-trabalho.Rnw (R + knitr + abnTeX2)
+% ==========================================================
+%
+% O QUE ENTREGAR
+%   Um texto de NO MÁXIMO 3 PÁGINAS, com quatro seções:
+%     1. Introdução ................... o tema, quem o buscaria, o que este texto faz
+%     2. A fonte e o documento ........ a escolha do corpus e a motivação dela
+%     3. Como o corpus foi obtido ..... os passos da coleta e o que deu errado
+%     4. Defesa do corpus ............. a evidência de que ele serve para o motor
+%   Mais as Referências (não contam nas 3 páginas).
+%
+% ONDE ENTREGAR
+%   O PDF e este .Rnw em  consolidados/
+%   O corpus em  estrutura/banco-de-dados/  (docs.rds, origem.rds); o codigo da coleta em estrutura/codigo/aula01.ipynb
+%   A ficha do projeto em  consolidados/00_FICHA_PROJETO.md  — as seções 1 e 2
+%   deste texto são a ficha em prosa; as duas têm que dizer a mesma coisa.
+%
+% COMO COMPILAR
+%   RStudio: Tools > Global Options > Sweave >
+%            "Weave Rnw files using: knitr" e "Typeset LaTeX into PDF using: pdfLaTeX".
+%            Depois, botão "Compile PDF".
+%   Terminal: Rscript -e "knitr::knit2pdf('entrega-1-corpus.Rnw')"
+%
+% ARQUIVOS NECESSÁRIOS NA MESMA PASTA
+%   entrega-1-corpus.Rnw   (este arquivo)
+%   referencias.bib        (as referências em BibTeX)
+%
+% REQUISITOS
+%   R com knitr; LaTeX com abntex2 (TeX Live: texlive-publishers).
+%   Salve em UTF-8. Se acentos saírem como <U+00E9>, a sessão do R não
+%   está em locale UTF-8 (Linux: LANG=pt_BR.UTF-8 ou C.UTF-8).
+% ==========================================================
+
+\documentclass[
+  article,
+  12pt,
+  oneside,
+  a4paper,
+  english,
+  brazil
+]{abntex2}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{icomma}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage[alf]{abntex2cite}
+
+\hypersetup{hidelinks}
+
+% ----------------------------------------------------------
+% DADOS DA ENTREGA — preencha aqui
+% ----------------------------------------------------------
+\titulo{O corpus do projeto: \textit{escreva aqui o tema, em uma linha}}
+% O abntex2 imprime um "titulo estrangeiro" logo abaixo do titulo quando o
+% documento declara mais de um idioma. Deixe vazio se nao houver.
+\tituloestrangeiro{}
+\autor{Nome do Grupo}
+\local{Santos-SP}
+\data{\today}
+
+\newcommand{\nomecurso}{Tecnologia em Ciência de Dados}
+\newcommand{\nomedisciplina}{Projeto Integrador III --- Motor de Busca}
+\newcommand{\nomeprofessor}{Prof.\ Dr.\ João Paulo Ferreira de Mello}
+\newcommand{\repositorio}{projeto-nome-do-grupo}
+% Um integrante por linha: Nome Completo -- RA
+\newcommand{\integrantes}{%
+  Nome Completo do Integrante 1 -- RA 0000000000000 \\
+  Nome Completo do Integrante 2 -- RA 0000000000000 \\
+  Nome Completo do Integrante 3 -- RA 0000000000000%
+}
+
+\begin{document}
+
+<<setup, include=FALSE>>=
+library(knitr)
+opts_chunk$set(
+  echo       = FALSE,   # o codigo NAO aparece: ele mora no notebook estrutura/codigo/aula01.ipynb
+  message    = FALSE,
+  warning    = FALSE,
+  fig.align  = "center",
+  out.width  = "0.52\\linewidth",
+  fig.width  = 4,
+  fig.height = 3.2
+)
+options(OutDec = ",", digits = 4)
+@
+
+<<dados, include=FALSE>>=
+# =========================================================================
+#  TROQUE SOMENTE ESTE BLOCO. O resto do documento se ajusta sozinho.
+# =========================================================================
+# Os dois arquivos que a Parte D da Aula 01 salvou (caminho relativo a
+# consolidados/, onde este .Rnw fica):
+# docs   <- readRDS("../estrutura/banco-de-dados/docs.rds")
+# origem <- readRDS("../estrutura/banco-de-dados/origem.rds")
+# minimo <- 200          # o limiar de nchar usado na coleta (cfg$minimo no config.R)
+
+# Enquanto voces nao trocarem, o modelo compila com o corpus de teste da
+# aula (8 documentos) e imprime um aviso em vermelho no topo.
+docs <- c(
+  d1 = "recuperacao de informacao ordena documentos por relevancia",
+  d2 = "o modelo de espaco vetorial representa documentos como vetores",
+  d3 = "bm25 e um modelo probabilistico de ranqueamento de texto",
+  d4 = "aprendizado estatistico fundamenta a recuperacao moderna",
+  d5 = "o indice invertido acelera a busca em muitos documentos",
+  d6 = "embeddings capturam a semantica de palavras e documentos",
+  d7 = "a avaliacao mede a relevancia dos resultados da busca",
+  d8 = "ciencia de dados combina estatistica e programacao"
+)
+origem <- rep(c("Corpus da aula (A)", "Corpus da aula (B)"), each = 4)
+minimo <- 200
+corpus_de_teste <- TRUE   # ponha FALSE quando trocar pelos .rds do grupo
+# =========================================================================
+
+# REGRA: nada de acento dentro de string de R -- o acento quebra quando a
+# sessao do R nao esta em locale UTF-8. Onde precisar, escreva o acento em
+# LaTeX ("m\\'edia"): o \Sexpr repassa intacto.
+
+# Texto que vem do corpus entra no LaTeX com escape: % & _ # $ { } ~ ^
+tex <- function(x) {
+  x <- gsub("\\\\", "\\\\textbackslash{}", x)
+  x <- gsub("([%&_#$])", "\\\\\\1", x)
+  x <- gsub("([{}])", "\\\\\\1", x)
+  x <- gsub("~", "\\\\textasciitilde{}", x)
+  x <- gsub("\\^", "\\\\textasciicircum{}", x)
+  x
+}
+
+# --- a cadeia da Aula 01, sobre o corpus ---------------------------------
+tokenizar <- function(texto) unlist(strsplit(tolower(texto), "\\s+"))
+tokens <- lapply(docs, tokenizar)
+tam    <- sapply(tokens, length)                 # tokens por documento
+vocab  <- sort(unique(unlist(tokens)))
+freq   <- sort(table(unlist(tokens)), decreasing = TRUE)
+
+n_docs   <- length(docs)
+n_pags   <- length(unique(origem))
+n_vocab  <- length(vocab)
+n_tokens <- sum(tam)
+
+# --- os textos prontos para o \Sexpr -------------------------------------
+texto_tam   <- paste0(min(tam), " a ", max(tam), " (m\\'edia ", round(mean(tam), 1), ")")
+texto_top10 <- paste0("\\texttt{", tex(names(freq)[1:min(10, length(freq))]), "}", collapse = ", ")
+
+# documentos por pagina, e quem domina
+por_pag     <- sort(table(origem), decreasing = TRUE)
+texto_dom   <- paste0("\\texttt{", tex(names(por_pag)[1]), "}: ", por_pag[1], " de ", n_docs,
+                      " (", round(100 * por_pag[1] / n_docs), "\\%)")
+
+# documentos curtos e longos demais (suspeitos de nao serem prosa)
+curtos <- sum(tam < 20)
+longos <- sum(tam > 300)
+texto_extremos <- paste0(curtos, " com menos de 20 tokens; ", longos, " com mais de 300")
+
+# sinais de sujeira: acentos, pontuacao grudada, digitos
+tem_acento <- sum(grepl("[^ -~]", docs))
+tem_pont   <- sum(grepl("[[:punct:]]", docs))
+tem_dig    <- sum(grepl("[0-9]", docs))
+texto_sujo <- paste0(tem_acento, " com acento, ", tem_pont, " com pontua\\c{c}\\~ao, ",
+                     tem_dig, " com d\\'igitos (de ", n_docs, ")")
+
+# tabela de origem
+tab_origem <- data.frame(
+  Pagina     = tex(names(por_pag)),
+  Documentos = as.integer(por_pag),
+  Tokens     = round(tapply(tam, origem, mean)[names(por_pag)], 1),
+  row.names  = NULL
+)
+names(tab_origem) <- c("P\\'agina", "Documentos", "Tokens (m\\'edia)")
+@
+
+\selectlanguage{brazil}
+\frenchspacing
+
+% ----------------------------------------------------------
+% IDENTIFICAÇÃO
+% ----------------------------------------------------------
+\maketitle
+
+\begin{center}
+  \small
+  Fatec Baixada Santista -- Rubens Lara \\
+  \nomecurso{} \quad|\quad \nomedisciplina{} \quad|\quad \nomeprofessor{} \\[0.4em]
+  \integrantes \\[0.4em]
+  Repositório: \texttt{\repositorio}
+\end{center}
+
+<<aviso, results="asis">>=
+if (corpus_de_teste) cat("\\begin{center}\\color{red}\\textbf{ATEN\\c{C}\\~AO: compilado com o corpus de teste da aula, n\\~ao com o do grupo.}\\end{center}\n")
+@
+
+\textual
+
+% ==========================================================================
+\section{Introdução}
+% ==========================================================================
+% ~meia página. O QUE VAI AQUI:
+%   - o tema do motor de busca, em uma frase, e a ligação com a Baixada
+%     Santista (o lugar, a história, a atividade, as pessoas);
+%   - quem usaria o motor e o que essa pessoa quer descobrir;
+%   - as três perguntas que o motor deve responder (as da ficha, seção 2);
+%   - o que este texto entrega: o corpus escolhido, como foi obtido, e a
+%     evidência de que ele serve.
+% NÃO adiante aqui os números da Seção 4.
+
+Apresente o tema e diga por que ele interessa, e a quem. Em recuperação de
+informação, o que se atende é a \emph{necessidade de informação} de alguém, não
+a consulta literal \cite[cap.~1]{manning2008}; por isso as perguntas vêm antes
+do corpus. Feche o primeiro parágrafo dizendo, em uma frase, o que este texto
+faz: apresenta a fonte escolhida, descreve como o corpus foi montado e mostra
+que ele tem condição de responder às perguntas.
+
+% ==========================================================================
+\section{A fonte e o documento}
+% ==========================================================================
+% ~três quartos de página. O QUE VAI AQUI:
+%   - ORIGEM: de onde veio o texto (Wikipédia, portal, jornal...), com a
+%     referência bibliográfica, a LICENÇA e a data de acesso;
+%   - AS PÁGINAS: os títulos exatos usados, e por que essas;
+%   - O DOCUMENTO: o que é UMA LINHA do corpus (um parágrafo? uma notícia?
+%     uma seção?) e por quê -- o critério é "a menor unidade que responde
+%     sozinha a uma pergunta";
+%   - MOTIVAÇÃO: por que este corpus, e não outro. Responda honestamente:
+%     interesse pelo assunto? disponibilidade? conhecimento prévio do
+%     grupo? Todas são razões legítimas -- o que não vale é não ter razão.
+%     Cite a alternativa que foi descartada, e por quê.
+
+Descreva a origem, com a referência \cite{wikipedia}, a licença e a data de
+acesso. Liste as páginas. O corpus tem $N = \Sexpr{n_docs}$ documentos vindos
+de \Sexpr{n_pags} páginas.
+
+Diga o que é um documento e justifique. Um artigo inteiro como documento faz a
+busca devolver ``a resposta está no artigo de X'' sem dizer onde; o parágrafo
+é o padrão do curso, mas o grupo pode ter decidido outra coisa --- e então
+explica.
+
+Explique a escolha do tema e da fonte, e a alternativa descartada.
+
+% ==========================================================================
+\section{Como o corpus foi obtido}
+% ==========================================================================
+% ~meia página. O QUE VAI AQUI:
+%   - os passos da coleta (notebook aula01.ipynb), na ordem em que rodam (chamada à API, quebra
+%     em parágrafos, filtro, montagem do vetor, gravação) -- em prosa, sem
+%     colar código: o código está em estrutura/codigo/aula01.ipynb;
+%   - O QUE DEU ERRADO e o que o grupo fez: título de página errado,
+%     parágrafos que eram listas ou referências, artigo que dominou o
+%     corpus, acentos... Esta parte é obrigatória. Coleta sem problema
+%     não existe.
+
+Descreva os passos. O critério de documento foi ``parágrafo com mais de
+\Sexpr{minimo} caracteres''; diga como esse número foi escolhido.
+
+Conte o que deu errado e o que mudou por causa disso.
+
+% ==========================================================================
+\section{Defesa do corpus}
+% ==========================================================================
+% ~uma página. É A SEÇÃO QUE PESA MAIS. O QUE VAI AQUI:
+%   - o diagnóstico do corpus (Tabela 1 e Tabela 2), comentado item a item;
+%   - a passagem pelos quatro descartes: tamanho, domínio de uma página,
+%     documentos que não são prosa, sujeira -- dizendo o que foi encontrado
+%     e o que o grupo fez a respeito;
+%   - a figura dos tamanhos (Figura 1), com uma frase de leitura;
+%   - os dez termos mais frequentes: quantos dizem algo sobre o tema?
+%   - o veredito: o corpus responde às três perguntas da Introdução?
+%     Se um descarte pegou, o que mudou no corpus por causa dele?
+% Os números desta seção saem do bloco <<dados>> -- eles se atualizam
+% sozinhos quando voces trocarem os .rds.
+
+A Tabela~\ref{tab:diag} reúne as verificações feitas sobre o corpus, e a
+Tabela~\ref{tab:origem} mostra de onde veio cada documento.
+
+\begin{table}[htb]
+  \centering
+  \caption{Diagnóstico do corpus}
+  \label{tab:diag}
+  \small
+  \begin{tabular}{@{}p{0.34\textwidth}p{0.58\textwidth}@{}}
+    \toprule
+    \textbf{Verificação} & \textbf{Resultado} \\
+    \midrule
+    Tamanho ($N$ documentos, páginas) & $\Sexpr{n_docs}$ documentos de $\Sexpr{n_pags}$ páginas \\
+    Tokens por documento              & \Sexpr{texto_tam} \\
+    Vocabulário bruto                 & \Sexpr{n_vocab} termos distintos em \Sexpr{n_tokens} tokens \\
+    Página que domina                 & \Sexpr{texto_dom} \\
+    Documentos suspeitos              & \Sexpr{texto_extremos} \\
+    Sujeira                           & \Sexpr{texto_sujo} \\
+    \bottomrule
+  \end{tabular}
+  \fonte{Elaborada pelos autores a partir de \texttt{docs.rds} e \texttt{origem.rds}.}
+\end{table}
+
+\begin{table}[htb]
+  \centering
+  \caption{Documentos por página de origem}
+  \label{tab:origem}
+  \small
+<<tab-origem, results="asis">>=
+kable(tab_origem, format = "latex", booktabs = TRUE, row.names = FALSE, escape = FALSE)
+@
+  \fonte{Elaborada pelos autores.}
+\end{table}
+
+\textbf{Tamanho.} São $\Sexpr{n_docs}$ documentos; a meta desta entrega é 20 a
+60. Comente se o corpus está na faixa e, se não, o que o grupo pretende fazer.
+
+\textbf{Domínio de uma página.} A Tabela~\ref{tab:origem} diz se uma página
+responde por quase tudo. Diga se isso é a cara do tema ou um desequilíbrio a
+corrigir --- acrescentando páginas, não cortando.
+
+\textbf{Documentos que não são prosa.} Os extremos da Tabela~\ref{tab:diag}
+(muito curtos, muito longos) costumam ser listas, tabelas ou seções de
+referências. Diga se o grupo olhou esses documentos e o que fez.
+
+\textbf{Sujeira.} Acentos, pontuação grudada e dígitos são esperados nesta
+altura --- a limpeza é a Aula 03. Registre o que foi visto, sem resolver.
+
+A Figura~\ref{fig:tam} mostra a distribuição dos tamanhos.
+
+\begin{figure}[htb]
+  \centering
+  \caption{Tokens por documento}
+  \label{fig:tam}
+<<fig-tam>>=
+par(mar = c(4, 4, 1, 1))
+hist(tam, breaks = 15, col = "#D6EAF3", border = "white",
+     main = "", xlab = "tokens por documento", ylab = "documentos")
+@
+  \fonte{Elaborada pelos autores.}
+\end{figure}
+
+\textbf{Os termos mais frequentes} são \Sexpr{texto_top10}. Diga quantos deles
+dizem algo sobre o tema --- e o que isso sugere sobre as próximas aulas.
+
+\textbf{Veredito.} Feche dizendo se o corpus responde às três perguntas da
+Introdução. Se um descarte pegou, diga o que mudou no corpus por causa dele
+--- um corpus corrigido por evidência vale mais do que um corpus que nunca foi
+examinado.
+
+O corpus é \textbf{provisório}: cresce na Aula 05, quando o grupo montar o
+gabarito, e depois congela. Registre em uma frase o que as próximas aulas
+podem mudar nele.
+
+% ----------------------------------------------------------
+% REFERÊNCIAS — não contam nas 3 páginas.
+% Só aparecem as obras citadas. Para incluir uma obra não citada,
+% use \nocite{chave}.
+% ----------------------------------------------------------
+\postextual
+\bibliography{referencias}
+
+\end{document}

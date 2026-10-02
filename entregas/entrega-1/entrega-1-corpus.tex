@@ -1,0 +1,304 @@
+% ==========================================================
+% ENTREGA 1 - O corpus do projeto
+% Projeto Integrador III - Motor de Busca - Ciência de Dados
+% Fatec Baixada Santista - Rubens Lara
+% Equipe Shannon
+% ==========================================================
+%
+% COMO COMPILAR
+%   1. Na raiz: Rscript entregas/entrega-1/entrega-1-corpus.R
+%      (gera os entrega-1-*.csv e entrega-1-numeros.txt nesta pasta)
+%   2. Em entregas/entrega-1/: Rscript -e "knitr::knit2pdf('entrega-1-corpus.Rnw', bib_engine = 'bibtex')"
+% ==========================================================
+
+\documentclass[
+  article,
+  12pt,
+  oneside,
+  a4paper,
+  english,
+  brazil
+]{abntex2}\usepackage[]{graphicx}\usepackage[]{xcolor}
+% maxwidth is the original width if it is less than linewidth
+% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlsng}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hldef}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{amsmath}
+\usepackage{alltt}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{icomma}
+\usepackage{booktabs}
+\usepackage[alf]{abntex2cite}
+
+\hypersetup{hidelinks}
+
+% ----------------------------------------------------------
+% DADOS DA ENTREGA
+% ----------------------------------------------------------
+\titulo{O corpus do projeto: \textit{o Porto de Santos --- o lugar, a autoridade pública e o fundador}}
+\tituloestrangeiro{}
+\autor{Equipe Shannon}
+\local{Santos-SP}
+\data{\today}
+
+\newcommand{\nomecurso}{Tecnologia em Ciência de Dados}
+\newcommand{\nomedisciplina}{Projeto Integrador III --- Motor de Busca}
+\newcommand{\nomeprofessor}{Prof.\ Dr.\ João Paulo Ferreira de Mello}
+\newcommand{\repositorio}{projetointegrador3}
+\newcommand{\integrantes}{%
+  Adriane da Costa Santos (RA 0051352511040) \quad
+  Danilo Prado de Lima Silva (RA 0051352521019) \\
+  Victória Cabral Quintério (RA 0051352521033)%
+}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+
+
+
+
+
+\selectlanguage{brazil}
+\frenchspacing
+
+\begin{center}
+  \SingleSpacing
+  {\Large \imprimirtitulo \par}
+  \vspace{0.8em}
+  {\large \imprimirautor \par}
+  \vspace{0.3em}
+  \imprimirlocal, \imprimirdata
+\end{center}
+
+\begin{center}
+  \small
+  \SingleSpacing
+  Fatec Baixada Santista, Rubens Lara \quad|\quad \nomecurso{} \\
+  \nomedisciplina{} \quad|\quad \nomeprofessor{} \\[0.3em]
+  {\footnotesize \integrantes} \\[0.3em]
+  Repositório: \texttt{\repositorio}
+\end{center}
+
+\textual
+
+% ==========================================================================
+\section{Introdução}
+% ==========================================================================
+
+O motor de busca do grupo é sobre o Porto de Santos, o porto mais movimentado
+da América Latina e o eixo econômico da Baixada Santista. Quem o usaria é um estudante,
+jornalista ou analista regional que precisa achar \emph{a frase} que responde
+a uma dúvida sobre o porto, e não um artigo inteiro para ler. Em recuperação de
+informação, o que se atende é a \emph{necessidade de informação} de alguém, não
+a consulta literal \cite[cap.~1]{manning2008}; por isso as perguntas vieram
+antes do corpus: \textbf{(1)} onde fica o Porto de Santos; \textbf{(2)} quem
+administra o porto hoje; \textbf{(3)} quem foi Francisco de Paula Ribeiro e
+qual a sua ligação com o porto. Este texto apresenta a fonte, descreve como o
+corpus foi montado e mostra, com números, que ele responde às três perguntas.
+
+% ==========================================================================
+\section{A fonte e o documento}
+% ==========================================================================
+
+O texto vem da Wikipédia em português, sob licença CC BY-SA, de três páginas:
+\textit{Porto de Santos} \cite{wikiporto}, \textit{Autoridade Portuária de
+Santos} \cite{wikiaps} e \textit{Francisco de Paula Ribeiro}
+\cite{wikiribeiro}, salvas em agosto de 2026. Cada página cobre um eixo de
+uma pergunta: o \textbf{lugar} (pergunta 1), a \textbf{autoridade pública}
+que administra o porto (pergunta 2) e o \textbf{fundador} histórico
+(pergunta 3). O corpus tem $N = \text{122}$ documentos vindos de
+\text{3} páginas.
+
+Um documento é \textbf{uma frase pontuada}, identificada como
+\texttt{dN.k} (página \texttt{N}, frase \texttt{k}). O critério foi ``a menor
+unidade que responde sozinha a uma pergunta'': o artigo inteiro faria a busca
+devolver ``a resposta está no artigo do porto'' sem dizer onde, e o parágrafo
+--- padrão do curso --- daria só \text{18} documentos,
+abaixo da faixa pedida e misturando assuntos. A frase \texttt{d1.1},
+``Porto de Santos é um porto estuarino, localizado nos municípios de Santos, Guarujá e\ldots'', responde sozinha à pergunta~1.
+
+A motivação foi o conhecimento prévio: o grupo já estuda o Porto de Santos em
+Teoria do Aprendizado Estatístico, com dados de atracação da ANTAQ. Esses dados
+foram a alternativa descartada: são tabelas numéricas (navios, horas,
+toneladas), não prosa que responda a perguntas.
+
+% ==========================================================================
+\section{Como o corpus foi obtido}
+% ==========================================================================
+
+O corpo de cada artigo foi salvo como texto em UTF-8, sem infobox, listas nem
+referências, em \texttt{estrutura/corpus/} (um \texttt{.txt} por página,
+enviados ao repositório em 19/08/2026). O script
+\texttt{estrutura/codigos/01a-ler-frases.R} quebra o texto em frases por
+\texttt{.}, \texttt{!} e \texttt{?} (e por \texttt{;} acima de 45 palavras),
+descarta fragmentos com menos de 3 palavras e numera as frases; o catálogo fica
+em \texttt{estrutura/corpus/frases-canonicas.csv}, com os mesmos IDs da Aula 01
+ao julgamento da Aula 05.
+
+\textbf{O que deu errado.} (i) O primeiro documento foi o artigo inteiro: só 3
+documentos, e a busca não apontava o trecho. (ii) Cortes fixos de 7 a 10
+palavras partiam frases ao meio, e os juízes não conseguiam julgar sem o
+contexto; a regra passou a ser a pontuação. (iii) Abreviações e decimais
+(\texttt{S.A.}, \texttt{Dr.}, \texttt{1,5}) quebravam frases no lugar errado e
+passaram a ser protegidas. (iv) Fragmentos de 1 ou 2 palavras foram descartados.
+
+% ==========================================================================
+\section{Defesa do corpus}
+% ==========================================================================
+
+A Tabela~\ref{tab:diag} reúne as verificações feitas sobre o corpus.
+
+\begin{table}[htb]
+  \centering
+  \caption{Diagnóstico do corpus (tokenização bruta da Aula 01)}
+  \label{tab:diag}
+  \small
+  \begin{tabular}{@{}p{0.30\textwidth}p{0.62\textwidth}@{}}
+    \toprule
+    \textbf{Verificação} & \textbf{Resultado} \\
+    \midrule
+    Tamanho                & \text{122} documentos (frases) de \text{3} páginas \\
+    Tokens por documento   & \text{6} a \text{76} (média 28,6, mediana 25,5) \\
+    Vocabulário bruto      & 1.281 termos em 3.493 tokens (\text{873} radicais após a Aula 03) \\
+    Por página             & frases (parágrafos): \textit{Porto de Santos} 88 (12); \textit{Autoridade Portu\'aria} 29 (5); \textit{Paula Ribeiro} 5 (1) \\
+    Página que domina      & \textit{Porto de Santos}: \text{88} de \text{122} (72\%) \\
+    Documentos suspeitos   & \text{0} com menos de \text{5} tokens; \text{1} com mais de \text{60} (\texttt{d1.66}) \\
+    Sujeira                & \text{119} com acento, \text{122} com pontuação, \text{59} com dígitos (de \text{122}) \\
+    \bottomrule
+  \end{tabular}
+  \fonte{Elaborada pelos autores (\texttt{entrega-1-corpus.R}).}
+\end{table}
+
+\textbf{Tamanho.} São \text{122} documentos, acima da meta de 20 a
+60. O excesso vem da unidade, não de páginas a mais: as mesmas três páginas
+dão \text{18} parágrafos, abaixo da faixa. O grupo mantém a
+frase, que já foi indexada e julgada nas Aulas 03 a 05.
+
+\textbf{Domínio de uma página.} O porto responde por
+72\% do corpus, e o fundador por
+\text{5} frases. É a cara do tema --- o artigo do
+porto é o mais longo e geral ---, mas a pergunta 3 depende de poucas frases; a
+correção é acrescentar páginas, não cortar.
+
+\textbf{Documentos que não são prosa.} Nenhuma frase tem menos de
+\text{5} tokens, porque a coleta descarta fragmentos. A única acima
+de \text{60}, \texttt{d1.66}, foi lida e \emph{não} é
+prosa: é a lista de terminais do artigo, que perdeu as quebras de linha e virou
+uma frase só. Ela mostra o efeito do tamanho: é o 1.º lugar do TF-IDF na
+pergunta 2 só por ser longa, e o BM25, que normaliza pelo tamanho, a tira do
+top-5 \cite{robertson2009}.
+
+\textbf{Sujeira.} Quase todas as frases têm acento, todas têm pontuação
+grudada e \text{59} têm dígitos (anos, leis, toneladas): o
+esperado, tratado na Aula 03. Pela Figura~\ref{fig:tam}, a maioria das frases
+tem entre 15 e 40 tokens.
+
+\begin{figure}[htb]
+  \centering
+  \caption{Tokens por documento}
+  \label{fig:tam}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=0.55\linewidth]{figure/fig-tam-1} 
+
+}
+
+
+\end{knitrout}
+  \fonte{Elaborada pelos autores.}
+\end{figure}
+
+\textbf{Os termos mais frequentes} são \texttt{de}, \texttt{a}, \texttt{e}, \texttt{o}, \texttt{da}, \texttt{do}, \texttt{porto}, \texttt{em}, \texttt{que}, \texttt{com}. Só
+\text{1} deles (\texttt{porto}) diz algo sobre o tema; os outros são
+artigos, preposições e conjunções --- exatamente o que as \textit{stopwords}
+da Aula 03 removem e o IDF da Aula 01 penaliza.
+
+\textbf{Veredito.} A Tabela~\ref{tab:busca} roda as três perguntas no corpus
+com os métodos das aulas, avaliados pelo gabarito de graus 0/1/2 da Aula 05.
+As perguntas 1 e 3 são respondidas na 1.ª posição por todos os métodos
+ranqueados (\texttt{d1.1} e \texttt{d3.1}, ambas de grau 2). Na pergunta 2 o
+nDCG é zero, mas o defeito está no gabarito, não no corpus: a frase
+\texttt{d2.4}, ``Desde então, a APS administra a infraestrutura pública do Porto de\ldots'', responde à pergunta e aparece em
+3.º lugar no cosseno e no BM25, mas os dois juízes que a avaliaram deram
+grau~0, em 1 e 4 segundos. O AND não devolve nada nas três, porque nenhuma
+frase contém todos os termos; o OR devolve cerca de metade do corpus.
+
+\begin{table}[htb]
+  \centering
+  \caption{As três perguntas no corpus: documentos devolvidos e nDCG@5}
+  \label{tab:busca}
+  \small
+  \begin{tabular}{@{}lrrcrrr@{}}
+    \toprule
+    Pergunta & AND & OR & 1.º lugar & TF-IDF & Cosseno & BM25 \\
+    \midrule
+    1. Onde fica o porto     & \text{0} & \text{60} & \texttt{d1.1} & 0,64 & 0,72 & 0,74 \\
+    2. Quem administra       & \text{0} & \text{69} & \texttt{d1.36} & 0,00 & 0,00 & 0,00 \\
+    3. Quem foi o fundador   & \text{0} & \text{52} & \texttt{d3.1} & 0,76 & 0,76 & 0,76 \\
+    \midrule
+    Tempo médio (ms)         & 1,2 & 1,4 & & 1,2 & 3,0 & 1,4 \\
+    \bottomrule
+  \end{tabular}
+  \fonte{Elaborada pelos autores. 1.º lugar do BM25; nDCG@5 com os graus 0/1/2 de \texttt{05-qrels.csv} \cite{jarvelin2002}; tempo médio de 200 execuções por consulta.}
+\end{table}
+
+O corpus, portanto, contém a resposta às três perguntas. Ele é
+\textbf{provisório}: antes de congelar o gabarito, o grupo vai rejulgar a
+pergunta 2 (\texttt{d2.2} e \texttt{d2.4}), quebrar a lista \texttt{d1.66}
+em itens e acrescentar uma página sobre a Companhia Docas de Santos, para que a
+pergunta 3 não dependa de só \text{5} frases.
+
+\postextual
+{\SingleSpacing\small
+\bibliography{referencias}}
+
+\end{document}

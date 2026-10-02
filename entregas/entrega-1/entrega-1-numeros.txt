@@ -1,0 +1,109 @@
+=== corpus ===
+  artigo                         pagina paragrafos frases tokens.med
+1     d1                Porto de Santos         12     88       28.2
+2     d2 Autoridade Portuaria de Santos          5     29       30.6
+3     d3     Francisco de Paula Ribeiro          1      5       25.0
+          medida   valor
+1         n.docs  122.00
+2      n.paginas    3.00
+3   n.paragrafos   18.00
+4  n.vocab.bruto 1281.00
+5       n.tokens 3493.00
+6   n.vocab.stem  873.00
+7        tam.min    6.00
+8        tam.max   76.00
+9      tam.media   28.63
+10   tam.mediana   25.50
+11         curto    5.00
+12         longo   60.00
+13      n.curtos    0.00
+14      n.longos    1.00
+15         dom.n   88.00
+16       dom.pct   72.13
+17    com.acento  119.00
+18      com.pont  122.00
+19    com.digito   59.00
+20    avgdl.stem   17.43
+
+=== 10 termos mais frequentes (tokenizacao bruta da Aula 01) ===
+
+   de     a     e     o    da    do porto    em   que   com 
+  313   142   108    88    85    79    44    41    34    33 
+
+=== documentos curtos (< 5  tokens) ===
+named character(0)
+
+=== documentos longos (> 60  tokens) ===
+[1] "d1.66"
+
+=== julgamento das 3 consultas (05-qrels.csv) ===
+    consulta julgados g0 g1 g2
+1    q.local       10  5  2  3
+2      q.aps       11 10  1  0
+3 q.fundador       10  8  1  1
+
+=== metodos: ms medio de 200 execucoes; P@3 e RR com grau>=2; nDCG@5 graduado ===
+     consulta  metodo   ms hits  top1    p3 rr  ndcg
+1     q.local     and 1.65    0  <NA>    NA NA    NA
+2     q.local      or 1.65   60  <NA>    NA NA    NA
+3     q.local   tfidf 1.30   60  d1.1 0.667  1 0.642
+4     q.local cosseno 3.10   60  d1.1 0.667  1 0.718
+5     q.local    bm25 1.35   60  d1.1 0.667  1 0.741
+6       q.aps     and 0.85    0  <NA>    NA NA    NA
+7       q.aps      or 1.40   69  <NA>    NA NA    NA
+8       q.aps   tfidf 1.20   69 d1.66 0.000  0 0.000
+9       q.aps cosseno 2.80   69 d1.36 0.000  0 0.000
+10      q.aps    bm25 1.30   69 d1.36 0.000  0 0.000
+11 q.fundador     and 1.10    0  <NA>    NA NA    NA
+12 q.fundador      or 1.30   52  <NA>    NA NA    NA
+13 q.fundador   tfidf 1.20   52  d3.1 0.333  1 0.760
+14 q.fundador cosseno 3.00   52  d3.1 0.333  1 0.760
+15 q.fundador    bm25 1.40   52  d3.1 0.333  1 0.760
+
+=== top-5 ===
+     consulta  metodo pos   doc   score grau
+1     q.local   tfidf   1  d1.1 11.1756    2
+2     q.local   tfidf   2 d1.61 10.3214    2
+3     q.local   tfidf   3 d1.66  7.6970   NA
+4     q.local   tfidf   4 d1.52  5.8432    0
+5     q.local   tfidf   5 d1.13  5.4161   NA
+6     q.local cosseno   1  d1.1  0.4134    2
+7     q.local cosseno   2 d1.61  0.2286    2
+8     q.local cosseno   3 d1.30  0.1624   NA
+9     q.local cosseno   4 d1.52  0.1394    0
+10    q.local cosseno   5 d1.82  0.1211    1
+11    q.local    bm25   1  d1.1 11.1195    2
+12    q.local    bm25   2 d1.61  8.0172    2
+13    q.local    bm25   3 d1.82  5.6959    1
+14    q.local    bm25   4 d1.52  5.2494    0
+15    q.local    bm25   5 d1.30  3.8176   NA
+16      q.aps   tfidf   1 d1.66  9.9361   NA
+17      q.aps   tfidf   2 d1.13  7.6552    0
+18      q.aps   tfidf   3 d2.16  6.1640   NA
+19      q.aps   tfidf   4 d1.36  5.2679   NA
+20      q.aps   tfidf   5  d2.9  5.2679   NA
+21      q.aps cosseno   1 d1.36  0.2491   NA
+22      q.aps cosseno   2  d2.9  0.2491   NA
+23      q.aps cosseno   3  d2.4  0.1955    0
+24      q.aps cosseno   4 d1.35  0.1825   NA
+25      q.aps cosseno   5  d2.8  0.1825    0
+26      q.aps    bm25   1 d1.36  5.6687   NA
+27      q.aps    bm25   2  d2.9  5.6687   NA
+28      q.aps    bm25   3  d2.4  4.9734    0
+29      q.aps    bm25   4 d2.16  4.8443   NA
+30      q.aps    bm25   5 d1.13  4.0972    0
+31 q.fundador   tfidf   1  d3.1 11.6013    2
+32 q.fundador   tfidf   2 d1.17  9.3622   NA
+33 q.fundador   tfidf   3  d3.5  9.0745   NA
+34 q.fundador   tfidf   4  d3.4  7.1231    0
+35 q.fundador   tfidf   5  d1.1  4.2338   NA
+36 q.fundador cosseno   1  d3.1  0.4392    2
+37 q.fundador cosseno   2 d1.17  0.4084   NA
+38 q.fundador cosseno   3  d3.4  0.2589    0
+39 q.fundador cosseno   4  d3.5  0.2174   NA
+40 q.fundador cosseno   5  d1.1  0.1271   NA
+41 q.fundador    bm25   1  d3.1 10.9356    2
+42 q.fundador    bm25   2 d1.17  9.6252   NA
+43 q.fundador    bm25   3  d3.4  6.9369    0
+44 q.fundador    bm25   4  d3.5  6.2312   NA
+45 q.fundador    bm25   5  d1.1  4.1277   NA

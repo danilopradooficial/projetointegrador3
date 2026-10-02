@@ -1,0 +1,146 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=1.8cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{microtype}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=black,urlcolor=blue}
+\pagestyle{empty}
+\setlength{\parskip}{0.35em}
+\setlength{\parindent}{0pt}
+
+\title{\vspace{-1.2cm}\textbf{Team Shannon} --- Entrega de meio de semestre\\
+\large Motor de busca: Porto de Santos (Baixada Santista)}
+\author{Adriane da Costa Santos · Danilo Prado de Lima Silva · Victória Cabral Quintério\\
+\small Fatec Rubens Lara · PI III · Ciência de Dados\\
+\url{https://github.com/danilopradooficial/projetointegrador3}}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-1.2cm}
+
+\noindent\textit{Documento de auditoria (extra). O relatório oficial da entrega é a ficha
+\texttt{consolidados/00\_FICHA\_PROJETO.md}. Demonstração: \texttt{Rscript aula02.R}
+e \texttt{Rscript entrega-meio-semestre-demo.R}.}
+
+\section*{1. Por que estes dados}
+Tema ligado à \textbf{Baixada Santista} via Porto de Santos. Três artigos da Wikipédia
+(CC~BY-SA) cobrem faces distintas do mesmo objeto:
+
+\begin{itemize}
+  \setlength\itemsep{0.1em}
+  \item \textbf{Local} --- \emph{Porto de Santos}: estuário, economia, cargas, infraestrutura.
+  \item \textbf{Empresa pública} --- \emph{Autoridade Portuária de Santos} (APS / Codesp):
+        quem administra, Landlord Port, lei~8.630.
+  \item \textbf{Fundador} --- \emph{Francisco de Paula Ribeiro}: engenheiro e origem histórica.
+\end{itemize}
+
+Um documento de recuperação é uma \textbf{frase pontuada} ($dN.k$), não o artigo inteiro:
+é a menor unidade que responde sozinha a uma consulta digitável. Os IDs são canônicos de
+01a até 05b (\texttt{01a-ler-frases.R}).
+
+\section*{2. Cara do corpus}
+\begin{center}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Fonte & Frases & Palavras (mediana) & Papel \\
+\midrule
+Porto de Santos ($d1$) & 88 & 26 & lugar / economia \\
+Autoridade Portuária ($d2$) & 29 & 26 & gestão pública \\
+F.\ de Paula Ribeiro ($d3$) & 5 & --- & fundador \\
+\midrule
+\textbf{Total} & \textbf{122} & média $\approx$ 28,6 & vocab.\ stems $\approx$ 873 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\noindent\textit{Nota:} o PDF da entrega cita 20--60 parágrafos; estamos acima porque a Aula~05
+já fatiou o mesmo corpus em frases --- sem páginas novas.
+
+\section*{3. Três consultas de trabalho}
+\begin{enumerate}
+  \setlength\itemsep{0.15em}
+  \item \texttt{localizacao porto santos guarujá cubatão} --- lugar.
+  \item \texttt{quem administra porto santos autoridade} --- autoridade pública.
+  \item \texttt{francisco de paula ribeiro porto} --- fundador.
+\end{enumerate}
+
+\section*{4. Auditoria: mesma pergunta, vários métodos}
+Tempos em ms (Python de referência; R no script de demo). Qualidade: $P@3$ / nDCG com
+gabarito da Aula~05a (limiar grau $\geq 2$); ``---'' = sem relevantes nesse limiar.
+
+\subsection*{Consulta 1 --- localização (\texttt{qrels} q15, $R{=}3$)}
+\begin{center}
+\small
+\begin{tabular}{@{}l r l r r@{}}
+\toprule
+Método & ms & Top-3 & $P@3$ & nDCG \\
+\midrule
+AND & 1,5 & \textit{(vazio --- exige todos os stems)} & 0 & 0 \\
+OR & 0,9 & conjunto ($\lvert$OR$\rvert{=}60$), sem ordem & 0,33 & 1,00 \\
+TF-IDF & 2,1 & d1.1 · d1.61 · d1.66 & 0,67 & 1,00 \\
+Cosseno & 234 & d1.1 · d1.61 · d1.30 & 0,67 & 0,97 \\
+BM25 & 2,1 & d1.1 · d1.61 · d1.82 & 0,67 & 1,00 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\noindent 1\textsuperscript{o} cosseno/BM25: \emph{``Porto de Santos é um porto estuarino, localizado
+nos municípios de Santos, Guarujá e Cubatão\ldots''} --- resposta direta.
+
+\subsection*{Consulta 2 --- quem administra (\texttt{qrels} q02, $R{=}0$ grau$\geq$2)}
+\begin{center}
+\small
+\begin{tabular}{@{}l r l@{}}
+\toprule
+Método & ms & Top-3 \\
+\midrule
+AND & 0,9 & vazio \\
+TF-IDF & 1,8 & d1.66 · d1.13 · d2.16 \\
+Cosseno / BM25 & 301 / 2,3 & d1.36 · d2.9 · d2.4 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\noindent Pool com poucos grau~2 nesta necessidade: métricas binárias não discriminam.
+Texto do topo fala de áreas administrativas do Porto Organizado --- qualidade
+parcial (gestão), não ``quem é a APS'' em uma linha.
+
+\subsection*{Consulta 3 --- fundador (\texttt{qrels} q04, $R{=}1$)}
+\begin{center}
+\small
+\begin{tabular}{@{}l r l r@{}}
+\toprule
+Método & ms & Top-3 & $P@3$ \\
+\midrule
+AND & 0,7 & vazio & 0 \\
+TF-IDF / Cosseno / BM25 & 3--5 / 347 / 5 & \textbf{d3.1} · d1.17 · d3.4/d3.5 & 0,33 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\noindent 1\textsuperscript{o}: biografia de Francisco de Paula Ribeiro ($d3.1$) --- acerto imediato
+(MRR~1 nos ranqueadores).
+
+\section*{5. Veredito (padrão auditoria)}
+\begin{itemize}
+  \setlength\itemsep{0.1em}
+  \item \textbf{Latência:} Booleano e BM25/TF-IDF soma são ms; cosseno denso é 2~ordens mais
+        lento neste corpus (122 docs $\times$ vocab) --- esperado sem índice otimizado.
+  \item \textbf{Qualidade textual:} ranqueadores colocam a frase certa no topo em
+        localização e fundador; AND falha (consulta longa demais); OR não ordena.
+  \item \textbf{Julgamento:} pesos $0/1/2$ explicam por que $P@3$ e nDCG divergem do ``achismo''.
+        Com pool parcial, $R{=}0$ (q02) impede MAP honesto --- declarar, não esconder.
+  \item \textbf{Quem ``vence'':} cosseno $\approx$ BM25 no top-1 destas três; BM25 mais rápido.
+        Diferença fina não é significância (Aula~16). Três consultas bastam para a demo de
+        5~minutos; não bastam para coroação de modelo.
+\end{itemize}
+
+\vspace{0.4em}
+\noindent\textbf{Como rodar:}
+\texttt{cd estrutura/codigos} $\rightarrow$
+\texttt{Rscript coletar.R} $\rightarrow$
+\texttt{Rscript aula02.R} $\rightarrow$
+\texttt{Rscript entrega-meio-semestre-demo.R}.
+
+\end{document}

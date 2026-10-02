@@ -1,0 +1,301 @@
+% ==========================================================
+% ENTREGA 1 - O corpus do projeto
+% Projeto Integrador III - Motor de Busca - Ciência de Dados
+% Fatec Baixada Santista - Rubens Lara
+% Equipe Shannon
+% ==========================================================
+%
+% COMO COMPILAR
+%   1. Na raiz: Rscript entregas/entrega-1/entrega-1-corpus.R
+%      (gera os entrega-1-*.csv e entrega-1-numeros.txt nesta pasta)
+%   2. Em entregas/entrega-1/: Rscript -e "knitr::knit2pdf('entrega-1-corpus.Rnw', bib_engine = 'bibtex')"
+% ==========================================================
+
+\documentclass[
+  article,
+  12pt,
+  oneside,
+  a4paper,
+  english,
+  brazil
+]{abntex2}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{icomma}
+\usepackage{booktabs}
+\usepackage[alf]{abntex2cite}
+
+\hypersetup{hidelinks}
+
+% ----------------------------------------------------------
+% DADOS DA ENTREGA
+% ----------------------------------------------------------
+\titulo{O corpus do projeto: \textit{o Porto de Santos --- o lugar, a autoridade pública e o fundador}}
+\tituloestrangeiro{}
+\autor{Equipe Shannon}
+\local{Santos-SP}
+\data{\today}
+
+\newcommand{\nomecurso}{Tecnologia em Ciência de Dados}
+\newcommand{\nomedisciplina}{Projeto Integrador III --- Motor de Busca}
+\newcommand{\nomeprofessor}{Prof.\ Dr.\ João Paulo Ferreira de Mello}
+\newcommand{\repositorio}{projetointegrador3}
+\newcommand{\integrantes}{%
+  Adriane da Costa Santos (RA 0051352511040) \quad
+  Danilo Prado de Lima Silva (RA 0051352521019) \\
+  Victória Cabral Quintério (RA 0051352521033)%
+}
+
+\begin{document}
+
+<<setup, include=FALSE>>=
+library(knitr)
+opts_chunk$set(
+  echo       = FALSE,   # o codigo mora em entrega-1-corpus.R
+  message    = FALSE,
+  warning    = FALSE,
+  fig.align  = "center",
+  out.width  = "0.55\\linewidth",
+  fig.width  = 5.6,
+  fig.height = 1.9
+)
+options(OutDec = ",", digits = 4)
+@
+
+<<dados, include=FALSE>>=
+# REGRA: nada de acento dentro de string de R; acento so em LaTeX.
+docs <- read.csv("entrega-1-docs.csv", fileEncoding = "UTF-8", stringsAsFactors = FALSE)
+pag  <- read.csv("entrega-1-paginas.csv", stringsAsFactors = FALSE)
+met  <- read.csv("entrega-1-metodos.csv", stringsAsFactors = FALSE)
+rk   <- read.csv("entrega-1-rankings.csv", stringsAsFactors = FALSE)
+jul  <- read.csv("entrega-1-julgamento.csv", stringsAsFactors = FALSE)
+top  <- read.csv("entrega-1-top10.csv", fileEncoding = "UTF-8", stringsAsFactors = FALSE)
+res  <- read.csv("entrega-1-resultados.csv")
+r    <- setNames(res$valor, res$medida)
+
+f1 <- function(x, d = 1) formatC(x, format = "f", digits = d, big.mark = ".", decimal.mark = ",")
+f0 <- function(x) formatC(x, format = "d", big.mark = ".")
+
+# texto do corpus entra no LaTeX com escape
+tex <- function(x) {
+  x <- gsub("\\\\", "\\\\textbackslash{}", x)
+  x <- gsub("([%&_#$])", "\\\\\\1", x)
+  x <- gsub("([{}])", "\\\\\\1", x)
+  x <- gsub("~", "\\\\textasciitilde{}", x)
+  x <- gsub("\\^", "\\\\textasciicircum{}", x)
+  x
+}
+txt  <- setNames(docs$texto, docs$id)
+tam  <- setNames(docs$n_tokens, docs$id)
+cita <- function(id, n = 16) {
+  p <- strsplit(txt[[id]], " ")[[1]]
+  paste0("``", tex(paste(p[1:min(n, length(p))], collapse = " ")), if (length(p) > n) "\\ldots" else "", "''")
+}
+
+pag$pagina[pag$artigo == "d2"] <- "Autoridade Portu\\'aria"
+pag$pagina[pag$artigo == "d3"] <- "Paula Ribeiro"
+texto_pag <- paste0("\\textit{", pag$pagina, "} ", pag$frases, " (", pag$paragrafos, ")", collapse = "; ")
+texto_top10 <- paste0("\\texttt{", tex(top$termo), "}", collapse = ", ")
+n_tema      <- sum(top$termo %in% c("porto", "santos", "docas", "navios"))
+longo_id    <- docs$id[docs$n_tokens > r[["longo"]]]
+
+m  <- function(cq, me, col) met[met$consulta == cq & met$metodo == me, col]
+nd <- function(cq, me) f1(m(cq, me, "ndcg"), 2)
+ms.med <- tapply(met$ms, met$metodo, mean)
+@
+
+\selectlanguage{brazil}
+\frenchspacing
+
+\begin{center}
+  \SingleSpacing
+  {\Large \imprimirtitulo \par}
+  \vspace{0.8em}
+  {\large \imprimirautor \par}
+  \vspace{0.3em}
+  \imprimirlocal, \imprimirdata
+\end{center}
+
+\begin{center}
+  \small
+  \SingleSpacing
+  Fatec Baixada Santista, Rubens Lara \quad|\quad \nomecurso{} \\
+  \nomedisciplina{} \quad|\quad \nomeprofessor{} \\[0.3em]
+  {\footnotesize \integrantes} \\[0.3em]
+  Repositório: \texttt{\repositorio}
+\end{center}
+
+\textual
+
+% ==========================================================================
+\section{Introdução}
+% ==========================================================================
+
+O motor de busca do grupo é sobre o Porto de Santos, o porto mais movimentado
+da América Latina e o eixo econômico da Baixada Santista. Quem o usaria é um estudante,
+jornalista ou analista regional que precisa achar \emph{a frase} que responde
+a uma dúvida sobre o porto, e não um artigo inteiro para ler. Em recuperação de
+informação, o que se atende é a \emph{necessidade de informação} de alguém, não
+a consulta literal \cite[cap.~1]{manning2008}; por isso as perguntas vieram
+antes do corpus: \textbf{(1)} onde fica o Porto de Santos; \textbf{(2)} quem
+administra o porto hoje; \textbf{(3)} quem foi Francisco de Paula Ribeiro e
+qual a sua ligação com o porto. Este texto apresenta a fonte, descreve como o
+corpus foi montado e mostra, com números, que ele responde às três perguntas.
+
+% ==========================================================================
+\section{A fonte e o documento}
+% ==========================================================================
+
+O texto vem da Wikipédia em português, sob licença CC BY-SA, de três páginas:
+\textit{Porto de Santos} \cite{wikiporto}, \textit{Autoridade Portuária de
+Santos} \cite{wikiaps} e \textit{Francisco de Paula Ribeiro}
+\cite{wikiribeiro}, salvas em agosto de 2026. Cada página cobre um eixo de
+uma pergunta: o \textbf{lugar} (pergunta 1), a \textbf{autoridade pública}
+que administra o porto (pergunta 2) e o \textbf{fundador} histórico
+(pergunta 3). O corpus tem $N = \Sexpr{r[["n.docs"]]}$ documentos vindos de
+\Sexpr{r[["n.paginas"]]} páginas.
+
+Um documento é \textbf{uma frase pontuada}, identificada como
+\texttt{dN.k} (página \texttt{N}, frase \texttt{k}). O critério foi ``a menor
+unidade que responde sozinha a uma pergunta'': o artigo inteiro faria a busca
+devolver ``a resposta está no artigo do porto'' sem dizer onde, e o parágrafo
+--- padrão do curso --- daria só \Sexpr{r[["n.paragrafos"]]} documentos,
+abaixo da faixa pedida e misturando assuntos. A frase \texttt{d1.1},
+\Sexpr{cita("d1.1", 14)}, responde sozinha à pergunta~1.
+
+A motivação foi o conhecimento prévio: o grupo já estuda o Porto de Santos em
+Teoria do Aprendizado Estatístico, com dados de atracação da ANTAQ. Esses dados
+foram a alternativa descartada: são tabelas numéricas (navios, horas,
+toneladas), não prosa que responda a perguntas.
+
+% ==========================================================================
+\section{Como o corpus foi obtido}
+% ==========================================================================
+
+O corpo de cada artigo foi salvo como texto em UTF-8, sem infobox, listas nem
+referências, em \texttt{estrutura/corpus/} (um \texttt{.txt} por página,
+enviados ao repositório em 19/08/2026). O script
+\texttt{estrutura/codigos/01a-ler-frases.R} quebra o texto em frases por
+\texttt{.}, \texttt{!} e \texttt{?} (e por \texttt{;} acima de 45 palavras),
+descarta fragmentos com menos de 3 palavras e numera as frases; o catálogo fica
+em \texttt{estrutura/corpus/frases-canonicas.csv}, com os mesmos IDs da Aula 01
+ao julgamento da Aula 05.
+
+\textbf{O que deu errado.} (i) O primeiro documento foi o artigo inteiro: só 3
+documentos, e a busca não apontava o trecho. (ii) Cortes fixos de 7 a 10
+palavras partiam frases ao meio, e os juízes não conseguiam julgar sem o
+contexto; a regra passou a ser a pontuação. (iii) Abreviações e decimais
+(\texttt{S.A.}, \texttt{Dr.}, \texttt{1,5}) quebravam frases no lugar errado e
+passaram a ser protegidas. (iv) Fragmentos de 1 ou 2 palavras foram descartados.
+
+% ==========================================================================
+\section{Defesa do corpus}
+% ==========================================================================
+
+A Tabela~\ref{tab:diag} reúne as verificações feitas sobre o corpus.
+
+\begin{table}[htb]
+  \centering
+  \caption{Diagnóstico do corpus (tokenização bruta da Aula 01)}
+  \label{tab:diag}
+  \small
+  \begin{tabular}{@{}p{0.30\textwidth}p{0.62\textwidth}@{}}
+    \toprule
+    \textbf{Verificação} & \textbf{Resultado} \\
+    \midrule
+    Tamanho                & \Sexpr{r[["n.docs"]]} documentos (frases) de \Sexpr{r[["n.paginas"]]} páginas \\
+    Tokens por documento   & \Sexpr{r[["tam.min"]]} a \Sexpr{r[["tam.max"]]} (média \Sexpr{f1(r[["tam.media"]])}, mediana \Sexpr{f1(r[["tam.mediana"]])}) \\
+    Vocabulário bruto      & \Sexpr{f0(r[["n.vocab.bruto"]])} termos em \Sexpr{f0(r[["n.tokens"]])} tokens (\Sexpr{r[["n.vocab.stem"]]} radicais após a Aula 03) \\
+    Por página             & frases (parágrafos): \Sexpr{texto_pag} \\
+    Página que domina      & \textit{Porto de Santos}: \Sexpr{r[["dom.n"]]} de \Sexpr{r[["n.docs"]]} (\Sexpr{f1(r[["dom.pct"]], 0)}\%) \\
+    Documentos suspeitos   & \Sexpr{r[["n.curtos"]]} com menos de \Sexpr{r[["curto"]]} tokens; \Sexpr{r[["n.longos"]]} com mais de \Sexpr{r[["longo"]]} (\texttt{\Sexpr{longo_id}}) \\
+    Sujeira                & \Sexpr{r[["com.acento"]]} com acento, \Sexpr{r[["com.pont"]]} com pontuação, \Sexpr{r[["com.digito"]]} com dígitos (de \Sexpr{r[["n.docs"]]}) \\
+    \bottomrule
+  \end{tabular}
+  \fonte{Elaborada pelos autores (\texttt{entrega-1-corpus.R}).}
+\end{table}
+
+\textbf{Tamanho.} São \Sexpr{r[["n.docs"]]} documentos, acima da meta de 20 a
+60. O excesso vem da unidade, não de páginas a mais: as mesmas três páginas
+dão \Sexpr{r[["n.paragrafos"]]} parágrafos, abaixo da faixa. O grupo mantém a
+frase, que já foi indexada e julgada nas Aulas 03 a 05.
+
+\textbf{Domínio de uma página.} O porto responde por
+\Sexpr{f1(r[["dom.pct"]], 0)}\% do corpus, e o fundador por
+\Sexpr{pag$frases[pag$artigo == "d3"]} frases. É a cara do tema --- o artigo do
+porto é o mais longo e geral ---, mas a pergunta 3 depende de poucas frases; a
+correção é acrescentar páginas, não cortar.
+
+\textbf{Documentos que não são prosa.} Nenhuma frase tem menos de
+\Sexpr{r[["curto"]]} tokens, porque a coleta descarta fragmentos. A única acima
+de \Sexpr{r[["longo"]]}, \texttt{\Sexpr{longo_id}}, foi lida e \emph{não} é
+prosa: é a lista de terminais do artigo, que perdeu as quebras de linha e virou
+uma frase só. Ela mostra o efeito do tamanho: é o 1.º lugar do TF-IDF na
+pergunta 2 só por ser longa, e o BM25, que normaliza pelo tamanho, a tira do
+top-5 \cite{robertson2009}.
+
+\textbf{Sujeira.} Quase todas as frases têm acento, todas têm pontuação
+grudada e \Sexpr{r[["com.digito"]]} têm dígitos (anos, leis, toneladas): o
+esperado, tratado na Aula 03. Pela Figura~\ref{fig:tam}, a maioria das frases
+tem entre 15 e 40 tokens.
+
+\begin{figure}[htb]
+  \centering
+  \caption{Tokens por documento}
+  \label{fig:tam}
+<<fig-tam>>=
+par(mar = c(3.6, 4, 0.5, 1), mgp = c(2.2, 0.7, 0), cex = 0.85)
+hist(tam, breaks = 15, col = "#D6EAF3", border = "white",
+     main = "", xlab = "tokens por documento", ylab = "documentos")
+@
+  \fonte{Elaborada pelos autores.}
+\end{figure}
+
+\textbf{Os termos mais frequentes} são \Sexpr{texto_top10}. Só
+\Sexpr{n_tema} deles (\texttt{porto}) diz algo sobre o tema; os outros são
+artigos, preposições e conjunções --- exatamente o que as \textit{stopwords}
+da Aula 03 removem e o IDF da Aula 01 penaliza.
+
+\textbf{Veredito.} A Tabela~\ref{tab:busca} roda as três perguntas no corpus
+com os métodos das aulas, avaliados pelo gabarito de graus 0/1/2 da Aula 05.
+As perguntas 1 e 3 são respondidas na 1.ª posição por todos os métodos
+ranqueados (\texttt{d1.1} e \texttt{d3.1}, ambas de grau 2). Na pergunta 2 o
+nDCG é zero, mas o defeito está no gabarito, não no corpus: a frase
+\texttt{d2.4}, \Sexpr{cita("d2.4", 11)}, responde à pergunta e aparece em
+3.º lugar no cosseno e no BM25, mas os dois juízes que a avaliaram deram
+grau~0, em 1 e 4 segundos. O AND não devolve nada nas três, porque nenhuma
+frase contém todos os termos; o OR devolve cerca de metade do corpus.
+
+\begin{table}[htb]
+  \centering
+  \caption{As três perguntas no corpus: documentos devolvidos e nDCG@5}
+  \label{tab:busca}
+  \small
+  \begin{tabular}{@{}lrrcrrr@{}}
+    \toprule
+    Pergunta & AND & OR & 1.º lugar & TF-IDF & Cosseno & BM25 \\
+    \midrule
+    1. Onde fica o porto     & \Sexpr{m("q.local","and","hits")} & \Sexpr{m("q.local","or","hits")} & \texttt{\Sexpr{m("q.local","bm25","top1")}} & \Sexpr{nd("q.local","tfidf")} & \Sexpr{nd("q.local","cosseno")} & \Sexpr{nd("q.local","bm25")} \\
+    2. Quem administra       & \Sexpr{m("q.aps","and","hits")} & \Sexpr{m("q.aps","or","hits")} & \texttt{\Sexpr{m("q.aps","bm25","top1")}} & \Sexpr{nd("q.aps","tfidf")} & \Sexpr{nd("q.aps","cosseno")} & \Sexpr{nd("q.aps","bm25")} \\
+    3. Quem foi o fundador   & \Sexpr{m("q.fundador","and","hits")} & \Sexpr{m("q.fundador","or","hits")} & \texttt{\Sexpr{m("q.fundador","bm25","top1")}} & \Sexpr{nd("q.fundador","tfidf")} & \Sexpr{nd("q.fundador","cosseno")} & \Sexpr{nd("q.fundador","bm25")} \\
+    \midrule
+    Tempo médio (ms)         & \Sexpr{f1(ms.med[["and"]], 1)} & \Sexpr{f1(ms.med[["or"]], 1)} & & \Sexpr{f1(ms.med[["tfidf"]], 1)} & \Sexpr{f1(ms.med[["cosseno"]], 1)} & \Sexpr{f1(ms.med[["bm25"]], 1)} \\
+    \bottomrule
+  \end{tabular}
+  \fonte{Elaborada pelos autores. 1.º lugar do BM25; nDCG@5 com os graus 0/1/2 de \texttt{05-qrels.csv} \cite{jarvelin2002}; tempo médio de 200 execuções por consulta.}
+\end{table}
+
+O corpus, portanto, contém a resposta às três perguntas. Ele é
+\textbf{provisório}: antes de congelar o gabarito, o grupo vai rejulgar a
+pergunta 2 (\texttt{d2.2} e \texttt{d2.4}), quebrar a lista \texttt{\Sexpr{longo_id}}
+em itens e acrescentar uma página sobre a Companhia Docas de Santos, para que a
+pergunta 3 não dependa de só \Sexpr{pag$frases[pag$artigo == "d3"]} frases.
+
+\postextual
+{\SingleSpacing\small
+\bibliography{referencias}}
+
+\end{document}
