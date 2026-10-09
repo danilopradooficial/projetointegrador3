@@ -56,6 +56,7 @@ Victória Cabral Quintério
 │       ├── 03-preprocessao-indice.R
 │       ├── 04-poisson-bm25.R
 │       ├── 05b-metricas.R           # P@k · MAP · MRR · nDCG (Aula 05b)
+│       ├── 06-rocchio.R             # Rocchio · expansão · pseudo-feedback (Aula 06)
 │       ├── csv/
 │       │   └── entrega-meio-semestre-auditoria.csv
 │       └── 05-julgamento/           # Aula 05a (julgamento)
@@ -72,6 +73,7 @@ Victória Cabral Quintério
 │               ├── 05-pool.csv
 │               ├── 05-qrels.csv              # gabarito consolidado
 │               ├── 05b-metricas-por-consulta.csv
+│               ├── 06-rocchio-por-consulta.csv
 │               └── 05-qrels-respostas/       # exports por juiz
 ├── consolidados/
 ├── materiais-aulas/            # PDFs + guias (05a julgamento · 05b métricas)
@@ -91,6 +93,10 @@ auditoria LaTeX [`consolidados/entrega-meio-semestre.tex`](consolidados/entrega-
 **Aula 05b (métricas):**  
 [`estrutura/codigos/05b-metricas.R`](estrutura/codigos/05b-metricas.R) ·  
 [`consolidados/05b-metricas-avaliacao.md`](consolidados/05b-metricas-avaliacao.md).
+
+**Aula 06 (Rocchio · pseudo-feedback):**  
+[`estrutura/codigos/06-rocchio.R`](estrutura/codigos/06-rocchio.R) ·  
+[`consolidados/06-rocchio-expansao-pseudo-feedback.md`](consolidados/06-rocchio-expansao-pseudo-feedback.md).
 
 | Pasta | Conteúdo |
 |---|---|
@@ -114,11 +120,12 @@ auditoria LaTeX [`consolidados/entrega-meio-semestre.tex`](consolidados/entrega-
 | 5ª | [04-poisson-saturacao-bm25.md](consolidados/04-poisson-saturacao-bm25.md) | `04-poisson-bm25.R` | Poisson · BM25 (Aula 04) |
 | 6ª A | [05a-julgamento-pooling-kappa.md](consolidados/05a-julgamento-pooling-kappa.md) | `05-julgamento/05a-kappa.R` | Julgamento · pooling · κ (Aula 05a) |
 | 7ª | [05b-metricas-avaliacao.md](consolidados/05b-metricas-avaliacao.md) | `05b-metricas.R` | P@k · MAP · MRR · nDCG (Aula 05b) |
+| 8ª | [06-rocchio-expansao-pseudo-feedback.md](consolidados/06-rocchio-expansao-pseudo-feedback.md) | `06-rocchio.R` | Rocchio · expansão · pseudo-feedback (Aula 06) |
 
 **IDs canônicos:** seção *Corpus e unidade de recuperação* em [01a-primeiro-corpus-real.md](consolidados/01a-primeiro-corpus-real.md) (`01a-ler-frases.R`).
 
 ```
-R base → corpus wiki (frases por ponto) → IDF → TF-IDF → limpeza/índice → BM25 → gabarito/κ → métricas
+R base → corpus wiki (frases por ponto) → IDF → TF-IDF → limpeza/índice → BM25 → gabarito/κ → métricas → Rocchio/PRF
 ```
 
 ---
@@ -160,4 +167,5 @@ Rscript 05e-consolidar-qrels.R
 
 cd ..
 Rscript 05b-metricas.R
+Rscript 06-rocchio.R
 ```
