@@ -72,7 +72,7 @@ no BM25 (04) e no julgamento (05) é **a mesma frase**.
 
 Exemplo:
 
-> **`d1.1`** — *Porto de Santos é um porto estuarino, localizado nos municípios de Santos, Guarujá e Cubatão, no estado de São Paulo.*
+> **`d1.1`** - *Porto de Santos é um porto estuarino, localizado nos municípios de Santos, Guarujá e Cubatão, no estado de São Paulo.*
 
 > Conteúdo licenciado sob **CC BY-SA** (Wikipédia) - uso permitido desde que citada a fonte.
 
@@ -86,7 +86,7 @@ Implementada em [`estrutura/codigos/01a-ler-frases.R`](../estrutura/codigos/01a-
 4. Se a frase tiver **mais de 45 palavras** e existir **`;`**, parte no ponto e vírgula.
 5. Descarta pedaços com menos de 3 palavras.
 
-Não usamos corte por número fixo de palavras (ex.: 7–10) — isso perdia o sentido no julgamento.
+Não usamos corte por número fixo de palavras (ex.: 7-10) - isso perdia o sentido no julgamento.
 
 ### Onde a regra é usada (mesmos IDs)
 
@@ -99,8 +99,8 @@ Não usamos corte por número fixo de palavras (ex.: 7–10) — isso perdia o s
 
 Catálogo versionado:
 
-- [`estrutura/corpus/frases-canonicas.csv`](../estrutura/corpus/frases-canonicas.csv) — `id`, `artigo`, `texto`
-- [`estrutura/codigos/05-julgamento/csv/05-corpus.csv`](../estrutura/codigos/05-julgamento/csv/05-corpus.csv) — mesmo texto, formato do `julgar.html`
+- [`estrutura/corpus/frases-canonicas.csv`](../estrutura/corpus/frases-canonicas.csv) - `id`, `artigo`, `texto`
+- [`estrutura/codigos/05-julgamento/csv/05-corpus.csv`](../estrutura/codigos/05-julgamento/csv/05-corpus.csv) - mesmo texto, formato do `julgar.html`
 
 Ao rodar `05b-montar-corpus.R`, os dois CSVs são regravados juntos. Conferência: o texto de `d1.1` no `05b` deve ser igual a `docs[["d1.1"]]` nesta atividade.
 

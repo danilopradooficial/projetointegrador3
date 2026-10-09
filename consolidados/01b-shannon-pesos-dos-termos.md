@@ -29,7 +29,8 @@ Derivamos o peso dos termos a partir de Shannon: a busca como problema
 de *seleção* entre documentos, cada termo como pista que reduz incerteza.
 
 > **Meta (Parte B):** com o corpus de 8 documentos da Aula 01, medir bits
-> por termo, reconstruir o IDF e responder onde a fórmula "mente".
+> por termo, reconstruir o IDF e responder onde a fórmula "mente". Depois,
+> repetir os blocos no nosso corpus de 122 frases (Parte 3).
 
 **Equipe.** Team Shannon  
 **Autores.** Adriane da Costa Santos · Danilo Prado de Lima Silva · Victoria Cabral Quinterio
@@ -423,7 +424,70 @@ vale só ~0,68 bit.
 
 ---
 
-# 3. Sequência e correlação
+# 3. Parte 3 - Os mesmos blocos no nosso corpus
+
+O corpus de 8 documentos serviu para conferir a aula. Aqui repetimos os
+blocos no **corpus do projeto**: as 122 frases `d1.1 … d3.5` das páginas
+*Porto de Santos*, *Autoridade Portuária de Santos* e *Francisco de Paula
+Ribeiro*. A tokenização é a da Aula 01 (minúsculas, sem pontuação); stopwords
+e radicais só entram na Aula 03. Saída: Parte 3 do `01b-shannon-pesos.R`.
+
+### Bloco 1 · incerteza inicial
+
+`N = 122` frases, então achar uma frase custa `log2(122) = 6,93` bits.
+
+### Blocos 2 e 3 · quanto cada pista vale
+
+| termo | df | bits |
+|---|--:|--:|
+| `de` | 109 | 0,16 |
+| `porto` | 42 | 1,54 |
+| `santos` | 39 | 1,65 |
+| `autoridade` | 14 | 3,12 |
+| `cubatão` | 5 | 4,61 |
+| `ribeiro` | 4 | 4,93 |
+| `guarujá` · `francisco` | 3 | 5,35 |
+| `administra` · `estuarino` | 1 | **6,93** |
+
+`de` está em 109 das 122 frases e quase não informa nada. `porto` e
+`santos` são o assunto do corpus inteiro e também valem pouco (1,5 bit):
+num corpus sobre o porto, a palavra "porto" não discrimina. Dos 1.108
+termos, 655 aparecem em uma frase só e valem os 6,93 bits inteiros.
+
+`administra` aparece em **uma** frase (d2.4). As formas *administrado*,
+*administração* e *administrativas* contam como palavras diferentes. É o
+argumento para os radicais da Aula 03.
+
+### Bloco 5 · as 3 perguntas do projeto em bits (soma de tf × I)
+
+| pergunta | 1.º | 2.º | 3.º |
+|---|---|---|---|
+| `localização porto santos guarujá cubatão` | **d1.1** (16,3) | d1.61 (13,3) | d1.66 (11,3) |
+| `quem administra porto santos autoridade` | d1.66 (11,3) | **d2.4** (10,1) | d1.13 (8,0) |
+| `francisco de paula ribeiro porto` | **d3.1** (17,0) | d1.17 (16,7) | d3.4 (10,9) |
+
+Nas perguntas 1 e 3, a resposta já fica em 1.º. Na pergunta 2, a d1.66 (a
+lista de terminais com 76 tokens) passa a resposta d2.4 só por repetir
+`porto` e `santos` muitas vezes. A soma de bits não normaliza pelo tamanho
+do documento; o cosseno da Atividade 02 resolve isso.
+
+### Bloco 6 · independência vs correlação
+
+| par | df | juntos | soma | real | excesso |
+|---|:-:|:-:|--:|--:|--:|
+| `francisco` + `ribeiro` | 3 · 4 | 3 | 10,28 | 5,35 | **+4,93** |
+| `guarujá` + `cubatão` | 3 · 5 | 2 | 9,95 | 5,93 | +4,02 |
+| `companhia` + `docas` | 10 · 9 | 9 | 7,37 | 3,76 | +3,61 |
+| `autoridade` + `portuária` | 14 · 22 | 14 | 5,59 | 3,12 | +2,47 |
+
+Toda frase que tem `francisco` tem `ribeiro`, e toda frase com
+`autoridade` tem `portuária`: a segunda pista não acrescenta nada, e a soma
+superestima quase 5 bits. Os nomes próprios compostos são o caso mais forte
+de termos correlacionados no nosso corpus.
+
+---
+
+# 4. Sequência e correlação
 
 A Atividade 01 (2ª entrega) vem **depois** da 00 e **antes** da 02:
 

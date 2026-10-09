@@ -72,3 +72,59 @@ for (q in consultas) {
   melhor <- names(which.max(scores))
   cat("Melhor:", melhor, "->", docs[[melhor]], "\n\n")
 }
+
+## 7) O mesmo motor no NOSSO corpus (frases dN.k)
+# Tokenizacao da Aula 01: minusculas e sem pontuacao.
+# Stopwords e radicais so entram na Aula 03.
+cat("============================================================\n")
+cat("NOSSO CORPUS - Porto de Santos, APS, Francisco de Paula Ribeiro\n")
+cat("============================================================\n")
+
+args_cmd <- commandArgs(trailingOnly = FALSE)
+file_arg <- grep("^--file=", args_cmd, value = TRUE)
+if (length(file_arg) == 1) setwd(dirname(normalizePath(sub("^--file=", "", file_arg))))
+source("01a-ler-frases.R")
+docs_c <- carregar_docs_canonico(file.path("..", "corpus"))
+docs_c <- docs_c[grepl("^d[0-9]+\\.[0-9]+$", names(docs_c))]
+
+tok_c <- function(x) {
+  t <- unlist(strsplit(gsub("[[:punct:]]", " ", tolower(x)), "\\s+"))
+  t[nzchar(t)]
+}
+tokens_c <- lapply(docs_c, tok_c)
+vocab_c <- sort(unique(unlist(tokens_c)))
+tdm_c <- sapply(tokens_c, function(t) as.integer(table(factor(t, levels = vocab_c))))
+rownames(tdm_c) <- vocab_c
+idf_c <- log(ncol(tdm_c) / rowSums(tdm_c > 0))
+w_c <- tdm_c * idf_c
+cat("Dimensao TDM (termos x frases):", paste(dim(tdm_c), collapse = " x "),
+    "| celulas nao nulas:", round(100 * mean(tdm_c > 0), 1), "%\n\n")
+
+ranquear_c <- function(consulta) {
+  qw <- as.integer(table(factor(tok_c(consulta), levels = vocab_c))) * idf_c
+  sort(apply(w_c, 2, function(d) cosseno(qw, d)), decreasing = TRUE)
+}
+soma_tfidf <- function(consulta) {
+  t <- intersect(tok_c(consulta), vocab_c)
+  sort(colSums(w_c[t, , drop = FALSE]), decreasing = TRUE)
+}
+
+perguntas_c <- c(
+  q_local    = "localização porto santos guarujá cubatão",
+  q_aps      = "quem administra porto santos autoridade",
+  q_fundador = "francisco de paula ribeiro porto"
+)
+for (cq in names(perguntas_c)) {
+  q <- perguntas_c[[cq]]
+  cos_r <- ranquear_c(q)
+  soma_r <- soma_tfidf(q)
+  cat("------------------------------------------------------------\n")
+  cat(cq, "- consulta:", q, "\n")
+  cat("Termos fora do vocabulario:", paste(setdiff(tok_c(q), vocab_c), collapse = ", "), "\n")
+  cat("Top-5 cosseno:\n")
+  for (id in names(cos_r)[1:5]) {
+    cat(sprintf("  %-6s %.3f  %s\n", id, cos_r[[id]], substr(docs_c[[id]], 1, 70)))
+  }
+  cat("Top-5 soma TF-IDF (sem normalizar):", paste(names(soma_r)[1:5], collapse = " "), "\n")
+  cat("Melhor (cosseno):", names(cos_r)[1], "->", docs_c[[names(cos_r)[1]]], "\n\n")
+}

@@ -32,15 +32,15 @@ precisa de números: precisão nos primeiros $k$, AP/MAP, MRR e nDCG
 **Equipe.** Team Shannon  
 **Autores.** Adriane da Costa Santos · Danilo Prado de Lima Silva · Victória Cabral Quintério  
 **Gabarito.** [Atividade 05a](./05a-julgamento-pooling-kappa.md) · `estrutura/codigos/05-julgamento/csv/05-qrels.csv`  
-**IDs.** Frases `dN.k` — [01a](./01a-primeiro-corpus-real.md)
+**IDs.** Frases `dN.k` - [01a](./01a-primeiro-corpus-real.md)
 
 ---
 
 ## Material
 
-- [Aula 05b PDF — Métricas](../materiais-aulas/Aula%2005b%20-%20Julgamento,%20Pooling%20e%20Concordância%20Entre%20Juízes.PDF) *(arquivo ainda com título antigo no nome; conteúdo = Precisão, Recall, @k, MAP, nDCG, MRR)*
-- [Guia de Estudo 01](../materiais-aulas/Aula%2005b%20-%20Guia%20de%20Estudo%2001.md) — teoria (Módulos 1–9)
-- [Guia de Estudo 02](../materiais-aulas/Aula%2005b%20-%20Guia%20de%20Estudo%2002.md) — prática no gabarito próprio (Módulos 10–12)
+- [Aula 05b PDF - Métricas](../materiais-aulas/Aula%2005b%20-%20Julgamento,%20Pooling%20e%20Concordância%20Entre%20Juízes.PDF) *(arquivo ainda com título antigo no nome; conteúdo = Precisão, Recall, @k, MAP, nDCG, MRR)*
+- [Guia de Estudo 01](../materiais-aulas/Aula%2005b%20-%20Guia%20de%20Estudo%2001.md) - teoria (Módulos 1-9)
+- [Guia de Estudo 02](../materiais-aulas/Aula%2005b%20-%20Guia%20de%20Estudo%2002.md) - prática no gabarito próprio (Módulos 10-12)
 - [Atividade 05a](./05a-julgamento-pooling-kappa.md)
 - [Atividade 04 · BM25](./04-poisson-saturacao-bm25.md)
 
@@ -63,7 +63,7 @@ Não julgado na pool = grau 0 (regra do pooling da 05a).
 
 ---
 
-## Parte A — exemplo canônico da aula
+## Parte A - exemplo canônico da aula
 
 Ranking BM25 da Aula 04: `d3 d1 d2 d4 d8 d6 d5 d7`  
 Gabarito: d2 = 2, d3 = 2, d1 = 1, d6 = 1, resto 0 · limiar $\geq 2$ → relevantes = {d2, d3}
@@ -81,7 +81,7 @@ Conferência à mão bate com o Guia 01.
 
 ---
 
-## Parte B — cosseno vs BM25 no nosso corpus
+## Parte B - cosseno vs BM25 no nosso corpus
 
 122 frases · limiar grau $\geq 2$ · 11 consultas com $R > 0$.
 
@@ -119,12 +119,12 @@ CSV: [`05b-metricas-por-consulta.csv`](../estrutura/codigos/05-julgamento/csv/05
 - Em **média** o cosseno ficou um pouco acima (MAP 0,377 vs 0,363), mas o BM25
   ganha forte em consultas “bem ancoradas” (q15 localização; q13 porto organizado;
   q09 cargas).
-- O cosseno sobe em q03/q05 (P@3 melhor) — o primeiro relevante às vezes
+- O cosseno sobe em q03/q05 (P@3 melhor) - o primeiro relevante às vezes
   aparece mais cedo no TF-IDF.
 - q11 é péssima nos dois (relevante muito fundo no ranking): a pool não
   garante que o sistema ache o grau-2 no topo.
 - **Ressalva:** 11 consultas e pool parcial. Diferença pequena **não** é
-  significância — isso é Aula 16. Três armadilhas do Guia 01: uma métrica
+  significância - isso é Aula 16. Três armadilhas do Guia 01: uma métrica
   sozinha, corpus/pool limitada, e tratar 0,377 > 0,363 como prova.
 
 ---

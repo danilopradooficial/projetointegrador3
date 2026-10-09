@@ -21,16 +21,21 @@ a consulta na direção dos bons resultados. Fecha a Fase 2 do motor.
 **8ª entrega · Aula 06.** Tarefa do slide 15:
 
 1. Implementar `rocchio` sobre o corpus de 8 documentos.
-2. Escolher uma consulta, marcar 1–2 relevantes e comparar o ranking antes/depois.
+2. Escolher uma consulta, marcar 1-2 relevantes e comparar o ranking antes/depois.
 3. Implementar pseudo-feedback com os top-2 e discutir o resultado.
 
 | Item | Situação |
 |---|---|
-| Exemplo canônico dos slides (8 docs) | **conferido — números idênticos** |
-| Tarefa 1 · função `rocchio` | pronta |
-| Tarefa 2 · consulta própria, antes/depois | **feita** |
-| Tarefa 3 · pseudo-feedback top-2 | **feita e discutida** |
-| Extra · Rocchio e PRF no nosso corpus, medidos com as métricas da 05b | rodado · CSV gerado |
+| Exemplo canônico dos slides (8 docs) | **conferido - números idênticos** |
+| Tarefa 1 · função `rocchio` | pronta · validada nos 8 docs, aplicada às 122 frases |
+| Tarefa 2 · consulta própria, antes/depois | **feita no nosso corpus** (3 perguntas do projeto) · repetida nos 8 docs |
+| Tarefa 3 · pseudo-feedback top-2 | **feita e discutida no nosso corpus** · repetida nos 8 docs |
+| Extra · Rocchio e PRF nas 11 consultas julgadas, com as métricas da 05b | rodado · CSV gerado |
+
+> **Base de dados.** O trabalho usa o corpus do projeto: as 122 frases
+> `d1.1 … d3.5` das três páginas da Wikipédia (*Porto de Santos*,
+> *Autoridade Portuária de Santos*, *Francisco de Paula Ribeiro*). O corpus
+> de 8 documentos dos slides aparece só para conferir os números da aula.
 
 **Equipe.** Team Shannon  
 **Autores.** Adriane da Costa Santos · Danilo Prado de Lima Silva · Victória Cabral Quintério  
@@ -40,8 +45,8 @@ a consulta na direção dos bons resultados. Fecha a Fase 2 do motor.
 
 ## Material
 
-- [Aula 06 PDF — Rocchio, Expansão de Consulta e Pseudo-Feedback](../materiais-aulas/Aula%2006%20-%20Rocchio,%20Expansão%20de%20Consulta%20e%20Pseudo-Feedback.PDF)
-- [Atividade 02 · TF-IDF e cosseno](./02-tfidf-similaridade-cosseno.md) — o espaço vetorial onde a consulta se move
+- [Aula 06 PDF - Rocchio, Expansão de Consulta e Pseudo-Feedback](../materiais-aulas/Aula%2006%20-%20Rocchio,%20Expansão%20de%20Consulta%20e%20Pseudo-Feedback.PDF)
+- [Atividade 02 · TF-IDF e cosseno](./02-tfidf-similaridade-cosseno.md) - o espaço vetorial onde a consulta se move
 - [Atividade 05b · Métricas](./05b-metricas-avaliacao.md)
 - Leitura: Manning et al., *IIR*, cap. 9 · Baeza-Yates & Ribeiro-Neto, cap. 5
 
@@ -54,7 +59,9 @@ cd estrutura/codigos
 Rscript 06-rocchio.R
 ```
 
-Gera `05-julgamento/csv/06-rocchio-por-consulta.csv`.
+Gera `05-julgamento/csv/06-rocchio-tarefa-corpus.csv` (top-10 de base,
+Rocchio e PRF nas 3 perguntas) e `05-julgamento/csv/06-rocchio-por-consulta.csv`
+(11 consultas julgadas).
 
 ---
 
@@ -82,7 +89,7 @@ Pseudo-feedback = Rocchio com $D_r$ = top-$k$ da primeira busca e $D_{nr} = \var
 
 ---
 
-## Parte A — exemplo canônico (conferência dos slides)
+## Parte A - exemplo canônico (conferência dos slides)
 
 Consulta `"modelo de recuperacao"`, $D_r = \{d2, d3\}$, $D_{nr} = \{d4\}$.
 
@@ -117,7 +124,106 @@ também entram na medição.
 
 ---
 
-## Parte B — tarefa de casa (8 docs)
+## Parte B - a tarefa no nosso corpus (122 frases)
+
+As três perguntas do projeto, as mesmas da entrega 1. Para cada uma, a
+equipe leu o top-5 da primeira busca (cosseno TF-IDF, com limpeza,
+stopwords e Snowball da Aula 03) e marcou à mão os relevantes ($D_r$) e
+os não relevantes ($D_{nr}$). Depois, comparamos três rankings: a busca
+base, o Rocchio com essa marcação e o pseudo-feedback (PRF), que assume
+os top-2 como relevantes sem perguntar a ninguém.
+
+### Pergunta 1 · Onde fica o Porto de Santos?
+
+Consulta: `localizacao porto santos guaruja cubatao`.
+
+- $D_r$: **d1.1** (*porto estuarino, localizado nos municípios de Santos,
+  Guarujá e Cubatão*) e **d1.61** (*margem direita… área insular de Santos;
+  margem esquerda, Cubatão…*).
+- $D_{nr}$: **d1.30** (*localização da usina* de Itatinga, não do porto) e
+  **d1.52** (incêndio na margem esquerda).
+
+| frase | base | Rocchio | PRF |
+|---|:-:|:-:|:-:|
+| d1.1 | 1 | 2 | 2 |
+| d1.61 | 2 | **1** | **1** |
+| d1.82 (*complexo industrial de Cubatão… proximidade ao porto*) | 5 | **3** | 4 |
+| d1.83 (*Cubatão tem acesso ao mar pelo Canal de Piaçaguera*) | 8 | **5** | 5 |
+
+A consulta passa de 5 para 61 termos com peso. Os maiores pesos novos são
+`municipi`, `marg`, `insul`, `continental` e `estuarin`: o vocabulário de
+*localização* que ninguém digitou. O d1.30, que só estava em 3.º por causa
+da palavra "localização", sai do top-8.
+
+### Pergunta 2 · Quem administra o porto hoje?
+
+Consulta: `quem administra porto santos autoridade`.
+
+- $D_r$: **d2.4** (*Desde então, a APS administra a infraestrutura pública
+  do Porto de Santos…*).
+- $D_{nr}$: **d1.36** e **d2.9**, que são **a mesma frase** nas duas
+  páginas (*…área sob a jurisdição da Autoridade Portuária*): definem o
+  Porto Organizado, mas não dizem quem administra.
+
+| frase | base | Rocchio | PRF |
+|---|:-:|:-:|:-:|
+| d2.4 (*a APS administra…*) | 3 | **1** | 11 |
+| d2.2 (*É a responsável pela infraestrutura do Porto de Santos*) | 9 | **2** | 24 |
+| d2.16 (*a APS assumiu a administração do Porto de Itajaí*) | 6 | 16 | 12 |
+| d1.43 (*alterou sua razão social para "Autoridade Portuária de Santos"*) | 7 | 27 | 13 |
+
+É o caso que mais ensina:
+
+- **Rocchio acerta o topo.** A resposta vai do 3.º para o 1.º lugar, e a
+  d2.2, que só aparecia em 9.º, vira a 2.ª: ela não tem a palavra
+  "administra", mas divide `infraestrutur` com a d2.4.
+- **Mas um só relevante especializa demais.** Os maiores pesos novos são
+  `1100`, `empreg`, `aps` e `desd` (*desde*), detalhes da d2.4. Frases que
+  também falam da APS, como d2.16 e d1.43, caem para 16.º e 27.º. Com
+  $|D_r| = 1$, o centroide é a própria frase.
+- **O PRF cai na armadilha da frase repetida.** O top-2 da busca base são
+  d1.36 e d2.9, a mesma frase duas vezes. O PRF as assume como relevantes,
+  reforça a consulta na direção errada e empurra a resposta d2.4 do 3.º para
+  o **11.º** lugar. É o *query drift* do slide 13, causado por uma
+  duplicação do corpus.
+
+### Pergunta 3 · Quem foi Francisco de Paula Ribeiro?
+
+Consulta: `francisco de paula ribeiro porto`.
+
+- $D_r$: **d3.1** (*engenheiro brasileiro, Pelotas 1851*) e **d1.17**
+  (*superintendente da Companhia Docas de Santos*).
+- $D_{nr}$: **d3.4** e **d3.5** (pais, casamento e filhos, sem o porto).
+
+| frase | base | Rocchio | PRF |
+|---|:-:|:-:|:-:|
+| d3.1 | 1 | 1 | 1 |
+| d1.17 | 2 | 2 | 2 |
+| d3.2 (*Foi o idealizador do Porto de Santos e o superintendente da Docas*) | 25 | **3** | 5 |
+| d3.4 (família) | 3 | **8** | 4 |
+
+A d3.2 é a melhor resposta para "qual a ligação com o porto", mas começa
+com "Foi o idealizador…" e não repete o nome: na busca base ela está em
+**25.º**. O Rocchio a traz para o **3.º** lugar, pelos termos que ela divide
+com a d1.17 (`superintendent`, `companh`, `doc`, `anos`). O $\gamma$ derruba a família
+(d3.4) do 3.º para o 8.º. O PRF também acha a d3.2 (5.º), porque aqui o
+top-2 era bom; mas, sem $D_{nr}$, deixa a família no top-4.
+
+### Discussão (nosso corpus)
+
+- **Feedback humano funcionou nas três perguntas:** a frase-resposta ficou
+  no topo e uma resposta "escondida" subiu (d2.2: 9.º → 2.º; d3.2: 25.º → 3.º).
+- **O PRF é tão bom quanto o top-2.** Nas perguntas 1 e 3, o top-2 já era
+  relevante e o PRF quase empata com o Rocchio. Na pergunta 2, o top-2 era
+  uma frase duplicada não relevante, e o PRF piorou a busca.
+- **A duplicação de frases é um problema do corpus.** A página *Porto de
+  Santos* copia frases da página da *Autoridade Portuária* (d1.36 = d2.9,
+  d1.35 = d2.8). Isso ocupa duas posições do top-5 com o mesmo texto e
+  envenena o PRF. Fica registrado para a revisão do corpus.
+
+---
+
+## Parte A2 - a mesma tarefa no corpus dos slides (conferência)
 
 ### Tarefa 2 · consulta própria
 
@@ -182,7 +288,7 @@ relevante (grau 1). O d2 sobe para o 3º lugar sem que ninguém o tenha marcado.
 
 ---
 
-## Parte C — nosso corpus (extra: o gabarito vira entrada do algoritmo)
+## Parte C - nosso corpus nas 11 consultas julgadas (o gabarito vira entrada do algoritmo)
 
 Foram usadas 122 frases e 873 termos, com o mesmo pré-processamento da 05b
 (limpeza, stopwords e Snowball) e o cosseno TF-IDF como busca base. Há 11
@@ -214,10 +320,10 @@ No PRF, o AP melhora em 3 consultas, piora em 6 e empata em 2.
 |---|:-:|:-:|---:|---:|---:|---:|
 | q01 | 2 | 0 · 0 | 0,082 | 0,036 | 0,113 | 0,113 *(sem feedback)* |
 | q03 | 3 | 2 · 0 | 0,639 | 0,591 | 0,143 | **0,250** |
-| q04 | 1 | 1 · 1 | 1,000 | 1,000 | — | — *(único relevante já visto)* |
-| q05 | 2 | 2 · 0 | 0,583 | 0,500 | — | — *(relevantes já vistos)* |
+| q04 | 1 | 1 · 1 | 1,000 | 1,000 | - | - *(único relevante já visto)* |
+| q05 | 2 | 2 · 0 | 0,583 | 0,500 | - | - *(relevantes já vistos)* |
 | q06 | 5 | 1 · 1 | 0,128 | 0,090 | 0,096 | **0,255** |
-| q07 | 1 | 1 · 1 | 0,200 | **0,250** | — | — *(único relevante já visto)* |
+| q07 | 1 | 1 · 1 | 0,200 | **0,250** | - | - *(único relevante já visto)* |
 | q09 | 2 | 0 · 0 | 0,121 | 0,121 | 0,211 | 0,211 *(sem feedback)* |
 | q10 | 2 | 1 · 3 | 0,260 | **0,417** | 0,010 | **1,000** |
 | q11 | 1 | 0 · 1 | 0,009 | 0,009 | 0,009 | 0,009 *(sem $D_r$)* |

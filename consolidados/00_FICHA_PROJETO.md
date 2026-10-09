@@ -1,10 +1,10 @@
-# Ficha do projeto — Team Shannon
+# Ficha do projeto - Team Shannon
 
 **Projeto Integrador III · Ciência de Dados · Fatec Rubens Lara**  
 **Entrega de meio de semestre** · tag prevista: `entrega-1`
 
 > A ficha é o relatório oficial desta entrega (PDF *Entrega de Meio de Semestre*).  
-> LaTeX de auditoria e demo multi-método são material extra — ver README.
+> LaTeX de auditoria e demo multi-método são material extra - ver README.
 
 ---
 
@@ -53,7 +53,7 @@
 | Vocabulário (stems PT, pós-limpeza) | ≈ 870 termos |
 | Catálogo versionado | `estrutura/corpus/frases-canonicas.csv` |
 
-**Nota honesta (PDF pede 20–60 parágrafos):** estamos **acima** desse intervalo porque o projeto já passou da Aula 05 (unidade = frase). A unidade de recuperação continua sendo a frase; o número cresceu com o fatiamento do mesmo corpus wiki, não com páginas novas.
+**Nota honesta (PDF pede 20-60 parágrafos):** estamos **acima** desse intervalo porque o projeto já passou da Aula 05 (unidade = frase). A unidade de recuperação continua sendo a frase; o número cresceu com o fatiamento do mesmo corpus wiki, não com páginas novas.
 
 ### Três consultas de trabalho
 
@@ -63,7 +63,7 @@
 | `q_aps` | `quem administra porto santos autoridade` | empresa pública |
 | `q_fundador` | `francisco de paula ribeiro porto` | fundador |
 
-### Rankings de referência — cosseno TF-IDF (top-5)
+### Rankings de referência - cosseno TF-IDF (top-5)
 
 Conferência: `Rscript aula02.R` (mesmos IDs/scores esperados).
 
@@ -73,7 +73,7 @@ Conferência: `Rscript aula02.R` (mesmos IDs/scores esperados).
 | `q_aps` | `d1.36` (0,249) · `d2.9` (0,249) · `d2.4` (0,196) · `d1.35` (0,183) · `d2.8` (0,183) |
 | `q_fundador` | `d3.1` (0,439) · `d1.17` (0,408) · `d3.4` (0,259) · `d3.5` (0,217) · `d1.1` (0,127) |
 
-1º de `q_local`: *“Porto de Santos é um porto estuarino, localizado nos municípios de Santos, Guarujá e Cubatão…”* — responde a localização.
+1º de `q_local`: *“Porto de Santos é um porto estuarino, localizado nos municípios de Santos, Guarujá e Cubatão…”* - responde a localização.
 
 Tabela completa (Booleano · TF-IDF · cosseno · BM25 · julgamento):  
 [`estrutura/codigos/csv/entrega-meio-semestre-auditoria.csv`](../estrutura/codigos/csv/entrega-meio-semestre-auditoria.csv)
@@ -102,7 +102,7 @@ Tabela completa (Booleano · TF-IDF · cosseno · BM25 · julgamento):
 |---|---|
 | Tag git `entrega-1` | **pendente** (criar até 6/10 23h59, conforme PDF) |
 | `estrutura/banco-de-dados/coletar.R` no layout da Aula 01 | equivalente: `estrutura/codigos/coletar.R` regenera frases a partir dos `.txt` |
-| Demonstração ao vivo (7/10) | a fazer em aula — 5 min, sem slides |
+| Demonstração ao vivo (7/10) | a fazer em aula - 5 min, sem slides |
 
 ---
 

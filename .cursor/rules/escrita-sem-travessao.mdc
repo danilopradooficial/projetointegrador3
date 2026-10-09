@@ -1,0 +1,17 @@
+---
+description: Não usar travessão (—) nem meio-travessão (–) em nenhum texto do projeto
+alwaysApply: true
+---
+
+# Sem travessão
+
+Em `.md`, `.Rnw`, `.tex`, comentários e saídas de script, **nunca** use
+travessão (—) nem meio-travessão (–). Use traço simples (-), vírgula, dois-pontos
+ou parênteses.
+
+- ❌ `o parágrafo — padrão do curso — daria 18 documentos`
+- ✅ `o parágrafo (padrão do curso) daria 18 documentos`
+- ❌ `slides 10–12`
+- ✅ `slides 10-12`
+
+No LaTeX, não escreva `---` nem `--` no texto.

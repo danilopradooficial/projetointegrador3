@@ -157,4 +157,75 @@ cat("Motivo: log_b(x) = ln(x)/ln(b) - so muda a escala, nao a ordem.\n\n")
 cat("--- Pergunta 4: termo em todos os docs ---\n")
 cat("I = log2(N/N) =", log2(N / N), "bits\n")
 cat("Stopwords proximas disso: discriminam pouco (ex.: 'de' com df=5).\n")
-cat("I(de) =", round(I_bits("de"), 3), "bits\n")
+cat("I(de) =", round(I_bits("de"), 3), "bits\n\n")
+
+# -------------------------------------------------------------
+# PARTE 3 - Os mesmos blocos no NOSSO corpus (frases dN.k)
+# -------------------------------------------------------------
+# Tokenizacao da Aula 01: minusculas e sem pontuacao.
+# Stopwords e radicais so entram na Aula 03.
+
+cat("=== Parte 3: nosso corpus (Porto de Santos, APS, Paula Ribeiro) ===\n\n")
+
+args_cmd <- commandArgs(trailingOnly = FALSE)
+file_arg <- grep("^--file=", args_cmd, value = TRUE)
+if (length(file_arg) == 1) setwd(dirname(normalizePath(sub("^--file=", "", file_arg))))
+source("01a-ler-frases.R")
+docs_c <- carregar_docs_canonico(file.path("..", "corpus"))
+docs_c <- docs_c[grepl("^d[0-9]+\\.[0-9]+$", names(docs_c))]
+
+tok_c <- function(x) {
+  t <- unlist(strsplit(gsub("[[:punct:]]", " ", tolower(x)), "\\s+"))
+  t[nzchar(t)]
+}
+tokens_c <- lapply(docs_c, tok_c)
+N_c <- length(docs_c)
+df_c <- table(unlist(lapply(tokens_c, unique)))
+I_c <- function(t) log2(N_c / as.numeric(df_c[t]))
+contem_c <- function(t) names(docs_c)[vapply(tokens_c, function(x) t %in% x, logical(1))]
+
+## Bloco 1 - incerteza inicial
+cat("--- Bloco 1: log2(N) ---\n")
+cat("N =", N_c, "frases | log2(N) =", round(log2(N_c), 3), "bits\n\n")
+
+## Blocos 2/3 - quanto cada pista informa
+cat("--- Blocos 2/3: bits de algumas pistas (I = log2(N/df)) ---\n")
+pistas <- c("de", "porto", "santos", "autoridade", "cubatão", "guarujá",
+            "ribeiro", "francisco", "administra", "estuarino")
+print(data.frame(termo = pistas, df = as.integer(df_c[pistas]),
+                 bits = round(sapply(pistas, I_c), 3)), row.names = FALSE)
+cat("\nTermos que menos informam (maior df):\n")
+print(round(sapply(names(sort(df_c, decreasing = TRUE))[1:8], I_c), 3))
+cat("Termos que aparecem em 1 frase so valem log2(N) =", round(log2(N_c), 3),
+    "bits:", sum(df_c == 1), "de", length(df_c), "termos\n\n")
+
+## Bloco 5 - as 3 perguntas do projeto em bits (soma de tf * I)
+cat("--- Bloco 5: as 3 perguntas do projeto, ranking em bits ---\n")
+perguntas_c <- c(
+  q_local    = "localização porto santos guarujá cubatão",
+  q_aps      = "quem administra porto santos autoridade",
+  q_fundador = "francisco de paula ribeiro porto"
+)
+for (cq in names(perguntas_c)) {
+  termos <- tok_c(perguntas_c[[cq]])
+  termos <- termos[termos %in% names(df_c)]
+  score <- vapply(tokens_c, function(x) sum(table(factor(x, levels = termos)) * sapply(termos, I_c)), 0)
+  top <- sort(score, decreasing = TRUE)[1:5]
+  cat(sprintf("%s '%s'\n", cq, perguntas_c[[cq]]))
+  cat("  bits por termo:", paste(sprintf("%s=%.2f", termos, sapply(termos, I_c)), collapse = " "), "\n")
+  for (id in names(top)) cat(sprintf("  %-6s %6.2f bits  %s\n", id, top[[id]], substr(docs_c[[id]], 1, 70)))
+}
+cat("\n")
+
+## Bloco 6 - independencia vs correlacao
+cat("--- Bloco 6: soma de bits vs informacao real ---\n")
+pares_c <- list(c("francisco", "ribeiro"), c("autoridade", "portuária"),
+                c("guarujá", "cubatão"), c("companhia", "docas"))
+for (par in pares_c) {
+  a <- par[1]; b <- par[2]
+  inter <- intersect(contem_c(a), contem_c(b))
+  soma <- I_c(a) + I_c(b)
+  real <- if (length(inter) > 0) log2(N_c / length(inter)) else NA
+  cat(sprintf("%s + %s | df=%d,%d | juntos=%d | soma=%.2f | real=%.2f | excesso=%.2f\n",
+              a, b, length(contem_c(a)), length(contem_c(b)), length(inter), soma, real, soma - real))
+}

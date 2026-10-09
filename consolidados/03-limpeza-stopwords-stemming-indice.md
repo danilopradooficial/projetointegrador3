@@ -204,7 +204,7 @@ No corpus de brinquedo da aula não havia acentos. No texto da Wikipédia
 há (`portuária`, `municípios`): por isso usamos `iconv`, como a Aula 03
 sugere.
 
-**Amostra (`d1.1` — primeira frase canônica):**
+**Amostra (`d1.1` - primeira frase canônica):**
 
 ```
 Bruto: Porto de Santos é um porto estuarino, localizado nos municípios de Santos, Guarujá e Cubatão, no estado de São Paulo.
@@ -232,7 +232,7 @@ sem_stop <- function(x) {
 ```
 
 Na amostra `d1.1`: **~20** tokens após padronizar → **~12** sem stopwords.
-(O mesmo `d1.1` vale no índice, no BM25 e no julgamento — ver [01a-primeiro-corpus-real.md](01a-primeiro-corpus-real.md).)
+(O mesmo `d1.1` vale no índice, no BM25 e no julgamento - ver [01a-primeiro-corpus-real.md](01a-primeiro-corpus-real.md).)
 
 ---
 

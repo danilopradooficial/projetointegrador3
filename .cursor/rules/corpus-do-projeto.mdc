@@ -1,0 +1,36 @@
+---
+description: Toda atividade e entrega usa o corpus do projeto (frases dN.k), não o corpus de brinquedo dos slides
+alwaysApply: true
+---
+
+# Base de dados do projeto
+
+A base de todas as atividades é o **corpus do projeto**: as frases `d1.1 … d3.5`
+das três páginas da Wikipédia, em `estrutura/corpus/`:
+
+- `d1.*` — `porto_de_santos.txt`
+- `d2.*` — `autoridade_portuaria_de_santos.txt`
+- `d3.*` — `francisco_de_paula_ribeiro.txt`
+
+Carregar sempre com `estrutura/codigos/01a-ler-frases.R`:
+
+```r
+source("01a-ler-frases.R")                         # de estrutura/codigos
+docs <- carregar_docs_canonico(file.path("..", "corpus"))
+docs <- docs[grepl("^d[0-9]+\\.[0-9]+$", names(docs))]
+```
+
+## Regras
+
+- A parte principal de cada atividade roda no corpus do projeto, com as três
+  perguntas do motor:
+  - `q_local`: `localizacao porto santos guaruja cubatao`
+  - `q_aps`: `quem administra porto santos autoridade`
+  - `q_fundador`: `francisco de paula ribeiro porto`
+- O corpus de 8 documentos dos slides (`d1 = "recuperacao de informacao..."`)
+  só aparece como **conferência** dos números da aula, nunca como resultado
+  principal.
+- Avaliação usa o gabarito do grupo: `estrutura/codigos/05-julgamento/csv/05-qrels.csv`
+  (q15 = local, q02 = APS, q04 = fundador).
+- Use o pré-processamento da aula correspondente (antes da Aula 03: só
+  minúsculas e sem pontuação; da Aula 03 em diante: limpeza, stopwords e Snowball).

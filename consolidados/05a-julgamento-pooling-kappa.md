@@ -31,7 +31,7 @@ votos (`qrels`) → base para κ e métricas (Aula 05b).
 **Equipe.** Team Shannon  
 **Autores / juízes.** Adriane da Costa Santos · Danilo Prado de Lima Silva · Victória Cabral Quintério  
 **Tempo.** ≤ 20 min por pessoa (realizado entre ~3 e ~9 min de clique)  
-**IDs.** Mesmos de 01a/03/04 — [01a-primeiro-corpus-real.md](01a-primeiro-corpus-real.md) (seção *Corpus e unidade de recuperação canônica*)
+**IDs.** Mesmos de 01a/03/04 - [01a-primeiro-corpus-real.md](01a-primeiro-corpus-real.md) (seção *Corpus e unidade de recuperação canônica*)
 
 **Manual da pasta:** [`estrutura/codigos/05-julgamento/README.md`](../estrutura/codigos/05-julgamento/README.md) (árvore, colunas, fluxo, checklist).
 
@@ -135,7 +135,7 @@ Usuário simulado: alunos de CD treinando o motor (local/acadêmico).
 
 ---
 
-# Necessidades (15) — perguntas objetivas
+# Necessidades (15) - perguntas objetivas
 
 Arquivo: [`csv/05-necessidades.csv`](../estrutura/codigos/05-julgamento/csv/05-necessidades.csv).  
 Indícios **não** são graus.
@@ -189,7 +189,7 @@ Brutos: [`csv/05-qrels-respostas/`](../estrutura/codigos/05-julgamento/csv/05-qr
 | Adriane | 60 | 60/60 | ~3,3 min |
 | Danilo | 60 | 60/60 | ~8,0 min |
 | Victória | 60 | 60/60 | ~8,6 min |
-| **Total** | **180** | completa | — |
+| **Total** | **180** | completa | - |
 
 ### Distribuição dos graus (todos os juízes)
 
@@ -209,9 +209,9 @@ Muitos **0** são esperados: a pool mistura indícios relevantes com distractore
 | Adriane × Victória | 10 | 30% |
 | Danilo × Victória | 10 | 60% |
 
-Próximo passo analítico na 05a: montar a matriz 3×3 e calcular κ (ajuste por acaso). Com muitos zeros, `po` alto pode coexistir com κ baixo — exatamente o ponto da Aula 05a.
+Próximo passo analítico na 05a: montar a matriz 3×3 e calcular κ (ajuste por acaso). Com muitos zeros, `po` alto pode coexistir com κ baixo - exatamente o ponto da Aula 05a.
 
-**Régua do motor:** [Atividade 05b](./05b-metricas-avaliacao.md) — P@k, MAP, MRR, nDCG no nosso `qrels`.
+**Régua do motor:** [Atividade 05b](./05b-metricas-avaliacao.md) - P@k, MAP, MRR, nDCG no nosso `qrels`.
 
 ### Duplo entre juízes × Rejulgar 20%
 

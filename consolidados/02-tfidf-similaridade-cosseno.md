@@ -21,10 +21,10 @@ pesos TF-IDF e ordenação pela similaridade do cosseno.
 **3ª entrega.** Aqui a gente sai do “o termo aparece?” e passa a medir
 *o quanto* o documento combina com a consulta (espaço vetorial + cosseno).
 
-Fizemos no **corpus de brinquedo** da aula (8 docs), como no para casa.
-O mesmo modelo depois roda no corpus wiki - na Atividade 04 comparamos
-TF-IDF com BM25 em cima dos três textos do Porto de Santos (já limpos
-na Ativ 03).
+Fizemos no **corpus de brinquedo** da aula (8 docs), como pede o para casa,
+e repetimos no **nosso corpus** (122 frases do Porto de Santos, APS e
+Francisco de Paula Ribeiro) com as três perguntas do motor. Na Atividade 04
+comparamos TF-IDF com BM25 nesse mesmo corpus, já limpo na Ativ 03.
 
 > **Meta:** TDM → TF-IDF → `cosseno`, 3 consultas e o ranking de cada uma.
 
@@ -170,6 +170,64 @@ Dimensão da TDM: **45 termos x 8 documentos** (igual à aula).
 
 **Melhor: d8.** O d4 não sobe porque o corpus tem `estatistico` (sem "a"),
 não `estatistica` - limite da tokenização exata / bag of words.
+
+---
+
+# O mesmo motor no nosso corpus
+
+O mesmo código, agora nas 122 frases `d1.1 … d3.5` do projeto e com as três
+perguntas do motor. A tokenização é a da Aula 01 (minúsculas, sem pontuação),
+sem stopwords nem radicais. Saída: seção 7 do `02-tfidf-cosseno.R`.
+
+Dimensão da TDM: **1.108 termos × 122 frases**, com só 2,2% das células
+diferentes de zero (cada frase usa poucas palavras do vocabulário).
+
+## Pergunta 1 · `localização porto santos guarujá cubatão`
+
+| Rank | Frase | Cosseno | Texto |
+|:-:|:-:|--:|---|
+| 1 | **d1.1** | 0,350 | Porto de Santos é um porto estuarino, localizado nos municípios de Santos, Guarujá e Cubatão… |
+| 2 | d1.61 | 0,195 | Sua margem direita compreende a área insular da cidade de Santos… |
+| 3 | d1.30 | 0,147 | Por conta da localização da usina, isolada no meio da Mata Atlântica… |
+| 4 | d1.52 | 0,130 | …outro incêndio destruiu um armazém… na margem esquerda do Porto de Santos |
+| 5 | d1.82 | 0,110 | Os distritos industriais… e o complexo industrial de Cubatão… |
+
+## Pergunta 2 · `quem administra porto santos autoridade`
+
+| Rank | Frase | Cosseno | Texto |
+|:-:|:-:|--:|---|
+| 1 | **d2.4** | 0,361 | Desde então, a APS administra a infraestrutura pública do Porto de Santos… |
+| 2 | d1.43 | 0,098 | …alterou também sua razão social, para "Autoridade Portuária de Santos" |
+| 3 | d2.16 | 0,094 | …a Autoridade Portuária de Santos assumiu a administração do Porto de Itajaí… |
+| 4 | d2.2 | 0,080 | É a responsável pela infraestrutura do Porto de Santos. |
+| 5 | d1.36 | 0,080 | …área sob a jurisdição da Autoridade Portuária. |
+
+`quem` não está no vocabulário: nenhuma frase do corpus tem essa palavra.
+
+## Pergunta 3 · `francisco de paula ribeiro porto`
+
+| Rank | Frase | Cosseno | Texto |
+|:-:|:-:|--:|---|
+| 1 | **d1.17** | 0,432 | Francisco de Paula Ribeiro foi o superintendente da Companhia Docas de Santos… |
+| 2 | d3.1 | 0,430 | Francisco de Paula Ribeiro (Pelotas, 22 de janeiro de 1851 - São Paulo…) foi um engenheiro brasileiro. |
+| 3 | d3.4 | 0,207 | Filho de Francisco Luiz Ribeiro, português… |
+| 4 | d3.5 | 0,143 | …tiveram 22 filhos, dentre eles Abraão Ribeiro… |
+| 5 | d2.2 | 0,031 | É a responsável pela infraestrutura do Porto de Santos. |
+
+## O que o nosso corpus mostra
+
+- **O cosseno corrige o tamanho.** Na soma de TF-IDF sem normalizar, a
+  pergunta 2 tem a d1.66 em 1.º lugar: é a lista de terminais com 76 tokens,
+  que repete `porto` e `santos`. O cosseno divide pelo tamanho do vetor, e a
+  d1.66 sai do top-5. A resposta d2.4 vai para o 1.º lugar.
+- **As três perguntas têm a resposta no topo.** d1.1 diz onde fica o porto,
+  d2.4 diz quem o administra, d1.17 e d3.1 dizem quem foi o fundador.
+- **Limite da palavra exata.** Na pergunta 1, `localização` casa com a
+  d1.30 (a localização de uma *usina*), mas não com `localizado` da d1.1.
+  O inverso aparece com o pré-processamento da Atividade 03: com radicais,
+  `administr` passa a casar também com *administrativas* (d1.36 e d2.9), e a
+  d2.4 cai do 1.º para o 3.º lugar (é o ranking base da Atividade 06).
+  Radical ajuda o recall, mas pode trazer falsos parentes.
 
 ---
 
