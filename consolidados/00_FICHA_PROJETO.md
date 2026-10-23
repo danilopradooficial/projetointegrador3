@@ -91,18 +91,37 @@ Tabela completa (Booleano · TF-IDF · cosseno · BM25 · julgamento):
 | Aula 03 | Limpeza, stopwords, Snowball, índice, AND/OR | grupo |
 | Aula 04 | Poisson → saturação → BM25 | grupo |
 | Aula 05a | Pooling, julgamento 0/1/2, `qrels` (3 juízes) | Adriane · Danilo · Victória |
-| Aula 05b | P@k, MAP, MRR, nDCG no gabarito próprio | grupo |
-| Meio de semestre | Ficha + demo multi-método + LaTeX de auditoria | grupo |
+| Aula 05b | P@k, MAP, MRR, nDCG no gabarito proprio | grupo |
+| Aula 06 | Rocchio + pseudo-feedback no corpus (122 frases) | grupo |
+| Aula 07 | LSA (SVD) + RRF; modelo=`hibrido`, lsa_k=20, rrf_c=60 | grupo |
+| Meio de semestre | Ficha + demo multi-metodo + LaTeX de auditoria | grupo |
 
 ---
 
-## 6. Pendente
+## 6. Decisoes do motor (Aula 07)
+
+| Campo | Valor | Por que |
+|---|---|---|
+| `modelo` | **hibrido** (RRF de BM25 + LSA) | maior MAP no **dev** (0,350 vs BM25 0,286) |
+| `lsa_k` | **20** | pico do MAP_dev entre k ∈ {10, 20, 50, 80} |
+| `rrf_c` | **60** | padrao dos slides (Cormack et al.) |
+| `limiar` | 2 | grau >= 2 = relevante binario (Aula 05b) |
+| MAP_teste (hibrido) | 0,487 | relato unico; BM25 no teste = 0,496 (nao retocamos k) |
+
+Arquivo: [`estrutura/codigos/config.R`](../estrutura/codigos/config.R) · relatorio: [`07-lsa-fusao-rankings.md`](./07-lsa-fusao-rankings.md)
+
+Split usado (sem coluna `conjunto` nas necessidades):  
+**dev** q01, q03, q05, q06, q09, q10, q13 · **teste** q04, q07, q11, q15.
+
+---
+
+## 7. Pendente
 
 | Item | Status |
 |---|---|
-| Tag git `entrega-1` | **pendente** (criar até 6/10 23h59, conforme PDF) |
-| `estrutura/banco-de-dados/coletar.R` no layout da Aula 01 | equivalente: `estrutura/codigos/coletar.R` regenera frases a partir dos `.txt` |
-| Demonstração ao vivo (7/10) | a fazer em aula - 5 min, sem slides |
+| Tag git `entrega-1` | **pendente** (criar ate 6/10 23h59, conforme PDF) |
+| `estrutura/banco-de-dados/coletar.R` no layout da Aula 01 | equivalente: `entregas/entrega-1/coletar.R` regenera frases a partir dos `.txt` |
+| Demonstracao ao vivo (7/10) | a fazer em aula - 5 min, sem slides |
 
 ---
 

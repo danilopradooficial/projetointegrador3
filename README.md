@@ -57,6 +57,8 @@ Victória Cabral Quintério
 │       ├── 04-poisson-bm25.R
 │       ├── 05b-metricas.R           # P@k · MAP · MRR · nDCG (Aula 05b)
 │       ├── 06-rocchio.R             # Rocchio · expansão · pseudo-feedback (Aula 06)
+│       ├── 07-lsa-rrf.R             # LSA (SVD) · RRF hibrido (Aula 07)
+│       ├── config.R                 # decisoes: modelo, lsa_k, rrf_c
 │       ├── csv/
 │       │   └── entrega-meio-semestre-auditoria.csv
 │       └── 05-julgamento/           # Aula 05a (julgamento)
@@ -74,13 +76,16 @@ Victória Cabral Quintério
 │               ├── 05-qrels.csv              # gabarito consolidado
 │               ├── 05b-metricas-por-consulta.csv
 │               ├── 06-rocchio-por-consulta.csv
+│               ├── 07-lsa-top5.csv
+│               ├── 07-lsa-map-por-k.csv
+│               ├── 07-lsa-por-consulta.csv
 │               └── 05-qrels-respostas/       # exports por juiz
 ├── consolidados/
-├── materiais-aulas/            # PDFs + guias (05a julgamento · 05b métricas)
+├── materiais-aulas/            # PDFs + guias
 └── to-delete-trash/
 ```
 
-**Unidade de recuperação (IDs `d1.1`…):** definida na [Atividade 01a](consolidados/01a-primeiro-corpus-real.md) (`01a-ler-frases.R`) — a mesma frase em 01a → 05b.
+**Unidade de recuperação (IDs `d1.1`…):** definida na [Atividade 01a](consolidados/01a-primeiro-corpus-real.md) (`01a-ler-frases.R`) - a mesma frase em 01a → 07.
 
 **Ficha do projeto (entrega de meio de semestre):**  
 [`consolidados/00_FICHA_PROJETO.md`](consolidados/00_FICHA_PROJETO.md) ·  
@@ -97,6 +102,11 @@ auditoria LaTeX [`consolidados/entrega-meio-semestre.tex`](consolidados/entrega-
 **Aula 06 (Rocchio · pseudo-feedback):**  
 [`estrutura/codigos/06-rocchio.R`](estrutura/codigos/06-rocchio.R) ·  
 [`consolidados/06-rocchio-expansao-pseudo-feedback.md`](consolidados/06-rocchio-expansao-pseudo-feedback.md).
+
+**Aula 07 (LSA · RRF):**  
+[`estrutura/codigos/07-lsa-rrf.R`](estrutura/codigos/07-lsa-rrf.R) ·  
+[`consolidados/07-lsa-fusao-rankings.md`](consolidados/07-lsa-fusao-rankings.md) ·  
+[`estrutura/codigos/config.R`](estrutura/codigos/config.R) (`modelo = hibrido`, `lsa_k = 20`, `rrf_c = 60`).
 
 | Pasta | Conteúdo |
 |---|---|
@@ -121,11 +131,12 @@ auditoria LaTeX [`consolidados/entrega-meio-semestre.tex`](consolidados/entrega-
 | 6ª A | [05a-julgamento-pooling-kappa.md](consolidados/05a-julgamento-pooling-kappa.md) | `05-julgamento/05a-kappa.R` | Julgamento · pooling · κ (Aula 05a) |
 | 7ª | [05b-metricas-avaliacao.md](consolidados/05b-metricas-avaliacao.md) | `05b-metricas.R` | P@k · MAP · MRR · nDCG (Aula 05b) |
 | 8ª | [06-rocchio-expansao-pseudo-feedback.md](consolidados/06-rocchio-expansao-pseudo-feedback.md) | `06-rocchio.R` | Rocchio · expansão · pseudo-feedback (Aula 06) |
+| 9ª | [07-lsa-fusao-rankings.md](consolidados/07-lsa-fusao-rankings.md) | `07-lsa-rrf.R` | LSA (SVD) · RRF hibrido (Aula 07) |
 
 **IDs canônicos:** seção *Corpus e unidade de recuperação* em [01a-primeiro-corpus-real.md](consolidados/01a-primeiro-corpus-real.md) (`01a-ler-frases.R`).
 
 ```
-R base → corpus wiki (frases por ponto) → IDF → TF-IDF → limpeza/índice → BM25 → gabarito/κ → métricas → Rocchio/PRF
+R base → corpus wiki (frases por ponto) → IDF → TF-IDF → limpeza/índice → BM25 → gabarito/κ → métricas → Rocchio/PRF → LSA/RRF
 ```
 
 ---
@@ -168,4 +179,5 @@ Rscript 05e-consolidar-qrels.R
 cd ..
 Rscript 05b-metricas.R
 Rscript 06-rocchio.R
+Rscript 07-lsa-rrf.R
 ```
