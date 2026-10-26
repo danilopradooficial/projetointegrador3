@@ -117,7 +117,7 @@ estrutura/corpus/
 estrutura/codigos/
 ├── 01a-ler-frases.R            # regra canônica (01a/03/04/05)
 └── 01a-corpus-aula-01.R
-consolidados/
+consolidados-aulas/
 └── 01a-primeiro-corpus-real.md
 ```
 

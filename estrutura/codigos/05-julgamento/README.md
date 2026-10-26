@@ -40,9 +40,10 @@ Dependência externa (fora desta pasta, mas obrigatória):
 | `../../corpus/*.txt` | Textos Wikipédia |
 | `../../corpus/frases-canonicas.csv` | Catálogo dos mesmos IDs (gerado pelo 05b) |
 
-Documentação geral dos IDs: [`consolidados/01a-primeiro-corpus-real.md`](../../../consolidados/01a-primeiro-corpus-real.md) (2ª entrega · Parte A).  
-Relatório da atividade: [`consolidados/05a-julgamento-pooling-kappa.md`](../../../consolidados/05a-julgamento-pooling-kappa.md).  
-Métricas (Aula 05b): [`consolidados/05b-metricas-avaliacao.md`](../../../consolidados/05b-metricas-avaliacao.md) · script `../05b-metricas.R`.
+Documentação geral dos IDs: [`consolidados-aulas/01a-primeiro-corpus-real.md`](../../../consolidados-aulas/01a-primeiro-corpus-real.md) (2ª entrega · Parte A).  
+Relatório da atividade: [`consolidados-aulas/05a-julgamento-pooling-kappa.md`](../../../consolidados-aulas/05a-julgamento-pooling-kappa.md).  
+Métricas (Aula 05b): [`consolidados-aulas/05b-metricas-avaliacao.md`](../../../consolidados-aulas/05b-metricas-avaliacao.md) · script `../05b-metricas.R`.  
+Diário Colab (tutora): [`consolidados-tutora/aula05_parteD_consolidado.md`](../../../consolidados-tutora/aula05_parteD_consolidado.md).
 
 ---
 

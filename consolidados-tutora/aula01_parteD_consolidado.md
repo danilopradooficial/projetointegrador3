@@ -8,7 +8,7 @@
 - M13 - números da cara do corpus na ficha; top termos quase todos vazios (`de`, `a`, `o`); ficha criada e lida em voz alta
 
 ## 2. Como o grupo trabalhou - opinião da tutora
-O tema saiu do grupo (já trabalham o porto em TAE/ANTAQ; tabelas numéricas foram descartadas). Todos opinaram nas três perguntas de trabalho. Previram que os termos mais frequentes seriam vazios e acertaram. Conferiram a ficha de verdade - corrigiram uma linha do número de documentos quando li errado de propósito. No Colab, Danilo digitou a coleta e fechou os números da seção 4. Pontuação grudada e acentos foram anotados como sujeira da Aula 03, sem limpar agora.
+Sessão firme e bem conduzida. O tema saiu do grupo com critério (porto em TAE/ANTAQ; tabelas numéricas descartadas de propósito). Os três entraram nas perguntas de trabalho. Previram termos vazios no topo e acertaram. Conferiram a ficha de verdade e pegaram um erro que eu plantei no número de documentos. No Colab, Danilo fechou coleta e seção 4 com clareza; o grupo já anotou pontuação/acentos como pendência da Aula 03 sem atropelar o escopo. Base do projeto nasceu limpa.
 
 ## 3. Observações para a frente
 - **Para a próxima sessão prática:** repositório com corpus; três consultas pensadas; Parte D da Aula 02 ordena pela primeira vez

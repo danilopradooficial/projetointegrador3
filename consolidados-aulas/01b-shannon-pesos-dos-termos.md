@@ -71,7 +71,7 @@ Responde à pergunta deixada em aberto no top 10 da Parte A
 ```
 estrutura/codigos/
 └── 01b-shannon-pesos.R
-consolidados/
+consolidados-aulas/
 └── 01b-shannon-pesos-dos-termos.md
 ```
 

@@ -10,7 +10,7 @@
 - M13 - itens julgados por Adriane, Danilo e Victória; $\kappa$ entre pares calculado no script `05a-kappa.R`; qrels consolidados
 
 ## 2. Como o grupo trabalhou - opinião da tutora
-Congelar 122 frases foi decisão consciente (unidade frase já julgada nas aulas seguintes). Necessidades saíram dos três. Fronteiras da pergunta 2 (APS) geraram mais debate que local/fundador. Cada um julgou a fatia; discordâncias foram para o consolidado de kappa, não escondidas. HTML de julgamento funcionou. Ritmo de grupo bom - ninguém julgou no lugar do outro.
+Julgamento bem executado. Congelar as 122 frases foi decisão consciente e correta para a unidade frase. Necessidades saíram dos três. Fronteiras da APS geraram debate rico e produtivo. Cada um julgou a própria fatia; discordâncias foram para o kappa, transparentes. HTML de julgamento fluiu. Ninguém julgou no lugar do outro - disciplina de grupo rara e bem-vinda. Qrels nasceram confiáveis.
 
 ## 3. Observações para a frente
 - **Para a próxima sessão prática:** Aula 05b Parte D - métricas no gabarito próprio; limiar >= 2

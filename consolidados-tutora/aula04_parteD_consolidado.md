@@ -8,7 +8,7 @@
 - M12 - $b=0$, $b=1$, $k_1=0$ um por vez; decisão $k_1=1{,}2$, $b=0{,}75$ gravada no `config.R`
 
 ## 2. Como o grupo trabalhou - opinião da tutora
-Explicaram discordâncias com scores e trechos, não com “eu acho”. Resistiram a crownear BM25 como sempre melhor - na pergunta 2 o cosseno e o BM25 discordam no topo por motivos diferentes. Variaram um parâmetro por vez. $k_1$ e $b$ saíram do padrão da aula após verem $k_1=0$ quebrar; ninguém inventou valor mágico. Quem digitou leu a fórmula do $K$ em voz alta.
+Trabalho de grupo acima da média nesta aula. Explicaram discordâncias BM25 × cosseno com scores e trechos. Na pergunta 2 reconheceram que cada modelo “erra” por motivo diferente - sem crownear o BM25. Variaram um parâmetro por vez; viram $k_1=0$ quebrar e mantiveram o padrão da aula com consciência. Quem digitou leu o $K$ em voz alta e o grupo acompanhou a conta. `config.R` fechado com segurança.
 
 ## 3. Observações para a frente
 - **Para a próxima sessão prática:** `config.R` com `k1` e `b`; corpus intocado; Aula 05 - julgamento

@@ -76,7 +76,7 @@ Ativ 04              Poisson · saturação · BM25     ← 5ª
 ```
 estrutura/codigos/
 └── 02-tfidf-cosseno.R
-consolidados/
+consolidados-aulas/
 └── 02-tfidf-similaridade-cosseno.md
 ```
 

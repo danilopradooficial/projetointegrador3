@@ -41,103 +41,77 @@ Victória Cabral Quintério
 .
 ├── README.md
 ├── estrutura/
-│   ├── corpus/
-│   │   ├── *.txt                    # artigos wiki
-│   │   └── frases-canonicas.csv     # IDs d1.1… (fonte única)
-│   └── codigos/
-│       ├── 01a-ler-frases.R       # regra canônica de frase
-│       ├── coletar.R                # regenera frases-canonicas.csv
-│       ├── aula02.R                 # top-5 cosseno · 3 consultas de trabalho
-│       ├── entrega-meio-semestre-demo.R  # auditoria multi-método
+│   ├── corpus/                   # artigos wiki + frases-canonicas.csv
+│   └── codigos/                  # todos os scripts .R
 │       ├── 00-introducao-ao-r.R
+│       ├── 01a-ler-frases.R      # regra canônica de frase (IDs d1.1…)
 │       ├── 01a-corpus-aula-01.R
 │       ├── 01b-shannon-pesos.R
 │       ├── 02-tfidf-cosseno.R
 │       ├── 03-preprocessao-indice.R
 │       ├── 04-poisson-bm25.R
-│       ├── 05b-metricas.R           # P@k · MAP · MRR · nDCG (Aula 05b)
-│       ├── 06-rocchio.R             # Rocchio · expansão · pseudo-feedback (Aula 06)
-│       ├── 07-lsa-rrf.R             # LSA (SVD) · RRF hibrido (Aula 07)
-│       ├── config.R                 # decisoes: modelo, lsa_k, rrf_c
+│       ├── 05b-metricas.R
+│       ├── 06-rocchio.R
+│       ├── 07-lsa-rrf.R
+│       ├── config.R              # modelo, lsa_k, rrf_c
+│       ├── coletar.R · buscar.R · aula02.R
 │       ├── csv/
-│       │   └── entrega-meio-semestre-auditoria.csv
-│       └── 05-julgamento/           # Aula 05a (julgamento)
-│           ├── README.md                # documentação operacional
-│           ├── 05a-kappa.R
-│           ├── 05b-montar-corpus.R
-│           ├── 05c-ficha-corpus.R
-│           ├── 05d-gerar-pool.R
-│           ├── 05e-consolidar-qrels.R
-│           ├── 05-julgar.html
-│           └── csv/
-│               ├── 05-corpus.csv
-│               ├── 05-necessidades.csv
-│               ├── 05-pool.csv
-│               ├── 05-qrels.csv              # gabarito consolidado
-│               ├── 05b-metricas-por-consulta.csv
-│               ├── 06-rocchio-por-consulta.csv
-│               ├── 07-lsa-top5.csv
-│               ├── 07-lsa-map-por-k.csv
-│               ├── 07-lsa-por-consulta.csv
-│               └── 05-qrels-respostas/       # exports por juiz
-├── consolidados/
-├── materiais-aulas/            # PDFs + guias
-└── to-delete-trash/
+│       └── 05-julgamento/        # Aula 05a (κ, pool, HTML, qrels)
+├── consolidados-aulas/           # relatórios técnicos das atividades
+├── consolidados-tutora/          # diários Colab (teoria + Parte D)
+├── materiais-aulas/              # PDFs / slides do professor
+├── materiais-tutora/             # GUIA_ESTUDO_*.md
+├── entregas/                     # entregas avaliadas (meio de semestre)
+│   └── entrega-1/
+└── .to-delete-trash/             # layout antigo
 ```
-
-**Unidade de recuperação (IDs `d1.1`…):** definida na [Atividade 01a](consolidados/01a-primeiro-corpus-real.md) (`01a-ler-frases.R`) - a mesma frase em 01a → 07.
-
-**Ficha do projeto (entrega de meio de semestre):**  
-[`consolidados/00_FICHA_PROJETO.md`](consolidados/00_FICHA_PROJETO.md) ·  
-auditoria LaTeX [`consolidados/entrega-meio-semestre.tex`](consolidados/entrega-meio-semestre.tex).
-
-**Aula 05a (julgamento concluído):**  
-[`estrutura/codigos/05-julgamento/README.md`](estrutura/codigos/05-julgamento/README.md) ·  
-[`consolidados/05a-julgamento-pooling-kappa.md`](consolidados/05a-julgamento-pooling-kappa.md).
-
-**Aula 05b (métricas):**  
-[`estrutura/codigos/05b-metricas.R`](estrutura/codigos/05b-metricas.R) ·  
-[`consolidados/05b-metricas-avaliacao.md`](consolidados/05b-metricas-avaliacao.md).
-
-**Aula 06 (Rocchio · pseudo-feedback):**  
-[`estrutura/codigos/06-rocchio.R`](estrutura/codigos/06-rocchio.R) ·  
-[`consolidados/06-rocchio-expansao-pseudo-feedback.md`](consolidados/06-rocchio-expansao-pseudo-feedback.md).
-
-**Aula 07 (LSA · RRF):**  
-[`estrutura/codigos/07-lsa-rrf.R`](estrutura/codigos/07-lsa-rrf.R) ·  
-[`consolidados/07-lsa-fusao-rankings.md`](consolidados/07-lsa-fusao-rankings.md) ·  
-[`estrutura/codigos/config.R`](estrutura/codigos/config.R) (`modelo = hibrido`, `lsa_k = 20`, `rrf_c = 60`).
 
 | Pasta | Conteúdo |
 |---|---|
 | `estrutura/corpus` | Artigos wiki + `frases-canonicas.csv` |
-| `estrutura/codigos` | Scripts R do motor + `01a-ler-frases.R` + `05b-metricas.R` |
+| `estrutura/codigos` | Códigos R do motor |
 | `estrutura/codigos/05-julgamento` | Aula 05a (κ, corpus, pool, HTML, qrels) |
-| `consolidados` | Relatórios em Markdown |
-| `materiais-aulas` | Slides/PDFs e materiais do professor |
+| `consolidados-aulas` | Relatórios técnicos das atividades (grupo) |
+| `consolidados-tutora` | Diários Colab: teoria (Danilo) + Parte D (grupo; Aula 00 Parte D individual) |
+| `materiais-aulas` | Slides/PDFs do professor |
+| `materiais-tutora` | Guias `GUIA_ESTUDO_*.md` |
+| `entregas` | Entregas avaliadas (PDF, .Rnw, código) e modelos do professor |
+| `.to-delete-trash` | Layout antigo - pode apagar depois de conferir |
+
+**Unidade de recuperação (IDs** `d1.1`**…):** [Atividade 01a](consolidados-aulas/01a-primeiro-corpus-real.md) (`01a-ler-frases.R`) - a mesma frase em 01a → 07.
+
+**Ficha do projeto:** [`consolidados-aulas/00_FICHA_PROJETO.md`](consolidados-aulas/00_FICHA_PROJETO.md) ·  
+`config.R`: `modelo = hibrido`, `lsa_k = 20`, `rrf_c = 60`.
 
 ---
 
-## Como o motor está sendo montado
+## Atividades × Aulas
 
-| Entrega | Arquivo MD | Script | Tema |
-|:-:|---|---|---|
-| 1ª | [00-introducao-ao-r.md](consolidados/00-introducao-ao-r.md) | `00-introducao-ao-r.R` | R base (Aula 00) |
-| 2ª A | [01a-primeiro-corpus-real.md](consolidados/01a-primeiro-corpus-real.md) | `01a-corpus-aula-01.R` | Corpus · frequências (Aula 01) |
-| 2ª B | [01b-shannon-pesos-dos-termos.md](consolidados/01b-shannon-pesos-dos-termos.md) | `01b-shannon-pesos.R` | Shannon · IDF (Aula 01.5) |
-| 3ª | [02-tfidf-similaridade-cosseno.md](consolidados/02-tfidf-similaridade-cosseno.md) | `02-tfidf-cosseno.R` | TF-IDF · cosseno (Aula 02) |
-| 4ª | [03-limpeza-stopwords-stemming-indice.md](consolidados/03-limpeza-stopwords-stemming-indice.md) | `03-preprocessao-indice.R` | Limpeza · Snowball · índice (Aula 03) |
-| 5ª | [04-poisson-saturacao-bm25.md](consolidados/04-poisson-saturacao-bm25.md) | `04-poisson-bm25.R` | Poisson · BM25 (Aula 04) |
-| 6ª A | [05a-julgamento-pooling-kappa.md](consolidados/05a-julgamento-pooling-kappa.md) | `05-julgamento/05a-kappa.R` | Julgamento · pooling · κ (Aula 05a) |
-| 7ª | [05b-metricas-avaliacao.md](consolidados/05b-metricas-avaliacao.md) | `05b-metricas.R` | P@k · MAP · MRR · nDCG (Aula 05b) |
-| 8ª | [06-rocchio-expansao-pseudo-feedback.md](consolidados/06-rocchio-expansao-pseudo-feedback.md) | `06-rocchio.R` | Rocchio · expansão · pseudo-feedback (Aula 06) |
-| 9ª | [07-lsa-fusao-rankings.md](consolidados/07-lsa-fusao-rankings.md) | `07-lsa-rrf.R` | LSA (SVD) · RRF hibrido (Aula 07) |
+| # | Entrega (atividade) | Script | Tutora (teoria) | Tutora (Parte D) | Aula |
+|---|---|---|---|---|---|
+| - | [00_FICHA_PROJETO.md](consolidados-aulas/00_FICHA_PROJETO.md) | `config.R` | - | - | ficha |
+| 00 | [00-introducao-ao-r.md](consolidados-aulas/00-introducao-ao-r.md) | `00-introducao-ao-r.R` | [aula00_consolidado.md](consolidados-tutora/aula00_consolidado.md) | [aula00_parteD_consolidado.md](consolidados-tutora/aula00_parteD_consolidado.md) | Aula 00 |
+| 01a | [01a-primeiro-corpus-real.md](consolidados-aulas/01a-primeiro-corpus-real.md) | `01a-corpus-aula-01.R` | [aula01_consolidado.md](consolidados-tutora/aula01_consolidado.md) | [aula01_parteD_consolidado.md](consolidados-tutora/aula01_parteD_consolidado.md) | Aula 01 |
+| 01b | [01b-shannon-pesos-dos-termos.md](consolidados-aulas/01b-shannon-pesos-dos-termos.md) | `01b-shannon-pesos.R` | - | - | Aula 01.5 |
+| 02 | [02-tfidf-similaridade-cosseno.md](consolidados-aulas/02-tfidf-similaridade-cosseno.md) | `02-tfidf-cosseno.R` | [aula02_consolidado.md](consolidados-tutora/aula02_consolidado.md) | [aula02_parteD_consolidado.md](consolidados-tutora/aula02_parteD_consolidado.md) | Aula 02 |
+| 03 | [03-limpeza-stopwords-stemming-indice.md](consolidados-aulas/03-limpeza-stopwords-stemming-indice.md) | `03-preprocessao-indice.R` | [aula03_consolidado.md](consolidados-tutora/aula03_consolidado.md) | [aula03_parteD_consolidado.md](consolidados-tutora/aula03_parteD_consolidado.md) | Aula 03 |
+| 04 | [04-poisson-saturacao-bm25.md](consolidados-aulas/04-poisson-saturacao-bm25.md) | `04-poisson-bm25.R` | [aula04_consolidado.md](consolidados-tutora/aula04_consolidado.md) | [aula04_parteD_consolidado.md](consolidados-tutora/aula04_parteD_consolidado.md) | Aula 04 |
+| 05a | [05a-julgamento-pooling-kappa.md](consolidados-aulas/05a-julgamento-pooling-kappa.md) | `05-julgamento/05a-kappa.R` | [aula05_consolidado.md](consolidados-tutora/aula05_consolidado.md) | [aula05_parteD_consolidado.md](consolidados-tutora/aula05_parteD_consolidado.md) | Aula 05 |
+| 05b | [05b-metricas-avaliacao.md](consolidados-aulas/05b-metricas-avaliacao.md) | `05b-metricas.R` | [aula05b_consolidado.md](consolidados-tutora/aula05b_consolidado.md) | [aula05b_parteD_consolidado.md](consolidados-tutora/aula05b_parteD_consolidado.md) | Aula 5,5 |
+| 06 | [06-rocchio-expansao-pseudo-feedback.md](consolidados-aulas/06-rocchio-expansao-pseudo-feedback.md) | `06-rocchio.R` | [aula06_consolidado.md](consolidados-tutora/aula06_consolidado.md) | [aula06_parteD_consolidado.md](consolidados-tutora/aula06_parteD_consolidado.md) | Aula 06 |
+| 07 | [07-lsa-fusao-rankings.md](consolidados-aulas/07-lsa-fusao-rankings.md) | `07-lsa-rrf.R` | [aula07_consolidado.md](consolidados-tutora/aula07_consolidado.md) | [aula07_parteD_consolidado.md](consolidados-tutora/aula07_parteD_consolidado.md) | Aula 07 |
 
-**IDs canônicos:** seção *Corpus e unidade de recuperação* em [01a-primeiro-corpus-real.md](consolidados/01a-primeiro-corpus-real.md) (`01a-ler-frases.R`).
+Funil: R base → corpus wiki (frases) → IDF → TF-IDF → limpeza/índice → BM25 → gabarito/κ → métricas → Rocchio/PRF → LSA/RRF.
 
-```
-R base → corpus wiki (frases por ponto) → IDF → TF-IDF → limpeza/índice → BM25 → gabarito/κ → métricas → Rocchio/PRF → LSA/RRF
-```
+Guias Colab: [`materiais-tutora/`](materiais-tutora/) · diários: [`consolidados-tutora/`](consolidados-tutora/) (sem seção "Estado do R"). Aula 01.5 (Shannon) não tem guia próprio da tutora.
+
+### Entregas avaliadas
+
+| Entrega | Documento | Script | Prazo |
+|---|---|---|---|
+| 1 - Corpus / meio de semestre | [entrega-1-corpus.pdf](entregas/entrega-1/entrega-1-corpus.pdf) ([.Rnw](entregas/entrega-1/entrega-1-corpus.Rnw)) | [entrega-1-corpus.R](entregas/entrega-1/entrega-1-corpus.R) | 06/10 |
+
+Ficha: [`00_FICHA_PROJETO.md`](consolidados-aulas/00_FICHA_PROJETO.md) · modelo do professor em [`entregas/entrega-1/modelo-professor/`](entregas/entrega-1/modelo-professor/).
 
 ---
 
@@ -153,9 +127,9 @@ Rscript aula02.R                         # top-5 cosseno apenas (teste minimo da
 Rscript entrega-meio-semestre-demo.R     # mesma auditoria (alias / CSV)
 ```
 
-Ficha: [`consolidados/00_FICHA_PROJETO.md`](consolidados/00_FICHA_PROJETO.md)  
+Ficha: [`consolidados-aulas/00_FICHA_PROJETO.md`](consolidados-aulas/00_FICHA_PROJETO.md)  
 CSV de auditoria: `estrutura/codigos/csv/entrega-meio-semestre-auditoria.csv`  
-LaTeX (extra): `pdflatex consolidados/entrega-meio-semestre.tex`
+LaTeX (extra): `pdflatex entregas/entrega-1/modelo-professor/entrega-meio-semestre.tex`
 
 ### Pipeline completo das aulas
 

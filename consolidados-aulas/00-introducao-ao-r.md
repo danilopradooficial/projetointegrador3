@@ -46,7 +46,7 @@ Para cada trecho, seguimos os três passos pedidos:
 ```
 estrutura/codigos/
 └── 00-introducao-ao-r.R      # blocos da aula
-consolidados/
+consolidados-aulas/
 └── 00-introducao-ao-r.md     # esta entrega (Partes 1, 2 e 3)
 ```
 

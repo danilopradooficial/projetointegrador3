@@ -8,7 +8,7 @@
 - M11 - consulta que erra mostrada com números (ex.: termo que casa pedaço ou documento longo no topo da soma sem normalizar)
 
 ## 2. Como o grupo trabalhou - opinião da tutora
-Previram as ordens antes de rodar nas três consultas; acertaram o topo de local e fundador. Explicaram o 1.º lugar com trecho do texto, não só com “parece relevante”. As consultas já estavam na ficha. No M11 escolheram o caminho do documento longo vs cosseno e mostraram a diferença com números. Quem digitou leu o `if` do cosseno em voz alta. Pouca coisa entregue pronta: o motor calculou; o grupo interpretou.
+Excelente ritmo de grupo. Previram as ordens antes de rodar e acertaram o topo de local e fundador. Explicaram o 1.º lugar com trecho do texto - interpretação madura, não achismo. No M11 mostraram o erro do documento longo vs cosseno com números claros. Quem digitou leu o `if` do cosseno em voz alta e o resto acompanhou. O motor calculou; o grupo leu o ranking como quem entende o motor.
 
 ## 3. Observações para a frente
 - **Para a próxima sessão prática:** Parte D da Aula 03 - limpar, stopwords, índice; decidir acentos no `config.R`

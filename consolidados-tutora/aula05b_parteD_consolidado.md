@@ -8,7 +8,7 @@
 - M12 - primeiro resultado do motor na ficha: BM25 competitivo; q02 fora da avaliação binária ($R=0$ no limiar)
 
 ## 2. Como o grupo trabalhou - opinião da tutora
-Limiar saiu de discussão (grau 1 = parcial demais para P@k). Rodaram `05b-metricas.R` e leram a tabela, não só o MAP médio. Declararam q02 com $R=0$ em vez de inventar MAP. Ninguém misturou limiar depois de ver o número. Quem digitou conferiu o mesmo prep da Aula 03.
+Avaliação honesta e bem feita. Limiar $\geq 2$ saiu de discussão clara (grau 1 = parcial demais para P@k). Rodaram as métricas e leram a tabela por consulta, não só a média. Declararam q02 com $R=0$ em vez de maquiar MAP - postura científica. Ninguém moveu o limiar depois de ver o número. Prep alinhado à Aula 03. Primeiro resultado do motor na ficha com credibilidade.
 
 ## 3. Observações para a frente
 - **Para a próxima sessão prática:** Aula 06 - Rocchio / PRF no corpus e no gabarito

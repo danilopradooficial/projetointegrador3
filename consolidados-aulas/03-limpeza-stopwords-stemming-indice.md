@@ -96,7 +96,7 @@ Ativ 03              limpeza · Snowball · índice    ← 4ª entrega (esta)
 estrutura/corpus/                 # base textual unica
 estrutura/codigos/
 └── 03-preprocessao-indice.R
-consolidados/
+consolidados-aulas/
 └── 03-limpeza-stopwords-stemming-indice.md
 ```
 

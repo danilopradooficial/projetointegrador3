@@ -8,7 +8,7 @@
 - M12 - índice invertido do corpus; duas buscas AND explicadas pelas postagens (AND vazio em consultas longas das 3 perguntas - esperado)
 
 ## 2. Como o grupo trabalhou - opinião da tutora
-Acentos e stopwords saíram de discussão real: Adriane queria manter acento; o grupo fechou em transliterar para casar consulta digitada sem acento. Ninguém manteve stopword de conteúdo por teimosia. Previram índice grande (centenas de radicais) e conferiram. Editaram `config.R` (`limpar`, `acentos`, `stopwords`) sem travar. AND nas três perguntas de trabalho devolveu vazio - ligaram com a Aula 01 e com o OR da demo.
+Decisões de pré-processamento saíram do grupo com maturidade: discutiram acento vs transliteração e fecharam o que casa com consulta digitada. Lista de stopwords olhando frequência, sem cortar conteúdo por teimosia. Previram índice grande e conferiram. `config.R` editado sem travar. Quando o AND veio vazio nas três perguntas, ligaram sozinhos com a Aula 01 e o OR da demo - leitura fina, sem frustração. Pipeline do corpus ficou sólido.
 
 ## 3. Observações para a frente
 - **Para a próxima sessão prática:** Parte D da Aula 04 - BM25 no corpus; comparar com cosseno

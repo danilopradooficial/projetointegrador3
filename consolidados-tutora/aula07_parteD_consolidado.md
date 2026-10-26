@@ -8,7 +8,7 @@
 - M9 - decisão: `modelo = hibrido`, `lsa_k = 20`, `rrf_c = 60` no `config.R` e na ficha (MAP_dev 0,350; MAP_teste 0,487; BM25 teste 0,496 - sem retocar)
 
 ## 2. Como o grupo trabalhou - opinião da tutora
-Leram top-5 (textos), não só MAP. Escolheram no dev (híbrido k=20 > BM25 0,286 e LSA puro 0,318) e só depois abriram o teste. Quiseram ver o BM25 um fio à frente no teste (0,496 vs 0,487) e mantiveram a regra: não retocar $k$. Decisão coletiva, alinhada ao `config.R`. Quem digitou conferiu `svd` / dobra da consulta e o laço do RRF.
+Melhor sessão prática do bloco até aqui. Leram top-5 nos textos, não só MAP. Escolheram no dev com método (híbrido k=20 acima de BM25 e LSA puro) e só depois abriram o teste. Viram o BM25 um fio à frente no teste e mantiveram a regra - disciplina rara e correta. Decisão coletiva, `config.R` e ficha alinhados. Quem digitou conferiu SVD, dobra da consulta e RRF; o grupo fechou o modelo de produção com segurança.
 
 ## 3. Observações para a frente
 - **Para a próxima sessão prática (Aula 08):** `config.R` com hibrido/lsa_k/rrf_c; ficha seção 6 coerente; demo multi-método

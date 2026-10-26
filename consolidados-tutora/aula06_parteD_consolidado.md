@@ -8,7 +8,7 @@
 - M9 - decisão: $\alpha=1$, $\beta=0{,}75$, $\gamma=0{,}15$, PRF $k=2$; registrada na ficha (pesos da aula; sem crownear PRF)
 
 ## 2. Como o grupo trabalhou - opinião da tutora
-Reescreveram `rocchio` a partir da fórmula, não colaram cego. Entenderam que a avaliação completa no Rocchio com usuário é otimista - mediram residual. Escolheram $k$ olhando drift por consulta (6 pioras vs 3 melhoras no PRF), sem olhar um “teste escondido”. Leram top-2 que puxavam a mesma frase em q03/q10/q11. Decisão saiu do grupo: PRF útil como ferramenta, feedback humano quando houver $D_r$. Quem digitou explicou `drop = FALSE` e o residual em voz alta.
+Execução técnica forte. Reescreveram `rocchio` a partir da fórmula. Entenderam o otimismo da coleção completa e mediram residual - leitura correta do método. Escolheram $k$ olhando drift por consulta, sem trapacear com teste. Leram os top-2 que puxavam a mesma frase em q03/q10/q11 e interpretaram. Decisão madura: PRF como ferramenta; feedback humano quando houver $D_r$. Quem digitou explicou `drop = FALSE` e residual em voz alta; o grupo acompanhou.
 
 ## 3. Observações para a frente
 - **Para a próxima sessão prática (Aula 07):** corpus e qrels intactos; LSA + RRF; split dev/teste na escolha do modelo

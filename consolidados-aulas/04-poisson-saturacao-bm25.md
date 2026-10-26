@@ -70,7 +70,7 @@ conta.
 estrutura/corpus/
 estrutura/codigos/
 └── 04-poisson-bm25.R
-consolidados/
+consolidados-aulas/
 └── 04-poisson-saturacao-bm25.md
 ```
 
