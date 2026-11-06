@@ -53,7 +53,8 @@ Victória Cabral Quintério
 │       ├── 05b-metricas.R
 │       ├── 06-rocchio.R
 │       ├── 07-lsa-rrf.R
-│       ├── config.R              # modelo, lsa_k, rrf_c
+│       ├── 08-retrieve-rerank.R  # proximidade no top-k
+│       ├── config.R              # modelo, lsa_k, rrf_c, rerank_k, janela
 │       ├── coletar.R · buscar.R · aula02.R
 │       ├── csv/
 │       └── 05-julgamento/        # Aula 05a (κ, pool, HTML, qrels)
@@ -78,10 +79,10 @@ Victória Cabral Quintério
 | `entregas` | Entregas avaliadas (PDF, .Rnw, código) e modelos do professor |
 | `.to-delete-trash` | Layout antigo - pode apagar depois de conferir |
 
-**Unidade de recuperação (IDs** `d1.1`**…):** [Atividade 01a](consolidados-aulas/01a-primeiro-corpus-real.md) (`01a-ler-frases.R`) - a mesma frase em 01a → 07.
+**Unidade de recuperação (IDs** `d1.1`**…):** [Atividade 01a](consolidados-aulas/01a-primeiro-corpus-real.md) (`01a-ler-frases.R`) - a mesma frase em 01a → 08.
 
 **Ficha do projeto:** [`consolidados-aulas/00_FICHA_PROJETO.md`](consolidados-aulas/00_FICHA_PROJETO.md) ·  
-`config.R`: `modelo = hibrido`, `lsa_k = 20`, `rrf_c = 60`.
+`config.R`: `modelo = hibrido`, `lsa_k = 20`, `rrf_c = 60`, `rerank_k = 5`, `janela = 3`.
 
 ---
 
@@ -100,8 +101,9 @@ Victória Cabral Quintério
 | 05b | [05b-metricas-avaliacao.md](consolidados-aulas/05b-metricas-avaliacao.md) | `05b-metricas.R` | [aula05b_consolidado.md](consolidados-tutora/aula05b_consolidado.md) | [aula05b_parteD_consolidado.md](consolidados-tutora/aula05b_parteD_consolidado.md) | Aula 5,5 |
 | 06 | [06-rocchio-expansao-pseudo-feedback.md](consolidados-aulas/06-rocchio-expansao-pseudo-feedback.md) | `06-rocchio.R` | [aula06_consolidado.md](consolidados-tutora/aula06_consolidado.md) | [aula06_parteD_consolidado.md](consolidados-tutora/aula06_parteD_consolidado.md) | Aula 06 |
 | 07 | [07-lsa-fusao-rankings.md](consolidados-aulas/07-lsa-fusao-rankings.md) | `07-lsa-rrf.R` | [aula07_consolidado.md](consolidados-tutora/aula07_consolidado.md) | [aula07_parteD_consolidado.md](consolidados-tutora/aula07_parteD_consolidado.md) | Aula 07 |
+| 08 | [08-retrieve-rerank-proximidade.md](consolidados-aulas/08-retrieve-rerank-proximidade.md) | `08-retrieve-rerank.R` | [aula08_consolidado.md](consolidados-tutora/aula08_consolidado.md) | [aula08_parteD_consolidado.md](consolidados-tutora/aula08_parteD_consolidado.md) | Aula 08 |
 
-Funil: R base → corpus wiki (frases) → IDF → TF-IDF → limpeza/índice → BM25 → gabarito/κ → métricas → Rocchio/PRF → LSA/RRF.
+Funil: R base → corpus wiki (frases) → IDF → TF-IDF → limpeza/índice → BM25 → gabarito/κ → métricas → Rocchio/PRF → LSA/RRF → retrieve & rerank.
 
 Guias Colab: [`materiais-tutora/`](materiais-tutora/) · diários: [`consolidados-tutora/`](consolidados-tutora/) (sem seção "Estado do R"). Aula 01.5 (Shannon) não tem guia próprio da tutora.
 
@@ -154,4 +156,5 @@ cd ..
 Rscript 05b-metricas.R
 Rscript 06-rocchio.R
 Rscript 07-lsa-rrf.R
+Rscript 08-retrieve-rerank.R
 ```
